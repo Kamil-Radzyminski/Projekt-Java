@@ -39,4 +39,11 @@ abstract public class AbstractModel {
      * @throws SQLException 
      */
     abstract public AbstractModel update() throws SQLException;
+    
+    /**
+     * Get Single model from DB
+     * @return
+     * @throws SQLException 
+     */
+    abstract public AbstractModel getOne() throws SQLException;
 }

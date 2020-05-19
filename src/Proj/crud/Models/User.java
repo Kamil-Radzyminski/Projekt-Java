@@ -16,6 +16,7 @@ public class User extends AbstractModel {
 
     private static final String SQL_DELETE = "DELETE FROM uzytkownicy WHERE id=?";
     private static final String SQL_GET = "SELECT * FROM uzytkownicy";
+    private static final String SQL_GET_ONE = "SELECT * FROM uzytkownicy WHERE id=?";
     private static final String SQL_UPDATE = "UPDATE uzytkownicy SET sektor_id=?, nazwisko=?, imie=?, rola=?, login=?, haslo=? WHERE id=?";
     private static final String SQL_INSERT = "INSERT INTO uzytkownicy(sektor_id, nazwisko, imie, rola, login, haslo) VALUES (?, ?, ?, ?, ?, ?)";
 
@@ -259,5 +260,24 @@ public class User extends AbstractModel {
         }
 
         return usersList;
+    }
+
+    @Override
+    public AbstractModel getOne() throws SQLException {
+        PreparedStatement preparedStatement = AbstractModel.getConnection().prepareStatement(SQL_GET_ONE);
+        preparedStatement.setInt(1, this.id);
+        ResultSet result = preparedStatement.executeQuery();
+
+        while (result.next()) {
+            this.id = result.getInt("id");
+            this.firstname = result.getString("imie");
+            this.lastname = result.getString("nazwisko");
+            this.login = result.getString("login");
+            this.password = result.getString("haslo");
+            this.role = result.getString("rola");
+            this.sectorId = result.getInt("sektor_id");
+        }
+
+        return this;
     }
 }

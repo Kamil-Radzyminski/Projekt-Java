@@ -203,8 +203,9 @@ public class aplikacja extends JFrame implements ActionListener {
         Dodaj_Kierownika.addActionListener(this);
         Wyswietl_Pracownika.addActionListener(this);
 
+        Modyfikuj_Pracownika.addActionListener(this);
         Usun_Pracownika.addActionListener(this);
-        
+
         Informacja.addActionListener(this);
         Wyjdz.addActionListener(this);
 
@@ -253,19 +254,29 @@ public class aplikacja extends JFrame implements ActionListener {
         }
 
         if (zrodlo == Dodaj_Pracownika) {
-            
+
             try {
-                User user = new User("bolek","lolek", "pracownik","bo","lo",1);
+                User user = new User("bolek", "lolek", "pracownik", "bo", "lo", 1); //@TODO dodać prawdziwe dane z formularza
                 user.create();
             } catch (SQLException ex) {
                 Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
             }
-                    
-            
+
         }
 
         if (zrodlo == Dodaj_Kierownika) {
 
+        }
+
+        if (zrodlo == Modyfikuj_Pracownika) {
+            try {
+                User user = new User(6); //@TODO pobrany id z formatki
+                user.getOne();
+                user.setLastname("Malinowsky");
+                user.update();
+            } catch (SQLException ex) {
+                Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
 //WYSWIETL----------------------------------------------------------------------        
