@@ -10,6 +10,9 @@ import Proj.crud.Models.Administrator;
 import Proj.crud.Models.Gatunek;
 import Proj.crud.Models.Rodzina;
 import Proj.crud.Models.Gromada;
+import Proj.crud.Models.Zwierze;
+import Proj.crud.Models.Magazyn;
+import Proj.crud.Models.Towar;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -272,7 +275,12 @@ public class aplikacja extends JFrame implements ActionListener {
         //System.out.println(zrodlo.toString());
 //DODAJ-------------------------------------------------------------------------        
         if (zrodlo == Dodaj_Zwierze) {
-
+           try {
+                Zwierze zwierze = new Zwierze("f","NoweZwierze",21,156,1); //@TODO dodać prawdziwe dane z formularza
+                zwierze.create();
+            } catch (SQLException ex) {
+                Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+            }            
         }
 
         if (zrodlo == Dodaj_Gatunek) {
@@ -303,7 +311,12 @@ public class aplikacja extends JFrame implements ActionListener {
         }
 
         if (zrodlo == Dodaj_Przedmiot) {
-
+           try {
+                Towar towar = new Towar(1,"NowaGromada",4.5); //@TODO dodać prawdziwe dane z formularza
+                towar.create();
+            } catch (SQLException ex) {
+                Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
         if (zrodlo == Dodaj_Magazyn) {
@@ -338,7 +351,34 @@ public class aplikacja extends JFrame implements ActionListener {
 
 //WYSWIETL----------------------------------------------------------------------        
         if (zrodlo == Wyswietl_Zwierze) {
+            try {
+                List<Zwierze> zwierzeList = Zwierze.getList();
+                String[] columns = {"plec", "imie", "wiek_lata","waga_kg"};
+                String[][] zwierzetaArray = new String[zwierzeList.size()][columns.length];
 
+                for (int i = 0; i < zwierzeList.size(); i++) {
+                    Zwierze currentZwierze = zwierzeList.get(i);
+
+                    String[] singleZwierze = {
+                        currentZwierze.getPlec(),
+                        currentZwierze.getImie(),
+                        currentZwierze.getWiek().toString(),
+                        currentZwierze.getWaga().toString()
+                    };
+                    zwierzetaArray[i] = singleZwierze;
+
+                }
+
+                JTable jt1 = new JTable(zwierzetaArray, columns);
+                JScrollPane sp = new JScrollPane(jt1);
+                jFrame.add(sp);
+                jFrame.setLocation(200, 50);
+                jFrame.setSize(300, 400);
+                jFrame.setVisible(true);
+
+            } catch (SQLException ex) {
+                Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
         if (zrodlo == Wyswietl_Gatunek) {
@@ -497,7 +537,12 @@ public class aplikacja extends JFrame implements ActionListener {
 //USUN--------------------------------------------------------------------------
 
         if (zrodlo == Usun_Zwierze) {
-
+            try {
+                Zwierze zwierze = new Zwierze(2); //@TODO tutaj ma być id
+                zwierze.delete();
+            } catch (SQLException ex) {
+                Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         
         if (zrodlo == Usun_Gatunek) {
@@ -556,7 +601,14 @@ public class aplikacja extends JFrame implements ActionListener {
 //MODYFIKUJ-------------------------------------------------------------------------
 
         if (zrodlo == Modyfikuj_Zwierze) {
-
+            try {
+                Zwierze zwierze = new Zwierze(1); //@TODO pobrany id z formatki
+                zwierze.getOne();
+                zwierze.setImie("Rafalla");
+                zwierze.update();
+            } catch (SQLException ex) {
+                Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
         if (zrodlo == Modyfikuj_Rodzine) {

@@ -17,7 +17,7 @@ public class Zwierze extends AbstractModel {
     private static final String SQL_DELETE = "DELETE FROM zwierzeta WHERE id=?";
     private static final String SQL_GET = "SELECT * FROM zwierzeta";
     private static final String SQL_GET_ONE = "SELECT * FROM zwierzeta WHERE id=?";
-    private static final String SQL_UPDATE = "UPDATE zwierzeta SET gatunek_id=?, plec=?, imie=?, wiek_lata=?, waga_kg=? WHERE id=?";
+    private static final String SQL_UPDATE = "UPDATE zwierzeta SET  plec=?, imie=?, wiek_lata=?, waga_kg=?, gatunek_id=? WHERE id=?";
     private static final String SQL_INSERT = "INSERT INTO zwierzeta(gatunek_id, plec, imie, wiek_lata, waga_kg) VALUES (?, ?, ?, ?, ?)";
 
     private Integer gatunek_id;
@@ -28,18 +28,20 @@ public class Zwierze extends AbstractModel {
     private Integer wiek_lata;
 
 
-    public Zwierze( String plec, String imie, int wiek_lata, int waga_kg) throws SQLException {
-        this.imie = imie;
+    public Zwierze(String plec, String imie, int wiek_lata, int waga_kg, Integer gatunek_id) throws SQLException {
         this.plec = plec;
+        this.imie = imie;
         this.wiek_lata = wiek_lata;
         this.waga_kg = waga_kg;
+        this.gatunek_id = gatunek_id;        
     }
 
-    public Zwierze( String plec, String imie, int wiek_lata, int waga_kg, Integer id) throws SQLException {
-        this.imie = imie;
+    public Zwierze( String plec, String imie, int wiek_lata, int waga_kg, Integer gatunek_id, Integer id) throws SQLException {
         this.plec = plec;
+        this.imie = imie;
         this.wiek_lata = wiek_lata;
         this.waga_kg = waga_kg;
+        this.gatunek_id = gatunek_id;
         this.id = id;
     }
 
@@ -128,11 +130,11 @@ public class Zwierze extends AbstractModel {
     @Override
     public AbstractModel update() throws SQLException {
         PreparedStatement preparedStatement = AbstractModel.getConnection().prepareStatement(SQL_UPDATE);
-        preparedStatement.setInt(1, this.gatunek_id);
-        preparedStatement.setString(2, this.plec);
-        preparedStatement.setString(3, this.imie);
-        preparedStatement.setInt(4, this.wiek_lata);
-        preparedStatement.setInt(5, this.waga_kg);
+        preparedStatement.setString(1, this.plec);
+        preparedStatement.setString(2, this.imie);
+        preparedStatement.setInt(3, this.wiek_lata);
+        preparedStatement.setInt(4, this.waga_kg);
+        preparedStatement.setInt(5, this.gatunek_id);
         preparedStatement.setInt(6, this.id);
         preparedStatement.executeUpdate();
         return this;
@@ -145,11 +147,12 @@ public class Zwierze extends AbstractModel {
 
         while (result.next()) {
             zwierzetaList.add(
-                    new Zwierze(
+                    new Zwierze(                         
                             result.getString("plec"),
                             result.getString("imie"),
                             result.getInt("wiek_lata"),
                             result.getInt("waga_kg"),
+                            result.getInt("gatunek_id"),
                             result.getInt("id")
                     )
             );
@@ -165,12 +168,12 @@ public class Zwierze extends AbstractModel {
         ResultSet result = preparedStatement.executeQuery();
 
         while (result.next()) {
-            this.id = result.getInt("id");
             this.plec = result.getString("plec");
             this.imie = result.getString("imie");
             this.wiek_lata = result.getInt("wiek_lata");
             this.waga_kg = result.getInt("waga_kg");
             this.gatunek_id = result.getInt("gatunek_id");
+            this.id = result.getInt("id");
         }
 
         return this;

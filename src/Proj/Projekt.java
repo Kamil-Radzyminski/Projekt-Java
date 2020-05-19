@@ -33,6 +33,7 @@ public class Projekt {
         f.setLocationRelativeTo(null);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
+        
 //        menu logowanie=new menu();        
 //        logowanie.setVisible(true); 
 //        

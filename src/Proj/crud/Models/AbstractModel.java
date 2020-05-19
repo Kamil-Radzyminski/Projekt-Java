@@ -17,6 +17,8 @@ abstract public class AbstractModel {
                 + "localhost:1433;databaseName=projekt;"
                 + "user=kamiljano99;password=haslo123;");
         return con;
+        
+        
     }
 
     /**
