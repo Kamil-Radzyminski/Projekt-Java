@@ -203,6 +203,8 @@ public class aplikacja extends JFrame implements ActionListener {
         Dodaj_Kierownika.addActionListener(this);
         Wyswietl_Pracownika.addActionListener(this);
 
+        Usun_Pracownika.addActionListener(this);
+        
         Informacja.addActionListener(this);
         Wyjdz.addActionListener(this);
 
@@ -251,7 +253,15 @@ public class aplikacja extends JFrame implements ActionListener {
         }
 
         if (zrodlo == Dodaj_Pracownika) {
-
+            
+            try {
+                User user = new User("bolek","lolek", "pracownik","bo","lo",1);
+                user.create();
+            } catch (SQLException ex) {
+                Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+            }
+                    
+            
         }
 
         if (zrodlo == Dodaj_Kierownika) {
@@ -260,7 +270,7 @@ public class aplikacja extends JFrame implements ActionListener {
 
 //WYSWIETL----------------------------------------------------------------------        
         if (zrodlo == Wyswietl_Zwierze) {
-            lib.Wyswietl();
+
         }
 
         if (zrodlo == Wyswietl_Gatunek) {
@@ -283,30 +293,38 @@ public class aplikacja extends JFrame implements ActionListener {
 
         }
 
+        if (zrodlo == Usun_Pracownika) {
+            try {
+                User user = new User(4); //@TODO tutaj ma być id
+                user.delete();
+            } catch (SQLException ex) {
+                Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
         if (zrodlo == Wyswietl_Pracownika) {
             try {
                 List<User> userList = User.getList();
                 String[] columns = {"imie", "nazwisko", "rola"};
                 String[][] usersArray = new String[userList.size()][columns.length];
-                
-                for(int i = 0; i < userList.size(); i++){
+
+                for (int i = 0; i < userList.size(); i++) {
                     User currentUser = userList.get(i);
-                    
+
                     String[] singleUser = {
                         currentUser.getFirstname(),
                         currentUser.getLastname(),
-                        currentUser.getRole(),
+                        currentUser.getRole()
                     };
                     usersArray[i] = singleUser;
+
                 }
 
-                
                 JTable jt1 = new JTable(usersArray, columns);
                 JScrollPane sp = new JScrollPane(jt1);
                 jFrame.add(sp);
                 jFrame.setLocation(200, 50);
                 jFrame.setSize(300, 400);
-                jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 jFrame.setVisible(true);
 
             } catch (SQLException ex) {

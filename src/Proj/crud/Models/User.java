@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 
 /**
  * User model
+ *
  * @author Kamil
  */
 public class User extends AbstractModel {
@@ -28,13 +29,14 @@ public class User extends AbstractModel {
 
     /**
      * Create User
+     *
      * @param firstname
      * @param lastname
      * @param role
      * @param login
      * @param password
      * @param sectorId
-     * @throws SQLException 
+     * @throws SQLException
      */
     public User(String firstname, String lastname, String role, String login, String password, int sectorId) throws SQLException {
         this.firstname = firstname;
@@ -47,6 +49,7 @@ public class User extends AbstractModel {
 
     /**
      * Create user with id
+     *
      * @param firstname
      * @param lastname
      * @param role
@@ -54,7 +57,7 @@ public class User extends AbstractModel {
      * @param password
      * @param sectorId
      * @param id
-     * @throws SQLException 
+     * @throws SQLException
      */
     public User(String firstname, String lastname, String role, String login, String password, int sectorId, Integer id) throws SQLException {
         this.firstname = firstname;
@@ -67,9 +70,19 @@ public class User extends AbstractModel {
     }
 
     /**
+     * Create user only by id
+     *
+     * @param id
+     */
+    public User(Integer id) {
+        this.id = id;
+    }
+
+    /**
      * Set firstname
+     *
      * @param firstname
-     * @return 
+     * @return
      */
     public User setFirstname(String firstname) {
         this.firstname = firstname;
@@ -78,8 +91,9 @@ public class User extends AbstractModel {
 
     /**
      * Set lastname
+     *
      * @param lastname
-     * @return 
+     * @return
      */
     public User setLastname(String lastname) {
         this.lastname = lastname;
@@ -88,8 +102,9 @@ public class User extends AbstractModel {
 
     /**
      * Set role
+     *
      * @param role
-     * @return 
+     * @return
      */
     public User setRole(String role) {
         this.role = role;
@@ -98,8 +113,9 @@ public class User extends AbstractModel {
 
     /**
      * Set login
+     *
      * @param login
-     * @return 
+     * @return
      */
     public User setLogin(String login) {
         this.login = login;
@@ -108,8 +124,9 @@ public class User extends AbstractModel {
 
     /**
      * Set password
+     *
      * @param password
-     * @return 
+     * @return
      */
     public User setPassword(String password) {
         this.password = password;
@@ -118,8 +135,9 @@ public class User extends AbstractModel {
 
     /**
      * Set sectorId
+     *
      * @param sectorId
-     * @return 
+     * @return
      */
     public User setSectorId(int sectorId) {
         this.sectorId = sectorId;
@@ -128,7 +146,8 @@ public class User extends AbstractModel {
 
     /**
      * Get firstname
-     * @return 
+     *
+     * @return
      */
     public String getFirstname() {
         return this.firstname;
@@ -136,7 +155,8 @@ public class User extends AbstractModel {
 
     /**
      * Get lastname
-     * @return 
+     *
+     * @return
      */
     public String getLastname() {
         return this.lastname;
@@ -144,7 +164,8 @@ public class User extends AbstractModel {
 
     /**
      * Get role
-     * @return 
+     *
+     * @return
      */
     public String getRole() {
         return this.role;
@@ -152,7 +173,8 @@ public class User extends AbstractModel {
 
     /**
      * Get login
-     * @return 
+     *
+     * @return
      */
     public String getLogin() {
         return this.login;
@@ -160,7 +182,8 @@ public class User extends AbstractModel {
 
     /**
      * Get password
-     * @return 
+     *
+     * @return
      */
     public String getPassword() {
         return this.password;
@@ -168,16 +191,17 @@ public class User extends AbstractModel {
 
     /**
      * Get id
-     * @return 
+     *
+     * @return
      */
     public Integer getId() {
         return this.id;
     }
 
     @Override
-    public boolean delete(Integer id) throws SQLException {
+    public boolean delete() throws SQLException {
         PreparedStatement preparedStatement = AbstractModel.getConnection().prepareStatement(SQL_DELETE);
-        preparedStatement.setInt(1, id);
+        preparedStatement.setInt(1, this.id);
         preparedStatement.executeUpdate();
         return true;
     }
@@ -185,32 +209,32 @@ public class User extends AbstractModel {
     @Override
     public AbstractModel create() throws SQLException {
         PreparedStatement preparedStatement = AbstractModel.getConnection().prepareStatement(SQL_INSERT, Statement.RETURN_GENERATED_KEYS);
-        preparedStatement.setInt(0, this.sectorId);
-        preparedStatement.setString(1, this.lastname);
-        preparedStatement.setString(2, this.firstname);
-        preparedStatement.setString(3, this.role);
-        preparedStatement.setString(4, this.login);
-        preparedStatement.setString(5, this.password);
+        preparedStatement.setInt(1, this.sectorId);
+        preparedStatement.setString(2, this.lastname);
+        preparedStatement.setString(3, this.firstname);
+        preparedStatement.setString(4, this.role);
+        preparedStatement.setString(5, this.login);
+        preparedStatement.setString(6, this.password);
         preparedStatement.executeUpdate();
 
         ResultSet rs = preparedStatement.getGeneratedKeys();
         if (rs.next()) {
             this.id = rs.getInt(1);
         }
-        
+
         return this;
     }
 
     @Override
-    public AbstractModel update(Integer id) throws SQLException {
+    public AbstractModel update() throws SQLException {
         PreparedStatement preparedStatement = AbstractModel.getConnection().prepareStatement(SQL_UPDATE);
-        preparedStatement.setInt(0, this.sectorId);
-        preparedStatement.setString(1, this.lastname);
-        preparedStatement.setString(2, this.firstname);
-        preparedStatement.setString(3, this.role);
-        preparedStatement.setString(4, this.login);
-        preparedStatement.setString(5, this.password);
-        preparedStatement.setInt(6, this.id);
+        preparedStatement.setInt(1, this.sectorId);
+        preparedStatement.setString(2, this.lastname);
+        preparedStatement.setString(3, this.firstname);
+        preparedStatement.setString(4, this.role);
+        preparedStatement.setString(5, this.login);
+        preparedStatement.setString(6, this.password);
+        preparedStatement.setInt(7, this.id);
         preparedStatement.executeUpdate();
         return this;
     }

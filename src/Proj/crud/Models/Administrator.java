@@ -5,6 +5,8 @@
  */
 package Proj.crud.Models;
 
+import java.sql.SQLException;
+
 /**
  *
  * @author Kamil
@@ -12,18 +14,20 @@ package Proj.crud.Models;
 public class Administrator extends AbstractModel {
 
     @Override
-    public boolean delete(Integer id) {
+    public boolean delete() throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public AbstractModel create() {
+    public AbstractModel create() throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public AbstractModel update(Integer id) {
+    public AbstractModel update() throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    
     
 }

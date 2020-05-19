@@ -21,11 +21,10 @@ abstract public class AbstractModel {
 
     /**
      * Delete model from DB
-     * @param id
      * @return
      * @throws SQLException 
      */
-    abstract public boolean delete(Integer id) throws SQLException;
+    abstract public boolean delete() throws SQLException;
 
     /**
      * Save model to DB
@@ -36,9 +35,8 @@ abstract public class AbstractModel {
 
     /**
      * Update model in DB
-     * @param id
      * @return
      * @throws SQLException 
      */
-    abstract public AbstractModel update(Integer id) throws SQLException;
+    abstract public AbstractModel update() throws SQLException;
 }
