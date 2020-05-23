@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Proj;
 
+import Proj.Listeners.User.DeleteClickListener;
 import Proj.crud.Models.User;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -19,6 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.TableColumnModel;
 
 /**
  *
@@ -26,13 +23,12 @@ import javax.swing.JTextField;
  */
 public class Grid implements ActionListener {
 
-    static JButton Glowny, Obcy, Aktualizuj;
-    static JTextField nazwisko, imie, rola, login, haslo;
-    Integer id, sector_id;
-    String lastname, firstname, role, log, pass;
+    private JButton Glowny, Obcy, Aktualizuj;
+    private JTextField nazwisko, imie, rola, login, haslo;
+    private Integer id, sector_id;
+    private String lastname, firstname, role, log, pass;
 
     public void run() {
-        JFrame.setDefaultLookAndFeelDecorated(true);
         JFrame frame = new JFrame("GridLayout Test");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new GridLayout(0, 2, 2, 3));
@@ -72,6 +68,8 @@ public class Grid implements ActionListener {
         frame.pack();
 
         frame.setVisible(true);
+
+//        haslo.setText("ASDF");
     }
 
     @Override
@@ -82,13 +80,14 @@ public class Grid implements ActionListener {
         if (zrodlo == Glowny) {
             try {
                 List<User> userList = User.getList();
-                String[] columns = {"imie", "nazwisko", "rola"};
+                String[] columns = {"id", "imie", "nazwisko", "rola"};
                 String[][] usersArray = new String[userList.size()][columns.length];
 
                 for (int i = 0; i < userList.size(); i++) {
                     User currentUser = userList.get(i);
 
                     String[] singleUser = {
+                        currentUser.getId().toString(),
                         currentUser.getFirstname(),
                         currentUser.getLastname(),
                         currentUser.getRole()
@@ -98,6 +97,14 @@ public class Grid implements ActionListener {
                 }
 
                 JTable jt1 = new JTable(usersArray, columns);
+
+                TableColumnModel tcm = jt1.getColumnModel();
+                tcm.removeColumn(tcm.getColumn(0));
+
+                DeleteClickListener userDeleteClickListener = new DeleteClickListener(jt1);
+                
+                jt1.addMouseListener(userDeleteClickListener);
+
                 JScrollPane sp = new JScrollPane(jt1);
                 jFrame.add(sp);
                 jFrame.setLocation(200, 50);
