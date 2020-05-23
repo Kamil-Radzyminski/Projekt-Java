@@ -4,8 +4,14 @@
  * and open the template in the editor.
  */
 package Proj;
-
 import Proj.crud.Models.User;
+import Proj.crud.Models.Administrator;
+import Proj.crud.Models.Gatunek;
+import Proj.crud.Models.Rodzina;
+import Proj.crud.Models.Gromada;
+import Proj.crud.Models.Zwierze;
+import Proj.crud.Models.Magazyn;
+import Proj.crud.Models.Towar;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -31,16 +37,16 @@ public class aplikacja extends JFrame implements ActionListener {
     JMenuItem Wyjdz, Informacja;
 
     //ITEMS DODAJ------------------------------------
-    JMenuItem Dodaj_Przedmiot, Dodaj_Magazyn, Dodaj_Pracownika, Dodaj_Kierownika, Dodaj_Zwierze, Dodaj_Gatunek, Dodaj_Rodzine, Dodaj_Gromade;
+    JMenuItem Dodaj_Przedmiot, Dodaj_Magazyn, Dodaj_Pracownika, Dodaj_Administratora, Dodaj_Zwierze, Dodaj_Gatunek, Dodaj_Rodzine, Dodaj_Gromade;
 
     //ITEMS WYSWIETL---------------------------------
-    JMenuItem Wyswietl_Zwierze, Wyswietl_Gatunek, Wyswietl_Rodzine, Wyswietl_Gromade, Wyswietl_Przedmiot, Wyswietl_Magazyn, Wyswietl_Pracownika, Wyswietl_Kierownika;
+    JMenuItem Wyswietl_Zwierze, Wyswietl_Gatunek, Wyswietl_Rodzine, Wyswietl_Gromade, Wyswietl_Przedmiot, Wyswietl_Magazyn, Wyswietl_Pracownika, Wyswietl_Administratora;
 
     //ITEMS MODYFIKUJ--------------------------------
-    JMenuItem Modyfikuj_Przedmiot, Modyfikuj_Magazyn, Modyfikuj_Pracownika, Modyfikuj_Kierownika, Modyfikuj_Zwierze, Modyfikuj_Gatunek, Modyfikuj_Rodzine, Modyfikuj_Gromade;
+    JMenuItem Modyfikuj_Przedmiot, Modyfikuj_Magazyn, Modyfikuj_Pracownika, Modyfikuj_Administratora, Modyfikuj_Zwierze, Modyfikuj_Gatunek, Modyfikuj_Rodzine, Modyfikuj_Gromade;
 
     //ITEMS USUN-------------------------------------
-    JMenuItem Usun_Przedmiot, Usun_Magazyn, Usun_Pracownika, Usun_Kierownika, Usun_Zwierze, Usun_Gatunek, Usun_Rodzine, Usun_Gromade;
+    JMenuItem Usun_Przedmiot, Usun_Magazyn, Usun_Pracownika, Usun_Administratora, Usun_Zwierze, Usun_Gatunek, Usun_Rodzine, Usun_Gromade;
 
     JLabel wynik_otworz, wynik_zapisz;
 
@@ -89,9 +95,9 @@ public class aplikacja extends JFrame implements ActionListener {
         Dodaj_Osobe = new JMenu("Osobę");
 
         Dodaj_Pracownika = new JMenuItem("Pracownika");
-        Dodaj_Kierownika = new JMenuItem("Kierownika");
+        Dodaj_Administratora = new JMenuItem("Administratora");
         Dodaj_Osobe.add(Dodaj_Pracownika);
-        Dodaj_Osobe.add(Dodaj_Kierownika);
+        Dodaj_Osobe.add(Dodaj_Administratora);
 
         // WYSWIETL ITEMS ---------------------------------   
         Wyswietl_Zwierzeta = new JMenu("Zwierzęta");
@@ -115,9 +121,9 @@ public class aplikacja extends JFrame implements ActionListener {
         Wyswietl_Osobe = new JMenu("Osoby");
 
         Wyswietl_Pracownika = new JMenuItem("Pracowników");
-        Wyswietl_Kierownika = new JMenuItem("Kierowników");
+        Wyswietl_Administratora = new JMenuItem("Administratorów");
         Wyswietl_Osobe.add(Wyswietl_Pracownika);
-        Wyswietl_Osobe.add(Wyswietl_Kierownika);
+        Wyswietl_Osobe.add(Wyswietl_Administratora);
 
         //   ------------------------------------------
         // MODYFIKUJ ITEMS ---------------------------------  
@@ -142,13 +148,14 @@ public class aplikacja extends JFrame implements ActionListener {
         Modyfikuj_Osobe = new JMenu("Osobę");
 
         Modyfikuj_Pracownika = new JMenuItem("Pracownika");
-        Modyfikuj_Kierownika = new JMenuItem("Kierownika");
+        Modyfikuj_Administratora = new JMenuItem("Administratora");
         Modyfikuj_Osobe.add(Modyfikuj_Pracownika);
-        Modyfikuj_Osobe.add(Modyfikuj_Kierownika);
+        Modyfikuj_Osobe.add(Modyfikuj_Administratora);
 
         //   ------------------------------------------
         // USUN ITEMS ---------------------------------        
         Usun_Zwierzeta = new JMenu("Zwierzęta");
+        
         Usun_Zwierze = new JMenuItem("Zwierzę");
         Usun_Gatunek = new JMenuItem("Gatunek");
         Usun_Rodzine = new JMenuItem("Rodzinę");
@@ -159,16 +166,18 @@ public class aplikacja extends JFrame implements ActionListener {
         Usun_Zwierzeta.add(Usun_Gromade);
 
         Usun_Zasoby = new JMenu("Zasoby");
+        
         Usun_Przedmiot = new JMenuItem("Przedmiot");
         Usun_Magazyn = new JMenuItem("Magazyn");
         Usun_Zasoby.add(Usun_Przedmiot);
         Usun_Zasoby.add(Usun_Magazyn);
 
         Usun_Osobe = new JMenu("Osobę");
+        
         Usun_Pracownika = new JMenuItem("Pracownika");
-        Usun_Kierownika = new JMenuItem("Kierownika");
+        Usun_Administratora = new JMenuItem("Administratora");
         Usun_Osobe.add(Usun_Pracownika);
-        Usun_Osobe.add(Usun_Kierownika);
+        Usun_Osobe.add(Usun_Administratora);
 
         //   ------------------------------------------
         Wyjscie.add(Wyjdz);
@@ -200,8 +209,46 @@ public class aplikacja extends JFrame implements ActionListener {
         Dodaj_Magazyn.addActionListener(this);
 
         Dodaj_Pracownika.addActionListener(this);
-        Dodaj_Kierownika.addActionListener(this);
+        Dodaj_Administratora.addActionListener(this);
+ // --------------------------------------------------------------      
+          
+        Wyswietl_Zwierze.addActionListener(this);
+        Wyswietl_Gatunek.addActionListener(this);
+        Wyswietl_Rodzine.addActionListener(this);
+        Wyswietl_Gromade.addActionListener(this);
+
+        Wyswietl_Przedmiot.addActionListener(this);
+        Wyswietl_Magazyn.addActionListener(this);
+
         Wyswietl_Pracownika.addActionListener(this);
+        Wyswietl_Administratora.addActionListener(this);
+        
+// --------------------------------------------------------------   
+        Modyfikuj_Zwierze.addActionListener(this);
+        Modyfikuj_Gatunek.addActionListener(this);
+        Modyfikuj_Rodzine.addActionListener(this);
+        Modyfikuj_Gromade.addActionListener(this);
+
+        Modyfikuj_Przedmiot.addActionListener(this);
+        Modyfikuj_Magazyn.addActionListener(this);
+
+        Modyfikuj_Pracownika.addActionListener(this);
+        Modyfikuj_Administratora.addActionListener(this);
+        
+//--------------------------------------------------------------   
+        Usun_Zwierze.addActionListener(this);
+        Usun_Gatunek.addActionListener(this);
+        Usun_Rodzine.addActionListener(this);
+        Usun_Gromade.addActionListener(this);
+
+        Usun_Przedmiot.addActionListener(this);
+        Usun_Magazyn.addActionListener(this);
+
+        Usun_Pracownika.addActionListener(this);
+        Usun_Administratora.addActionListener(this);
+        
+ //--------------------------------------------------------------
+      
 
         Informacja.addActionListener(this);
         Wyjdz.addActionListener(this);
@@ -227,86 +274,110 @@ public class aplikacja extends JFrame implements ActionListener {
         //System.out.println(zrodlo.toString());
 //DODAJ-------------------------------------------------------------------------        
         if (zrodlo == Dodaj_Zwierze) {
-
+           try {
+                Zwierze zwierze = new Zwierze("f","NoweZwierze",21,156,1); //@TODO dodać prawdziwe dane z formularza
+                zwierze.create();
+            } catch (SQLException ex) {
+                Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+            }            
         }
 
         if (zrodlo == Dodaj_Gatunek) {
-
+           try {
+                Gatunek gatunek = new Gatunek(1,"NowyGatunek","JakisOpis"); //@TODO dodać prawdziwe dane z formularza
+                gatunek.create();
+            } catch (SQLException ex) {
+                Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
         if (zrodlo == Dodaj_Rodzine) {
-
+           try {
+                Rodzina rodzina = new Rodzina(1,"NowaRodzina","JakisOpis"); //@TODO dodać prawdziwe dane z formularza
+                rodzina.create();
+            } catch (SQLException ex) {
+                Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
         if (zrodlo == Dodaj_Gromade) {
-
+           try {
+                Gromada gromada = new Gromada(1,"NowaGromada","JakisOpis"); //@TODO dodać prawdziwe dane z formularza
+                gromada.create();
+            } catch (SQLException ex) {
+                Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
         if (zrodlo == Dodaj_Przedmiot) {
-
+           try {
+                Towar towar = new Towar(1,"Nowa Karma",4.5); //@TODO dodać prawdziwe dane z formularza
+                towar.create();
+            } catch (SQLException ex) {
+                Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
         if (zrodlo == Dodaj_Magazyn) {
-
+           try {
+                Magazyn magazyn = new Magazyn(1,"Nowa magazyn","do wszystkiego"); //@TODO dodać prawdziwe dane z formularza
+                magazyn.create();
+            } catch (SQLException ex) {
+                Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
         if (zrodlo == Dodaj_Pracownika) {
 
+            try {
+                User user = new User("bolek", "lolek", "pracownik", "bo", "lo", 1); //@TODO dodać prawdziwe dane z formularza
+                user.create();
+            } catch (SQLException ex) {
+                Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
         }
 
-        if (zrodlo == Dodaj_Kierownika) {
-
+        if (zrodlo == Dodaj_Administratora) {
+            
+            try {
+                Administrator administrator = new Administrator("kuba","azza","kubax"); //@TODO dodać prawdziwe dane z formularza
+                administrator.create();
+            } catch (SQLException ex) {
+                Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
+
+        
+
+        
+
 
 //WYSWIETL----------------------------------------------------------------------        
         if (zrodlo == Wyswietl_Zwierze) {
-            lib.Wyswietl();
-        }
-
-        if (zrodlo == Wyswietl_Gatunek) {
-
-        }
-
-        if (zrodlo == Wyswietl_Rodzine) {
-
-        }
-
-        if (zrodlo == Wyswietl_Gromade) {
-
-        }
-
-        if (zrodlo == Wyswietl_Przedmiot) {
-
-        }
-
-        if (zrodlo == Wyswietl_Magazyn) {
-
-        }
-
-        if (zrodlo == Wyswietl_Pracownika) {
             try {
-                List<User> userList = User.getList();
-                String[] columns = {"imie", "nazwisko", "rola"};
-                String[][] usersArray = new String[userList.size()][columns.length];
-                
-                for(int i = 0; i < userList.size(); i++){
-                    User currentUser = userList.get(i);
-                    
-                    String[] singleUser = {
-                        currentUser.getFirstname(),
-                        currentUser.getLastname(),
-                        currentUser.getRole(),
+                List<Zwierze> zwierzeList = Zwierze.getList();
+                String[] columns = {"plec", "imie", "wiek_lata","waga_kg"};
+                String[][] zwierzetaArray = new String[zwierzeList.size()][columns.length];
+
+                for (int i = 0; i < zwierzeList.size(); i++) {
+                    Zwierze currentZwierze = zwierzeList.get(i);
+
+                    String[] singleZwierze = {
+                        currentZwierze.getPlec(),
+                        currentZwierze.getImie(),
+                        currentZwierze.getWiek().toString(),
+                        currentZwierze.getWaga().toString()
                     };
-                    usersArray[i] = singleUser;
+                    zwierzetaArray[i] = singleZwierze;
+
                 }
 
-                
-                JTable jt1 = new JTable(usersArray, columns);
+                JTable jt1 = new JTable(zwierzetaArray, columns);
                 JScrollPane sp = new JScrollPane(jt1);
                 jFrame.add(sp);
                 jFrame.setLocation(200, 50);
                 jFrame.setSize(300, 400);
-                jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 jFrame.setVisible(true);
 
             } catch (SQLException ex) {
@@ -314,16 +385,388 @@ public class aplikacja extends JFrame implements ActionListener {
             }
         }
 
-        if (zrodlo == Wyswietl_Kierownika) {
+        if (zrodlo == Wyswietl_Gatunek) {
+           try {
+                List<Gatunek> gatunekList = Gatunek.getList();
+                String[] columns = {"nazwa", "opis"};
+                String[][] gatunekArray = new String[gatunekList.size()][columns.length];
 
+                for (int i = 0; i < gatunekList.size(); i++) {
+                    Gatunek currentGatunek = gatunekList.get(i);
+
+                    String[] singleGatunek = {
+                        currentGatunek.getNazwa(),
+                        currentGatunek.getOpis()
+                    };
+                    gatunekArray[i] = singleGatunek;
+
+                }
+
+                JTable jt1 = new JTable(gatunekArray, columns);
+                JScrollPane sp = new JScrollPane(jt1);
+                jFrame.add(sp);
+                jFrame.setLocation(200, 50);
+                jFrame.setSize(300, 400);
+                jFrame.setVisible(true);
+
+            } catch (SQLException ex) {
+                Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
-//------------------------------------------------------------------------------
+        if (zrodlo == Wyswietl_Rodzine) {
+           try {
+                List<Rodzina> rodzinaList = Rodzina.getList();
+                String[] columns = {"nazwa", "opis"};
+                String[][] rodzinaArray = new String[rodzinaList.size()][columns.length];
+
+                for (int i = 0; i < rodzinaList.size(); i++) {
+                    Rodzina currentRodzina = rodzinaList.get(i);
+
+                    String[] singleRodzina = {
+                        currentRodzina.getNazwa(),
+                        currentRodzina.getOpis()
+                    };
+                    rodzinaArray[i] = singleRodzina;
+
+                }
+
+                JTable jt1 = new JTable(rodzinaArray, columns);
+                JScrollPane sp = new JScrollPane(jt1);
+                jFrame.add(sp);
+                jFrame.setLocation(200, 50);
+                jFrame.setSize(300, 400);
+                jFrame.setVisible(true);
+
+            } catch (SQLException ex) {
+                Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        if (zrodlo == Wyswietl_Gromade) {
+           try {
+                List<Gromada> gromadaList = Gromada.getList();
+                String[] columns = {"nazwa", "opis"};
+                String[][] gromadaArray = new String[gromadaList.size()][columns.length];
+
+                for (int i = 0; i < gromadaList.size(); i++) {
+                    Gromada currentGromada = gromadaList.get(i);
+
+                    String[] singleGromada = {
+                        currentGromada.getNazwa(),
+                        currentGromada.getOpis()
+                    };
+                    gromadaArray[i] = singleGromada;
+
+                }
+
+                JTable jt1 = new JTable(gromadaArray, columns);
+                JScrollPane sp = new JScrollPane(jt1);
+                jFrame.add(sp);
+                jFrame.setLocation(200, 50);
+                jFrame.setSize(300, 400);
+                jFrame.setVisible(true);
+
+            } catch (SQLException ex) {
+                Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        if (zrodlo == Wyswietl_Przedmiot) {
+            try {
+                List<Towar> towaryList = Towar.getList();
+                String[] columns = {"nazwa", "ilosc"};
+                String[][] towarArray = new String[towaryList.size()][columns.length];
+
+                for (int i = 0; i < towaryList.size(); i++) {
+                    Towar currentTowar = towaryList.get(i);
+
+                    String[] singleTowar = {
+                        currentTowar.getNazwa(),
+                        currentTowar.getIlosc().toString()
+                    };
+                    towarArray[i] = singleTowar;
+
+                }
+
+                JTable jt1 = new JTable(towarArray, columns);
+                JScrollPane sp = new JScrollPane(jt1);
+                jFrame.add(sp);
+                jFrame.setLocation(200, 50);
+                jFrame.setSize(300, 400);
+                jFrame.setVisible(true);
+
+            } catch (SQLException ex) {
+                Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        if (zrodlo == Wyswietl_Magazyn) {
+            try {
+                List<Magazyn> magazynyList = Magazyn.getList();
+                String[] columns = {"nazwa", "przeznaczenie"};
+                String[][] magazynArray = new String[magazynyList.size()][columns.length];
+
+                for (int i = 0; i < magazynyList.size(); i++) {
+                    Magazyn currentMagazyn = magazynyList.get(i);
+
+                    String[] singleMagazyn = {
+                        currentMagazyn.getNazwa(),
+                        currentMagazyn.getPrzeznaczenie(),
+                    };
+                    magazynArray[i] = singleMagazyn;
+
+                }
+
+                JTable jt1 = new JTable(magazynArray, columns);
+                JScrollPane sp = new JScrollPane(jt1);
+                jFrame.add(sp);
+                jFrame.setLocation(200, 50);
+                jFrame.setSize(300, 400);
+                jFrame.setVisible(true);
+
+            } catch (SQLException ex) {
+                Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        if (zrodlo == Wyswietl_Pracownika) {
+            try {
+                List<User> userList = User.getList();
+                String[] columns = {"imie", "nazwisko", "rola"};
+                String[][] usersArray = new String[userList.size()][columns.length];
+
+                for (int i = 0; i < userList.size(); i++) {
+                    User currentUser = userList.get(i);
+
+                    String[] singleUser = {
+                        currentUser.getFirstname(),
+                        currentUser.getLastname(),
+                        currentUser.getRole()
+                    };
+                    usersArray[i] = singleUser;
+
+                }
+
+                JTable jt1 = new JTable(usersArray, columns);
+                JScrollPane sp = new JScrollPane(jt1);
+                jFrame.add(sp);
+                jFrame.setLocation(200, 50);
+                jFrame.setSize(300, 400);
+                jFrame.setVisible(true);
+
+            } catch (SQLException ex) {
+                Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        if (zrodlo == Wyswietl_Administratora) {
+            try {
+                List<Administrator> administratorList = Administrator.getList();
+                String[] columns = {"nazwa"};
+                String[][] administratorsArray = new String[administratorList.size()][columns.length];
+
+                for (int i = 0; i < administratorList.size(); i++) {
+                    Administrator currentAdministrator = administratorList.get(i);
+
+                    String[] singleAdministrator = {
+                        currentAdministrator.getNazwa()
+                    };
+                    administratorsArray[i] = singleAdministrator;
+
+                }
+
+                JTable jt1 = new JTable(administratorsArray, columns);
+                JScrollPane sp = new JScrollPane(jt1);
+                jFrame.add(sp);
+                jFrame.setLocation(200, 50);
+                jFrame.setSize(300, 400);
+                jFrame.setVisible(true);
+
+            } catch (SQLException ex) {
+                Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+//USUN--------------------------------------------------------------------------
+
+        if (zrodlo == Usun_Zwierze) {
+            try {
+                Zwierze zwierze = new Zwierze(2); //@TODO tutaj ma być id
+                zwierze.delete();
+            } catch (SQLException ex) {
+                Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        if (zrodlo == Usun_Gatunek) {
+            try {
+                Gatunek gatunek = new Gatunek(2); //@TODO tutaj ma być id
+                gatunek.delete();
+            } catch (SQLException ex) {
+                Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        
+        if (zrodlo == Usun_Pracownika) {
+            try {
+                User user = new User(4); //@TODO tutaj ma być id
+                user.delete();
+            } catch (SQLException ex) {
+                Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        if (zrodlo == Usun_Rodzine) {
+            try {
+                Rodzina rodzina = new Rodzina(2); //@TODO tutaj ma być id
+                rodzina.delete();
+            } catch (SQLException ex) {
+                Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        if (zrodlo == Usun_Gromade) {
+            try {
+                Gromada gromada = new Gromada(2); //@TODO tutaj ma być id
+                gromada.delete();
+            } catch (SQLException ex) {
+                Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        if (zrodlo == Usun_Przedmiot) {
+            try {
+                Towar towar = new Towar(2); //@TODO tutaj ma być id
+                towar.delete();
+            } catch (SQLException ex) {
+                Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        if (zrodlo == Usun_Magazyn) {
+            try {
+                Magazyn magazyn = new Magazyn(2); //@TODO tutaj ma być id
+                magazyn.delete();
+            } catch (SQLException ex) {
+                Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        if (zrodlo == Usun_Administratora) {
+            try {
+                Administrator administrator = new Administrator(4); //@TODO tutaj ma być id
+                administrator.delete();
+            } catch (SQLException ex) {
+                Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+//MODYFIKUJ-------------------------------------------------------------------------
+
+        if (zrodlo == Modyfikuj_Zwierze) {
+            try {
+                Zwierze zwierze = new Zwierze(1); //@TODO pobrany id z formatki
+                zwierze.getOne();
+                zwierze.setImie("Rafalla");
+                zwierze.update();
+            } catch (SQLException ex) {
+                Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        if (zrodlo == Modyfikuj_Rodzine) {
+            try {
+                Rodzina rodzina = new Rodzina(3); //@TODO pobrany id z formatki
+                rodzina.getOne();
+                rodzina.setNazwa("Malinowsky");
+                rodzina.update();
+            } catch (SQLException ex) {
+                Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+            }           
+        }
+
+        if (zrodlo == Modyfikuj_Gatunek) {
+            try {
+                Gatunek gatunek = new Gatunek(3); //@TODO pobrany id z formatki
+                gatunek.getOne();
+                gatunek.setNazwa("Malinowsky");
+                gatunek.update();
+            } catch (SQLException ex) {
+                Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        if (zrodlo == Modyfikuj_Gromade) {
+            try {
+                Gromada gromada = new Gromada(3); //@TODO pobrany id z formatki
+                gromada.getOne();
+                gromada.setNazwa("Malinowsky");
+                gromada.update();
+            } catch (SQLException ex) {
+                Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        if (zrodlo == Modyfikuj_Przedmiot) {
+            try {
+                Towar towar = new Towar(2); //@TODO pobrany id z formatki
+                towar.getOne();
+                towar.setNazwa("NowaNazwaPrzedmiotu");
+                towar.update();
+            } catch (SQLException ex) {
+                Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        if (zrodlo == Modyfikuj_Magazyn) {
+            try {
+                Magazyn magazyn = new Magazyn(2); //@TODO pobrany id z formatki
+                magazyn.getOne();
+                magazyn.setNazwa("NowaDwojka");
+                magazyn.update();
+            } catch (SQLException ex) {
+                Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        if (zrodlo == Modyfikuj_Pracownika) {
+            try {    
+                
+                User user = new User(6); //@TODO pobrany id z formatki
+                user.getOne();
+                user.setFirstname("");
+                user.setLastname("Malinowsky");
+                user.setRole("");
+                user.update();
+            } catch (SQLException ex) {
+                Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+            }    
+        }
+
+        if (zrodlo == Modyfikuj_Administratora) {
+            try {
+                Administrator admninistrator = new Administrator(6); //@TODO pobrany id z formatki
+                admninistrator.getOne();
+                admninistrator.setNazwa("Malinowsky");
+                admninistrator.update();
+            } catch (SQLException ex) {
+                Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+//------------------------------------------------------------------------------        
         if (zrodlo == Wyjdz) {
             int odp = JOptionPane.showConfirmDialog(null, "Czy na pewno?", "Pytanie", JOptionPane.YES_NO_OPTION);
             if (odp == JOptionPane.YES_OPTION) {
                 dispose();
             }
+        }
+        
+        if (zrodlo==Informacja){
+            JOptionPane.showMessageDialog(this,"W tym menu możesz dodać, wyświetlić, zmodyfikować lub usunąć rekord. Zablokowane są akcje, do kórych nie masz uprawnień.",
+                    "Informacja",JOptionPane.WARNING_MESSAGE); //okienko dialogowe typu "Message"
+            //JOptionPane.WARNING_MESSAGE - "wbudowana" ikona znajdująca się z lewej strony
         }
 
     }

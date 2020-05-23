@@ -19,13 +19,13 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-public class AStart extends JFrame implements ItemListener{
+public class Start extends JFrame implements ItemListener{
     JButton btn_pr, btn_adm;
     JLabel login_pr,haslo_pr,login_adm,haslo_adm;
     JTextField logintf_pr, haslotf_pr,logintf_adm, haslotf_adm;
     JPanel cards,card1,card2,combobox;
     
-    public AStart(){
+    public Start(){
         login_pr = new JLabel("Login:",SwingConstants.LEFT);
         haslo_pr = new JLabel("Haslo:",SwingConstants.LEFT);
         login_adm = new JLabel("Login:",SwingConstants.LEFT);
