@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package Proj;
-
 import Proj.crud.Models.User;
 import Proj.crud.Models.Administrator;
 import Proj.crud.Models.Gatunek;
@@ -732,7 +731,8 @@ public class aplikacja extends JFrame implements ActionListener {
         }
 
         if (zrodlo == Modyfikuj_Pracownika) {
-            try {
+            try {    
+                
                 User user = new User(6); //@TODO pobrany id z formatki
                 user.getOne();
                 user.setFirstname("");
@@ -741,7 +741,7 @@ public class aplikacja extends JFrame implements ActionListener {
                 user.update();
             } catch (SQLException ex) {
                 Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            }    
         }
 
         if (zrodlo == Modyfikuj_Administratora) {
