@@ -312,7 +312,7 @@ public class aplikacja extends JFrame implements ActionListener {
 
         if (zrodlo == Dodaj_Przedmiot) {
            try {
-                Towar towar = new Towar(1,"NowaGromada",4.5); //@TODO dodać prawdziwe dane z formularza
+                Towar towar = new Towar(1,"Nowa Karma",4.5); //@TODO dodać prawdziwe dane z formularza
                 towar.create();
             } catch (SQLException ex) {
                 Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
@@ -320,7 +320,12 @@ public class aplikacja extends JFrame implements ActionListener {
         }
 
         if (zrodlo == Dodaj_Magazyn) {
-
+           try {
+                Magazyn magazyn = new Magazyn(1,"Nowa magazyn","do wszystkiego"); //@TODO dodać prawdziwe dane z formularza
+                magazyn.create();
+            } catch (SQLException ex) {
+                Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
         if (zrodlo == Dodaj_Pracownika) {
@@ -469,11 +474,61 @@ public class aplikacja extends JFrame implements ActionListener {
         }
 
         if (zrodlo == Wyswietl_Przedmiot) {
+            try {
+                List<Towar> towaryList = Towar.getList();
+                String[] columns = {"nazwa", "ilosc"};
+                String[][] towarArray = new String[towaryList.size()][columns.length];
 
+                for (int i = 0; i < towaryList.size(); i++) {
+                    Towar currentTowar = towaryList.get(i);
+
+                    String[] singleTowar = {
+                        currentTowar.getNazwa(),
+                        currentTowar.getIlosc().toString()
+                    };
+                    towarArray[i] = singleTowar;
+
+                }
+
+                JTable jt1 = new JTable(towarArray, columns);
+                JScrollPane sp = new JScrollPane(jt1);
+                jFrame.add(sp);
+                jFrame.setLocation(200, 50);
+                jFrame.setSize(300, 400);
+                jFrame.setVisible(true);
+
+            } catch (SQLException ex) {
+                Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
         if (zrodlo == Wyswietl_Magazyn) {
+            try {
+                List<Magazyn> magazynyList = Magazyn.getList();
+                String[] columns = {"nazwa", "przeznaczenie"};
+                String[][] magazynArray = new String[magazynyList.size()][columns.length];
 
+                for (int i = 0; i < magazynyList.size(); i++) {
+                    Magazyn currentMagazyn = magazynyList.get(i);
+
+                    String[] singleMagazyn = {
+                        currentMagazyn.getNazwa(),
+                        currentMagazyn.getPrzeznaczenie(),
+                    };
+                    magazynArray[i] = singleMagazyn;
+
+                }
+
+                JTable jt1 = new JTable(magazynArray, columns);
+                JScrollPane sp = new JScrollPane(jt1);
+                jFrame.add(sp);
+                jFrame.setLocation(200, 50);
+                jFrame.setSize(300, 400);
+                jFrame.setVisible(true);
+
+            } catch (SQLException ex) {
+                Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
         if (zrodlo == Wyswietl_Pracownika) {
@@ -583,11 +638,21 @@ public class aplikacja extends JFrame implements ActionListener {
         }
 
         if (zrodlo == Usun_Przedmiot) {
-
+            try {
+                Towar towar = new Towar(2); //@TODO tutaj ma być id
+                towar.delete();
+            } catch (SQLException ex) {
+                Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
         if (zrodlo == Usun_Magazyn) {
-
+            try {
+                Magazyn magazyn = new Magazyn(2); //@TODO tutaj ma być id
+                magazyn.delete();
+            } catch (SQLException ex) {
+                Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         
         if (zrodlo == Usun_Administratora) {
@@ -645,11 +710,25 @@ public class aplikacja extends JFrame implements ActionListener {
         }
 
         if (zrodlo == Modyfikuj_Przedmiot) {
-
+            try {
+                Towar towar = new Towar(2); //@TODO pobrany id z formatki
+                towar.getOne();
+                towar.setNazwa("NowaNazwaPrzedmiotu");
+                towar.update();
+            } catch (SQLException ex) {
+                Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
         if (zrodlo == Modyfikuj_Magazyn) {
-
+            try {
+                Magazyn magazyn = new Magazyn(2); //@TODO pobrany id z formatki
+                magazyn.getOne();
+                magazyn.setNazwa("NowaDwojka");
+                magazyn.update();
+            } catch (SQLException ex) {
+                Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
         if (zrodlo == Modyfikuj_Pracownika) {
@@ -682,6 +761,12 @@ public class aplikacja extends JFrame implements ActionListener {
             if (odp == JOptionPane.YES_OPTION) {
                 dispose();
             }
+        }
+        
+        if (zrodlo==Informacja){
+            JOptionPane.showMessageDialog(this,"W tym menu możesz dodać, wyświetlić, zmodyfikować lub usunąć rekord. Zablokowane są akcje, do kórych nie masz uprawnień.",
+                    "Informacja",JOptionPane.WARNING_MESSAGE); //okienko dialogowe typu "Message"
+            //JOptionPane.WARNING_MESSAGE - "wbudowana" ikona znajdująca się z lewej strony
         }
 
     }

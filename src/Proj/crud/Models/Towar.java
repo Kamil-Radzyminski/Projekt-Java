@@ -20,11 +20,11 @@ import java.sql.PreparedStatement;
  */
 public class Towar extends AbstractModel {
 
-    private static final String SQL_DELETE = "DELETE FROM magazyny WHERE id=?";
-    static final String SQL_GET = "SELECT * FROM magazyny";
-    private static final String SQL_GET_ONE = "SELECT * FROM magazyny WHERE id=?";
-    private static final String SQL_UPDATE = "UPDATE magazyny SET magazyn_id=?, nazwa=?, ilosc=? WHERE id=?";
-    private static final String SQL_INSERT = "INSERT INTO magazyny(magazyn_id, nazwa, ilosc) VALUES (?, ?, ?)";
+    private static final String SQL_DELETE = "DELETE FROM towary WHERE id=?";
+    static final String SQL_GET = "SELECT * FROM towary";
+    private static final String SQL_GET_ONE = "SELECT * FROM towary WHERE id=?";
+    private static final String SQL_UPDATE = "UPDATE towary SET magazyn_id=?, nazwa=?, ilosc=? WHERE id=?";
+    private static final String SQL_INSERT = "INSERT INTO towary(magazyn_id, nazwa, ilosc) VALUES (?, ?, ?)";
     
     private Integer id;
     private Integer magazyn_id;
@@ -53,11 +53,11 @@ public class Towar extends AbstractModel {
     }
     
     
-    public Integer getTowarID(){
+    public Integer getMagazynID(){
         return this.magazyn_id;
     }
     
-    public Towar setTowarID(Integer magazyn_id){
+    public Towar setMagazynID(Integer magazyn_id){
         this.magazyn_id = magazyn_id;
         return this;
     }
@@ -82,24 +82,7 @@ public class Towar extends AbstractModel {
     
     
     
-    public static List<Towar> getList() throws SQLException {
-        List<Towar> towaryList = new ArrayList<>();
-        Statement stmt = AbstractModel.getConnection().createStatement();
-        ResultSet result = stmt.executeQuery(Towar.SQL_GET);
 
-        while (result.next()) {
-            towaryList.add(
-                    new Towar(
-                            result.getInt("magazyn_id"),
-                            result.getString("nazwa"),
-                            result.getDouble("ilosc"),
-                            result.getInt("id")
-                    )
-            );
-        }
-
-        return towaryList;
-    }
     
     
     
@@ -154,5 +137,22 @@ public class Towar extends AbstractModel {
 
         return this;
     }
-    
+        public static List<Towar> getList() throws SQLException {
+        List<Towar> towaryList = new ArrayList<>();
+        Statement stmt = AbstractModel.getConnection().createStatement();
+        ResultSet result = stmt.executeQuery(Towar.SQL_GET);
+
+        while (result.next()) {
+            towaryList.add(
+                    new Towar(
+                            result.getInt("magazyn_id"),
+                            result.getString("nazwa"),
+                            result.getDouble("ilosc"),
+                            result.getInt("id")
+                    )
+            );
+        }
+
+        return towaryList;
+    }
 }
