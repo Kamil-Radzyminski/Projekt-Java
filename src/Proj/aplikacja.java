@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package Proj;
+
 import Proj.crud.Models.User;
 import Proj.crud.Models.Administrator;
 import Proj.crud.Models.Gatunek;
@@ -155,7 +156,7 @@ public class aplikacja extends JFrame implements ActionListener {
         //   ------------------------------------------
         // USUN ITEMS ---------------------------------        
         Usun_Zwierzeta = new JMenu("Zwierzęta");
-        
+
         Usun_Zwierze = new JMenuItem("Zwierzę");
         Usun_Gatunek = new JMenuItem("Gatunek");
         Usun_Rodzine = new JMenuItem("Rodzinę");
@@ -166,14 +167,14 @@ public class aplikacja extends JFrame implements ActionListener {
         Usun_Zwierzeta.add(Usun_Gromade);
 
         Usun_Zasoby = new JMenu("Zasoby");
-        
+
         Usun_Przedmiot = new JMenuItem("Przedmiot");
         Usun_Magazyn = new JMenuItem("Magazyn");
         Usun_Zasoby.add(Usun_Przedmiot);
         Usun_Zasoby.add(Usun_Magazyn);
 
         Usun_Osobe = new JMenu("Osobę");
-        
+
         Usun_Pracownika = new JMenuItem("Pracownika");
         Usun_Administratora = new JMenuItem("Administratora");
         Usun_Osobe.add(Usun_Pracownika);
@@ -210,8 +211,8 @@ public class aplikacja extends JFrame implements ActionListener {
 
         Dodaj_Pracownika.addActionListener(this);
         Dodaj_Administratora.addActionListener(this);
- // --------------------------------------------------------------      
-          
+        // --------------------------------------------------------------      
+
         Wyswietl_Zwierze.addActionListener(this);
         Wyswietl_Gatunek.addActionListener(this);
         Wyswietl_Rodzine.addActionListener(this);
@@ -222,7 +223,7 @@ public class aplikacja extends JFrame implements ActionListener {
 
         Wyswietl_Pracownika.addActionListener(this);
         Wyswietl_Administratora.addActionListener(this);
-        
+
 // --------------------------------------------------------------   
         Modyfikuj_Zwierze.addActionListener(this);
         Modyfikuj_Gatunek.addActionListener(this);
@@ -234,7 +235,7 @@ public class aplikacja extends JFrame implements ActionListener {
 
         Modyfikuj_Pracownika.addActionListener(this);
         Modyfikuj_Administratora.addActionListener(this);
-        
+
 //--------------------------------------------------------------   
         Usun_Zwierze.addActionListener(this);
         Usun_Gatunek.addActionListener(this);
@@ -246,10 +247,8 @@ public class aplikacja extends JFrame implements ActionListener {
 
         Usun_Pracownika.addActionListener(this);
         Usun_Administratora.addActionListener(this);
-        
- //--------------------------------------------------------------
-      
 
+        //--------------------------------------------------------------
         Informacja.addActionListener(this);
         Wyjdz.addActionListener(this);
 
@@ -274,17 +273,17 @@ public class aplikacja extends JFrame implements ActionListener {
         //System.out.println(zrodlo.toString());
 //DODAJ-------------------------------------------------------------------------        
         if (zrodlo == Dodaj_Zwierze) {
-           try {
-                Zwierze zwierze = new Zwierze("f","NoweZwierze",21,156,1); //@TODO dodać prawdziwe dane z formularza
+            try {
+                Zwierze zwierze = new Zwierze("f", "NoweZwierze", 21, 156, 1); //@TODO dodać prawdziwe dane z formularza
                 zwierze.create();
             } catch (SQLException ex) {
                 Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
-            }            
+            }
         }
 
         if (zrodlo == Dodaj_Gatunek) {
-           try {
-                Gatunek gatunek = new Gatunek(1,"NowyGatunek","JakisOpis"); //@TODO dodać prawdziwe dane z formularza
+            try {
+                Gatunek gatunek = new Gatunek(1, "NowyGatunek", "JakisOpis"); //@TODO dodać prawdziwe dane z formularza
                 gatunek.create();
             } catch (SQLException ex) {
                 Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
@@ -292,8 +291,8 @@ public class aplikacja extends JFrame implements ActionListener {
         }
 
         if (zrodlo == Dodaj_Rodzine) {
-           try {
-                Rodzina rodzina = new Rodzina(1,"NowaRodzina","JakisOpis"); //@TODO dodać prawdziwe dane z formularza
+            try {
+                Rodzina rodzina = new Rodzina(1, "NowaRodzina", "JakisOpis"); //@TODO dodać prawdziwe dane z formularza
                 rodzina.create();
             } catch (SQLException ex) {
                 Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
@@ -301,8 +300,8 @@ public class aplikacja extends JFrame implements ActionListener {
         }
 
         if (zrodlo == Dodaj_Gromade) {
-           try {
-                Gromada gromada = new Gromada(1,"NowaGromada","JakisOpis"); //@TODO dodać prawdziwe dane z formularza
+            try {
+                Gromada gromada = new Gromada(1, "NowaGromada", "JakisOpis"); //@TODO dodać prawdziwe dane z formularza
                 gromada.create();
             } catch (SQLException ex) {
                 Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
@@ -310,8 +309,8 @@ public class aplikacja extends JFrame implements ActionListener {
         }
 
         if (zrodlo == Dodaj_Przedmiot) {
-           try {
-                Towar towar = new Towar(1,"Nowa Karma",4.5); //@TODO dodać prawdziwe dane z formularza
+            try {
+                Towar towar = new Towar(1, "Nowa Karma", 4.5); //@TODO dodać prawdziwe dane z formularza
                 towar.create();
             } catch (SQLException ex) {
                 Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
@@ -319,8 +318,8 @@ public class aplikacja extends JFrame implements ActionListener {
         }
 
         if (zrodlo == Dodaj_Magazyn) {
-           try {
-                Magazyn magazyn = new Magazyn(1,"Nowa magazyn","do wszystkiego"); //@TODO dodać prawdziwe dane z formularza
+            try {
+                Magazyn magazyn = new Magazyn(1, "Nowa magazyn", "do wszystkiego"); //@TODO dodać prawdziwe dane z formularza
                 magazyn.create();
             } catch (SQLException ex) {
                 Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
@@ -339,25 +338,20 @@ public class aplikacja extends JFrame implements ActionListener {
         }
 
         if (zrodlo == Dodaj_Administratora) {
-            
+
             try {
-                Administrator administrator = new Administrator("kuba","azza","kubax"); //@TODO dodać prawdziwe dane z formularza
+                Administrator administrator = new Administrator("kuba", "azza", "kubax"); //@TODO dodać prawdziwe dane z formularza
                 administrator.create();
             } catch (SQLException ex) {
                 Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 
-        
-
-        
-
-
 //WYSWIETL----------------------------------------------------------------------        
         if (zrodlo == Wyswietl_Zwierze) {
             try {
                 List<Zwierze> zwierzeList = Zwierze.getList();
-                String[] columns = {"plec", "imie", "wiek_lata","waga_kg"};
+                String[] columns = {"plec", "imie", "wiek_lata", "waga_kg"};
                 String[][] zwierzetaArray = new String[zwierzeList.size()][columns.length];
 
                 for (int i = 0; i < zwierzeList.size(); i++) {
@@ -386,7 +380,7 @@ public class aplikacja extends JFrame implements ActionListener {
         }
 
         if (zrodlo == Wyswietl_Gatunek) {
-           try {
+            try {
                 List<Gatunek> gatunekList = Gatunek.getList();
                 String[] columns = {"nazwa", "opis"};
                 String[][] gatunekArray = new String[gatunekList.size()][columns.length];
@@ -415,7 +409,7 @@ public class aplikacja extends JFrame implements ActionListener {
         }
 
         if (zrodlo == Wyswietl_Rodzine) {
-           try {
+            try {
                 List<Rodzina> rodzinaList = Rodzina.getList();
                 String[] columns = {"nazwa", "opis"};
                 String[][] rodzinaArray = new String[rodzinaList.size()][columns.length];
@@ -444,7 +438,7 @@ public class aplikacja extends JFrame implements ActionListener {
         }
 
         if (zrodlo == Wyswietl_Gromade) {
-           try {
+            try {
                 List<Gromada> gromadaList = Gromada.getList();
                 String[] columns = {"nazwa", "opis"};
                 String[][] gromadaArray = new String[gromadaList.size()][columns.length];
@@ -512,8 +506,7 @@ public class aplikacja extends JFrame implements ActionListener {
 
                     String[] singleMagazyn = {
                         currentMagazyn.getNazwa(),
-                        currentMagazyn.getPrzeznaczenie(),
-                    };
+                        currentMagazyn.getPrzeznaczenie(),};
                     magazynArray[i] = singleMagazyn;
 
                 }
@@ -587,9 +580,8 @@ public class aplikacja extends JFrame implements ActionListener {
                 Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
-//USUN--------------------------------------------------------------------------
 
+//USUN--------------------------------------------------------------------------
         if (zrodlo == Usun_Zwierze) {
             try {
                 Zwierze zwierze = new Zwierze(2); //@TODO tutaj ma być id
@@ -598,7 +590,7 @@ public class aplikacja extends JFrame implements ActionListener {
                 Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+
         if (zrodlo == Usun_Gatunek) {
             try {
                 Gatunek gatunek = new Gatunek(2); //@TODO tutaj ma być id
@@ -607,8 +599,7 @@ public class aplikacja extends JFrame implements ActionListener {
                 Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
-        
+
         if (zrodlo == Usun_Pracownika) {
             try {
                 User user = new User(4); //@TODO tutaj ma być id
@@ -617,7 +608,7 @@ public class aplikacja extends JFrame implements ActionListener {
                 Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+
         if (zrodlo == Usun_Rodzine) {
             try {
                 Rodzina rodzina = new Rodzina(2); //@TODO tutaj ma być id
@@ -653,7 +644,7 @@ public class aplikacja extends JFrame implements ActionListener {
                 Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+
         if (zrodlo == Usun_Administratora) {
             try {
                 Administrator administrator = new Administrator(4); //@TODO tutaj ma być id
@@ -683,7 +674,7 @@ public class aplikacja extends JFrame implements ActionListener {
                 rodzina.update();
             } catch (SQLException ex) {
                 Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
-            }           
+            }
         }
 
         if (zrodlo == Modyfikuj_Gatunek) {
@@ -731,8 +722,8 @@ public class aplikacja extends JFrame implements ActionListener {
         }
 
         if (zrodlo == Modyfikuj_Pracownika) {
-            try {    
-                
+            try {
+
                 User user = new User(6); //@TODO pobrany id z formatki
                 user.getOne();
                 user.setFirstname("");
@@ -741,7 +732,7 @@ public class aplikacja extends JFrame implements ActionListener {
                 user.update();
             } catch (SQLException ex) {
                 Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
-            }    
+            }
         }
 
         if (zrodlo == Modyfikuj_Administratora) {
@@ -754,7 +745,7 @@ public class aplikacja extends JFrame implements ActionListener {
                 Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+
 //------------------------------------------------------------------------------        
         if (zrodlo == Wyjdz) {
             int odp = JOptionPane.showConfirmDialog(null, "Czy na pewno?", "Pytanie", JOptionPane.YES_NO_OPTION);
@@ -762,10 +753,10 @@ public class aplikacja extends JFrame implements ActionListener {
                 dispose();
             }
         }
-        
-        if (zrodlo==Informacja){
-            JOptionPane.showMessageDialog(this,"W tym menu możesz dodać, wyświetlić, zmodyfikować lub usunąć rekord. Zablokowane są akcje, do kórych nie masz uprawnień.",
-                    "Informacja",JOptionPane.WARNING_MESSAGE); //okienko dialogowe typu "Message"
+
+        if (zrodlo == Informacja) {
+            JOptionPane.showMessageDialog(this, "W tym menu możesz dodać, wyświetlić, zmodyfikować lub usunąć rekord. Zablokowane są akcje, do kórych nie masz uprawnień.",
+                    "Informacja", JOptionPane.WARNING_MESSAGE); //okienko dialogowe typu "Message"
             //JOptionPane.WARNING_MESSAGE - "wbudowana" ikona znajdująca się z lewej strony
         }
 

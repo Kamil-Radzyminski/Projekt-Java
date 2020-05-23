@@ -5,14 +5,23 @@
  */
 package Proj;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Kamil
  */
 public class Projekt {
+
     public static void main(String[] args) {
-        Grid grid = new Grid();
-        grid.run();
+        JFrame.setDefaultLookAndFeelDecorated(true);
+        try {
+            Grid grid = new Grid();
+            grid.run();
+        } catch (Exception exception) {
+            JOptionPane.showMessageDialog(null, "Wystąpił błąd.");
+        }
 //        JFrame f = new Start();
 //        f.setVisible(true);
 //        f.setSize(300,200);
