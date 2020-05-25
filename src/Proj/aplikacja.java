@@ -4,7 +4,15 @@
  * and open the template in the editor.
  */
 package Proj;
-
+import Proj.Listeners.User.ZwierzeDeleteClickListener;
+import Proj.Listeners.User.GatunekDeleteClickListener;
+import Proj.Listeners.User.RodzinaDeleteClickListener;
+import Proj.Listeners.User.GromadaDeleteClickListener;
+import Proj.Listeners.User.MagazynDeleteClickListener;
+import Proj.Listeners.User.AdminDeleteClickListener;
+import Proj.Listeners.User.TowarDeleteClickListener;
+import Proj.Listeners.User.UserDeleteClickListener;
+import javax.swing.table.TableColumnModel;
 import Proj.crud.Models.User;
 import Proj.crud.Models.Administrator;
 import Proj.crud.Models.Gatunek;
@@ -575,7 +583,7 @@ public class aplikacja extends JFrame implements ActionListener {
                 jFrame.setLocation(200, 50);
                 jFrame.setSize(300, 400);
                 jFrame.setVisible(true);
-
+                
             } catch (SQLException ex) {
                 Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -584,8 +592,39 @@ public class aplikacja extends JFrame implements ActionListener {
 //USUN--------------------------------------------------------------------------
         if (zrodlo == Usun_Zwierze) {
             try {
-                Zwierze zwierze = new Zwierze(2); //@TODO tutaj ma być id
-                zwierze.delete();
+                List<Zwierze> zwierzeList = Zwierze.getList();
+                String[] columns = {"id","plec", "imie", "wiek_lata", "waga_kg"};
+                String[][] zwierzetaArray = new String[zwierzeList.size()][columns.length];
+
+                for (int i = 0; i < zwierzeList.size(); i++) {
+                    Zwierze currentZwierze = zwierzeList.get(i);
+
+                    String[] singleZwierze = {
+                        currentZwierze.getId().toString(),
+                        currentZwierze.getPlec(),
+                        currentZwierze.getImie(),
+                        currentZwierze.getWiek().toString(),
+                        currentZwierze.getWaga().toString()
+                    };
+                    zwierzetaArray[i] = singleZwierze;
+
+                }
+
+                JTable jt1 = new JTable(zwierzetaArray, columns);
+
+                TableColumnModel tcm = jt1.getColumnModel();
+                tcm.removeColumn(tcm.getColumn(0));
+
+                ZwierzeDeleteClickListener zwierzeDeleteClickListener = new ZwierzeDeleteClickListener(jt1, jFrame);
+                
+                jt1.addMouseListener(zwierzeDeleteClickListener);
+
+                JScrollPane sp = new JScrollPane(jt1);
+                jFrame.add(sp);
+                jFrame.setLocation(200, 50);
+                jFrame.setSize(300, 400);
+                jFrame.setVisible(true);
+
             } catch (SQLException ex) {
                 Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -593,8 +632,37 @@ public class aplikacja extends JFrame implements ActionListener {
 
         if (zrodlo == Usun_Gatunek) {
             try {
-                Gatunek gatunek = new Gatunek(2); //@TODO tutaj ma być id
-                gatunek.delete();
+                List<Gatunek> gatunekList = Gatunek.getList();
+                String[] columns = {"id","nazwa", "opis"};
+                String[][] gatunekArray = new String[gatunekList.size()][columns.length];
+
+                for (int i = 0; i < gatunekList.size(); i++) {
+                    Gatunek currentGatunek = gatunekList.get(i);
+
+                    String[] singleGatunek = {
+                        currentGatunek.getId().toString(),
+                        currentGatunek.getNazwa(),
+                        currentGatunek.getOpis()
+                    };
+                    gatunekArray[i] = singleGatunek;
+
+                }
+
+                JTable jt1 = new JTable(gatunekArray, columns);
+
+                TableColumnModel tcm = jt1.getColumnModel();
+                tcm.removeColumn(tcm.getColumn(0));
+
+                GatunekDeleteClickListener gatunekDeleteClickListener = new GatunekDeleteClickListener(jt1, jFrame);
+
+                jt1.addMouseListener(gatunekDeleteClickListener);
+
+                JScrollPane sp = new JScrollPane(jt1);
+                jFrame.add(sp);
+                jFrame.setLocation(200, 50);
+                jFrame.setSize(300, 400);
+                jFrame.setVisible(true);
+                
             } catch (SQLException ex) {
                 Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -602,8 +670,38 @@ public class aplikacja extends JFrame implements ActionListener {
 
         if (zrodlo == Usun_Pracownika) {
             try {
-                User user = new User(4); //@TODO tutaj ma być id
-                user.delete();
+                List<User> userList = User.getList();
+                String[] columns = {"id", "imie", "nazwisko", "rola"};
+                String[][] usersArray = new String[userList.size()][columns.length];
+
+                for (int i = 0; i < userList.size(); i++) {
+                    User currentUser = userList.get(i);
+
+                    String[] singleUser = {
+                        currentUser.getId().toString(),
+                        currentUser.getFirstname(),
+                        currentUser.getLastname(),
+                        currentUser.getRole()
+                    };
+                    usersArray[i] = singleUser;
+
+                }
+
+                JTable jt1 = new JTable(usersArray, columns);
+
+                TableColumnModel tcm = jt1.getColumnModel();
+                tcm.removeColumn(tcm.getColumn(0));
+
+                UserDeleteClickListener userDeleteClickListener = new UserDeleteClickListener(jt1, jFrame);
+                
+                jt1.addMouseListener(userDeleteClickListener);
+
+                JScrollPane sp = new JScrollPane(jt1);
+                jFrame.add(sp);
+                jFrame.setLocation(200, 50);
+                jFrame.setSize(300, 400);
+                jFrame.setVisible(true);
+
             } catch (SQLException ex) {
                 Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -611,8 +709,37 @@ public class aplikacja extends JFrame implements ActionListener {
 
         if (zrodlo == Usun_Rodzine) {
             try {
-                Rodzina rodzina = new Rodzina(2); //@TODO tutaj ma być id
-                rodzina.delete();
+                List<Rodzina> rodzinaList = Rodzina.getList();
+                String[] columns = {"id","nazwa", "opis"};
+                String[][] rodzinaArray = new String[rodzinaList.size()][columns.length];
+
+                for (int i = 0; i < rodzinaList.size(); i++) {
+                    Rodzina currentRodzina = rodzinaList.get(i);
+
+                    String[] singleRodzina = {
+                        currentRodzina.getId().toString(),
+                        currentRodzina.getNazwa(),
+                        currentRodzina.getOpis()
+                    };
+                    rodzinaArray[i] = singleRodzina;
+
+                }
+
+                JTable jt1 = new JTable(rodzinaArray, columns);
+
+                TableColumnModel tcm = jt1.getColumnModel();
+                tcm.removeColumn(tcm.getColumn(0));
+
+                RodzinaDeleteClickListener rodzinaDeleteClickListener = new RodzinaDeleteClickListener(jt1, jFrame);
+
+                jt1.addMouseListener(rodzinaDeleteClickListener);
+
+                JScrollPane sp = new JScrollPane(jt1);
+                jFrame.add(sp);
+                jFrame.setLocation(200, 50);
+                jFrame.setSize(300, 400);
+                jFrame.setVisible(true);
+                
             } catch (SQLException ex) {
                 Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -620,8 +747,37 @@ public class aplikacja extends JFrame implements ActionListener {
 
         if (zrodlo == Usun_Gromade) {
             try {
-                Gromada gromada = new Gromada(2); //@TODO tutaj ma być id
-                gromada.delete();
+                List<Gromada> gromadaList = Gromada.getList();
+                String[] columns = {"id","nazwa", "opis"};
+                String[][] gromadaArray = new String[gromadaList.size()][columns.length];
+
+                for (int i = 0; i < gromadaList.size(); i++) {
+                    Gromada currentGromada = gromadaList.get(i);
+
+                    String[] singleGromada = {
+                        currentGromada.getId().toString(),
+                        currentGromada.getNazwa(),
+                        currentGromada.getOpis()
+                    };
+                    gromadaArray[i] = singleGromada;
+
+                }
+
+                JTable jt1 = new JTable(gromadaArray, columns);
+
+                TableColumnModel tcm = jt1.getColumnModel();
+                tcm.removeColumn(tcm.getColumn(0));
+
+                GromadaDeleteClickListener gromadaDeleteClickListener = new GromadaDeleteClickListener(jt1, jFrame);
+
+                jt1.addMouseListener(gromadaDeleteClickListener);
+
+                JScrollPane sp = new JScrollPane(jt1);
+                jFrame.add(sp);
+                jFrame.setLocation(200, 50);
+                jFrame.setSize(300, 400);
+                jFrame.setVisible(true);
+                
             } catch (SQLException ex) {
                 Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -629,8 +785,37 @@ public class aplikacja extends JFrame implements ActionListener {
 
         if (zrodlo == Usun_Przedmiot) {
             try {
-                Towar towar = new Towar(2); //@TODO tutaj ma być id
-                towar.delete();
+                List<Towar> towaryList = Towar.getList();
+                String[] columns = {"id","nazwa", "ilosc"};
+                String[][] towarArray = new String[towaryList.size()][columns.length];
+
+                for (int i = 0; i < towaryList.size(); i++) {
+                    Towar currentTowar = towaryList.get(i);
+
+                    String[] singleTowar = {
+                        currentTowar.getId().toString(),
+                        currentTowar.getNazwa(),
+                        currentTowar.getIlosc().toString()
+                    };
+                    towarArray[i] = singleTowar;
+
+                }
+
+                JTable jt1 = new JTable(towarArray, columns);
+
+                TableColumnModel tcm = jt1.getColumnModel();
+                tcm.removeColumn(tcm.getColumn(0));
+
+                TowarDeleteClickListener towarDeleteClickListener = new TowarDeleteClickListener(jt1, jFrame);
+
+                jt1.addMouseListener(towarDeleteClickListener);
+
+                JScrollPane sp = new JScrollPane(jt1);
+                jFrame.add(sp);
+                jFrame.setLocation(200, 50);
+                jFrame.setSize(300, 400);
+                jFrame.setVisible(true);
+
             } catch (SQLException ex) {
                 Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -638,8 +823,37 @@ public class aplikacja extends JFrame implements ActionListener {
 
         if (zrodlo == Usun_Magazyn) {
             try {
-                Magazyn magazyn = new Magazyn(2); //@TODO tutaj ma być id
-                magazyn.delete();
+                List<Magazyn> magazynyList = Magazyn.getList();
+                String[] columns = {"id", "nazwa", "przeznaczenie"};
+                String[][] magazynArray = new String[magazynyList.size()][columns.length];
+
+                for (int i = 0; i < magazynyList.size(); i++) {
+                    Magazyn currentMagazyn = magazynyList.get(i);
+
+                    String[] singleMagazyn = {
+                        currentMagazyn.getId().toString(),
+                        currentMagazyn.getNazwa(),
+                        currentMagazyn.getPrzeznaczenie()
+                    };
+                    magazynArray[i] = singleMagazyn;
+
+                }
+
+                JTable jt1 = new JTable(magazynArray, columns);
+
+                TableColumnModel tcm = jt1.getColumnModel();
+                tcm.removeColumn(tcm.getColumn(0));
+
+                MagazynDeleteClickListener magazynDeleteClickListener = new MagazynDeleteClickListener(jt1, jFrame);
+
+                jt1.addMouseListener(magazynDeleteClickListener);
+
+                JScrollPane sp = new JScrollPane(jt1);
+                jFrame.add(sp);
+                jFrame.setLocation(200, 50);
+                jFrame.setSize(300, 400);
+                jFrame.setVisible(true);
+
             } catch (SQLException ex) {
                 Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -647,8 +861,35 @@ public class aplikacja extends JFrame implements ActionListener {
 
         if (zrodlo == Usun_Administratora) {
             try {
-                Administrator administrator = new Administrator(4); //@TODO tutaj ma być id
-                administrator.delete();
+                List<Administrator> administratorList = Administrator.getList();
+                String[] columns = {"id","nazwa"};
+                String[][] administratorsArray = new String[administratorList.size()][columns.length];
+
+                for (int i = 0; i < administratorList.size(); i++) {
+                    Administrator currentAdministrator = administratorList.get(i);
+
+                    String[] singleAdministrator = {
+                        currentAdministrator.getId().toString(),
+                        currentAdministrator.getNazwa()
+                    };
+                    administratorsArray[i] = singleAdministrator;
+
+                }
+
+                JTable jt1 = new JTable(administratorsArray, columns);
+
+                TableColumnModel tcm = jt1.getColumnModel();
+                tcm.removeColumn(tcm.getColumn(0));
+
+                AdminDeleteClickListener adminDeleteClickListener = new AdminDeleteClickListener(jt1, jFrame);
+                
+                jt1.addMouseListener(adminDeleteClickListener);
+
+                JScrollPane sp = new JScrollPane(jt1);
+                jFrame.add(sp);
+                jFrame.setLocation(200, 50);
+                jFrame.setSize(300, 400);
+                jFrame.setVisible(true);
             } catch (SQLException ex) {
                 Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
             }

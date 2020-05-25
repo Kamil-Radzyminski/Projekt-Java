@@ -1,6 +1,6 @@
 package Proj;
 
-import Proj.Listeners.User.DeleteClickListener;
+import Proj.Listeners.User.UserDeleteClickListener;
 import Proj.crud.Models.User;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -101,7 +101,7 @@ public class Grid implements ActionListener {
                 TableColumnModel tcm = jt1.getColumnModel();
                 tcm.removeColumn(tcm.getColumn(0));
 
-                DeleteClickListener userDeleteClickListener = new DeleteClickListener(jt1);
+                UserDeleteClickListener userDeleteClickListener = new UserDeleteClickListener(jt1, jFrame);
                 
                 jt1.addMouseListener(userDeleteClickListener);
 

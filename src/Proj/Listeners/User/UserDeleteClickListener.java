@@ -7,6 +7,7 @@ import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
 /**
@@ -14,9 +15,9 @@ import javax.swing.JTable;
  *
  * @author Kamil
  */
-public class DeleteClickListener extends AbstractClickAdapter {
+public class UserDeleteClickListener extends AbstractClickAdapter {
 
-    public DeleteClickListener(JTable jtable) {
+    public UserDeleteClickListener(JTable jtable) {
         super(jtable);
     }
 
@@ -27,9 +28,10 @@ public class DeleteClickListener extends AbstractClickAdapter {
         try {
             User user = new User(Integer.parseInt(entryId.toString()));
             user.delete();
-            System.out.println("Usunąłem wiersz o ID:" + entryId.toString());
+//            System.out.println("Usunąłem wiersz o ID:" + entryId.toString());
+            JOptionPane.showMessageDialog(null, "Usunięto rekord");
         } catch (SQLException ex) {
-            Logger.getLogger(DeleteClickListener.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Nie możesz usunąć tego rekordu");
         }
     }
 

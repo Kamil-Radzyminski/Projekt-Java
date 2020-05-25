@@ -52,6 +52,9 @@ public class Magazyn extends AbstractModel {
         this.id = id;
     }
     
+    public Integer getId(){
+        return this.id;
+    }
     
     public Integer getUzytkownikID(){
         return this.uzytkownik_id;

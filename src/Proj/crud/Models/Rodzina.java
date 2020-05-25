@@ -52,6 +52,9 @@ public class Rodzina extends AbstractModel {
         this.id = id;
     }
     
+    public Integer getId(){
+        return this.id;
+    }
     
     public Integer getGromadaID(){
         return this.gromada_id;

@@ -52,6 +52,9 @@ public class Towar extends AbstractModel {
         this.id = id;
     }
     
+    public Integer getId(){
+        return this.id;
+    }
     
     public Integer getMagazynID(){
         return this.magazyn_id;

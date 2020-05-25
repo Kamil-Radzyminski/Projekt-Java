@@ -52,6 +52,9 @@ public class Gromada extends AbstractModel {
         this.id = id;
     }
     
+    public Integer getId(){
+        return this.id;
+    }
     
     public Integer getSektorID(){
         return this.sektor_id;

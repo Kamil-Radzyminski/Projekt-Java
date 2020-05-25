@@ -51,6 +51,9 @@ public class Gatunek extends AbstractModel {
         this.id = id;
     }
     
+    public Integer getId(){
+        return this.id;
+    }
     
     public Integer getRodzinaID(){
         return this.rodzina_id;

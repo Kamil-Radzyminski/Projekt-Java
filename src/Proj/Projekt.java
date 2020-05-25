@@ -6,6 +6,7 @@
 package Proj;
 
 import javax.swing.JFrame;
+import javax.swing.JMenu;
 import javax.swing.JOptionPane;
 
 /**
@@ -15,19 +16,19 @@ import javax.swing.JOptionPane;
 public class Projekt {
 
     public static void main(String[] args) {
-        JFrame.setDefaultLookAndFeelDecorated(true);
-        try {
-            Grid grid = new Grid();
-            grid.run();
-        } catch (Exception exception) {
-            JOptionPane.showMessageDialog(null, "Wystąpił błąd.");
-        }
-//        JFrame f = new Start();
-//        f.setVisible(true);
-//        f.setSize(300,200);
-//        f.setTitle("Logowanie");
-//        f.setLocationRelativeTo(null);
-//        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        JFrame.setDefaultLookAndFeelDecorated(true);
+//        try {
+//            Grid grid = new Grid();
+//            grid.run();
+//        } catch (Exception exception) {
+//            JOptionPane.showMessageDialog(null, "Wystąpił błąd.");
+//        }
+        JFrame f = new Start();
+        f.setVisible(true);
+        f.setSize(300,200);
+        f.setTitle("Logowanie");
+        f.setLocationRelativeTo(null);
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     }
 
