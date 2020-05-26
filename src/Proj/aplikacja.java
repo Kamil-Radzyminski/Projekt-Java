@@ -5,9 +5,13 @@
  */
 package Proj;
 
+import Proj.GridAdd.GridZwierzeAdd;
 import Proj.GridAdd.GridTowarAdd;
 import Proj.GridAdd.GridAdminAdd;
+import Proj.GridAdd.GridGatunekAdd;
+import Proj.GridAdd.GridGromadaAdd;
 import Proj.GridAdd.GridMagazynAdd;
+import Proj.GridAdd.GridRodzinaAdd;
 import Proj.GridAdd.GridUserAdd;
 import Proj.GridModify.GridZwierzeModify;
 import Proj.GridModify.GridGatunekModify;
@@ -295,37 +299,37 @@ public class aplikacja extends JFrame implements ActionListener {
 //DODAJ-------------------------------------------------------------------------        
         if (zrodlo == Dodaj_Zwierze) {
             try {
-                Zwierze zwierze = new Zwierze("f", "NoweZwierze", 21, 156, 1); //@TODO dodać prawdziwe dane z formularza
-                zwierze.create();
-            } catch (SQLException ex) {
-                Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+                GridZwierzeAdd grid = new GridZwierzeAdd();
+                grid.run();
+            } catch (Exception exception) {
+                JOptionPane.showMessageDialog(null, "Wystąpił błąd.");
             }
         }
 
         if (zrodlo == Dodaj_Gatunek) {
             try {
-                Gatunek gatunek = new Gatunek(1, "NowyGatunek", "JakisOpis"); //@TODO dodać prawdziwe dane z formularza
-                gatunek.create();
-            } catch (SQLException ex) {
-                Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+                GridGatunekAdd grid = new GridGatunekAdd();
+                grid.run();
+            } catch (Exception exception) {
+                JOptionPane.showMessageDialog(null, "Wystąpił błąd.");
             }
         }
 
         if (zrodlo == Dodaj_Rodzine) {
             try {
-                Rodzina rodzina = new Rodzina(1, "NowaRodzina", "JakisOpis"); //@TODO dodać prawdziwe dane z formularza
-                rodzina.create();
-            } catch (SQLException ex) {
-                Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+                GridRodzinaAdd grid = new GridRodzinaAdd();
+                grid.run();
+            } catch (Exception exception) {
+                JOptionPane.showMessageDialog(null, "Wystąpił błąd.");
             }
         }
 
         if (zrodlo == Dodaj_Gromade) {
             try {
-                Gromada gromada = new Gromada(1, "NowaGromada", "JakisOpis"); //@TODO dodać prawdziwe dane z formularza
-                gromada.create();
-            } catch (SQLException ex) {
-                Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+                GridGromadaAdd grid = new GridGromadaAdd();
+                grid.run();
+            } catch (Exception exception) {
+                JOptionPane.showMessageDialog(null, "Wystąpił błąd.");
             }
         }
 
