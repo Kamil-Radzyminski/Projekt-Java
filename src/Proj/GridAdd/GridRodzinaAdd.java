@@ -116,8 +116,8 @@ public class GridRodzinaAdd implements ActionListener {
 
                     Rodzina rodzina = new Rodzina(
                             this.gromada_id,
-                            this.opis.getText(),
-                            this.nazwa.getText()
+                            this.nazwa.getText(),
+                            this.opis.getText()
                     );
 
                     rodzina.create();

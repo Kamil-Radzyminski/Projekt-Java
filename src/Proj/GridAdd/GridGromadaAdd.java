@@ -115,8 +115,8 @@ public class GridGromadaAdd implements ActionListener {
 
                     Gromada gromada = new Gromada(
                             this.sector_id,
-                            this.opis.getText(),
-                            this.nazwa.getText()
+                            this.nazwa.getText(),
+                            this.opis.getText()
                     );
 
                     gromada.create();

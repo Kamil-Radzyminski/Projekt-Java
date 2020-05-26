@@ -116,8 +116,8 @@ public class GridGatunekAdd implements ActionListener {
 
                     Gatunek gatunek = new Gatunek(
                             this.rodzina_id,
-                            this.opis.getText(),
-                            this.nazwa.getText()
+                            this.nazwa.getText(),
+                            this.opis.getText()
                     );
 
                     gatunek.create();
