@@ -1,5 +1,6 @@
 package Proj.GridModify;
 
+import Proj.Exceptions.ValidationException;
 import Proj.Listeners.TowarModifyIDClickListener;
 import Proj.Listeners.TowarModifyMagazynIDClickListener;
 import Proj.aplikacja;
@@ -154,15 +155,9 @@ public class GridTowarModify implements ActionListener {
                 for (int i = 0; i < towaryList.size(); i++) {
                     if (towaryList.get(i).getId().equals(this.id)) {
                         Towar updatedTowar = towaryList.get(i);
-                        if (this.magazyn_id != null) {
                             updatedTowar.setMagazynID(this.magazyn_id);
-                        }
-                        if (!this.nazwa.getText().trim().equals("")) {
                             updatedTowar.setNazwa(this.nazwa.getText());
-                        }
-                        if (!this.ilosc.getText().trim().equals("")) {
                             updatedTowar.setIlosc(Double.valueOf(this.ilosc.getText()));
-                        }
 
                         updatedTowar.update();
                         this.frame.dispose();
@@ -172,6 +167,8 @@ public class GridTowarModify implements ActionListener {
             }
         } catch (SQLException ex) {
             Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ValidationException ex) {
+            Logger.getLogger(GridTowarModify.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

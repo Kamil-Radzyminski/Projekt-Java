@@ -1,5 +1,6 @@
 package Proj.GridAdd;
 
+import Proj.Exceptions.ValidationException;
 import Proj.Listeners.ZwierzeAddGatunekIDClickListener;
 import Proj.aplikacja;
 import Proj.crud.Models.Gatunek;
@@ -47,7 +48,7 @@ public class GridZwierzeAdd implements ActionListener {
         frame.add(Obcy);
         Obcy.addActionListener(this);
 
-        frame.add(new JLabel("Płeć"));
+        frame.add(new JLabel("Płeć (m/f)"));
         plec = new JTextField();
         frame.add(plec);
 
@@ -116,28 +117,22 @@ public class GridZwierzeAdd implements ActionListener {
             }
 
             if (zrodlo == Dodaj) {
-                if (this.imie.getText().trim().equals("")
-                        || this.plec.getText().trim().equals("")
-                        || this.wiek_lata.getText().trim().equals("")
-                        || this.waga_kg.getText().trim().equals("")
-                        || this.gatunek_id == -1) {
-                    JOptionPane.showMessageDialog(null, "Proszę wypełnić wszystkie pola");
-                } else {
 
-                    Zwierze zwierze = new Zwierze(
-                            this.plec.getText(),
-                            this.imie.getText(),
-                            Integer.valueOf(this.wiek_lata.getText()),
-                            Integer.valueOf(this.waga_kg.getText()),
-                            this.gatunek_id);
+                Zwierze zwierze = new Zwierze(
+                        this.plec.getText(),
+                        this.imie.getText(),
+                        Integer.valueOf(this.wiek_lata.getText()),
+                        Integer.valueOf(this.waga_kg.getText()),
+                        this.gatunek_id);
 
-                    zwierze.create();
-                    this.frame.dispose();
-                }
+                zwierze.create();
+                this.frame.dispose();
 
             }
         } catch (SQLException ex) {
             Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ValidationException ex) {
+            JOptionPane.showMessageDialog(null,ex.getMessage());
         }
     }
 

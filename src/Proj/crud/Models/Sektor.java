@@ -5,6 +5,7 @@
  */
 package Proj.crud.Models;
 
+import Proj.Exceptions.ValidationException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -113,7 +114,10 @@ public class Sektor extends AbstractModel {
     }
 
     @Override
-    public AbstractModel create() throws SQLException {
+    public AbstractModel create() throws SQLException, ValidationException {
+        if (!this.validate()) {
+            throw new ValidationException("Nie wszystkie pola zostały wypełnione, lub zostały wypełnione niepoprawnie");
+        }
         PreparedStatement preparedStatement = AbstractModel.getConnection().prepareStatement(SQL_INSERT, Statement.RETURN_GENERATED_KEYS);
         preparedStatement.setInt(1, this.administrator_id);
         preparedStatement.setString(2, this.nazwa);
@@ -129,7 +133,10 @@ public class Sektor extends AbstractModel {
     }
 
     @Override
-    public AbstractModel update() throws SQLException {
+    public AbstractModel update() throws SQLException, ValidationException {
+        if (!this.validate()) {
+            throw new ValidationException("Nie wszystkie pola zostały wypełnione, lub zostały wypełnione niepoprawnie");
+        }
         PreparedStatement preparedStatement = AbstractModel.getConnection().prepareStatement(SQL_UPDATE);
         preparedStatement.setInt(1, this.administrator_id);
         preparedStatement.setString(2, this.nazwa);
@@ -154,6 +161,11 @@ public class Sektor extends AbstractModel {
         }
 
         return this;
+    }
+
+    @Override
+    protected boolean validate() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

@@ -5,14 +5,14 @@
  */
 package Proj.crud.Models;
 
-
+import Proj.Exceptions.ValidationException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.PreparedStatement;
-
+import java.util.regex.Pattern;
 
 /**
  *
@@ -25,66 +25,60 @@ public class Rodzina extends AbstractModel {
     private static final String SQL_GET_ONE = "SELECT * FROM rodziny WHERE id=?";
     private static final String SQL_UPDATE = "UPDATE rodziny SET gromada_id=?, nazwa=?, opis=? WHERE id=?";
     private static final String SQL_INSERT = "INSERT INTO rodziny(gromada_id, nazwa, opis) VALUES (?, ?, ?)";
-    
+
     private Integer id;
-    private Integer gromada_id;
+    private Integer gromada_id = -1;
     private String nazwa;
     private String opis;
 
-    
-    
     public Rodzina(Integer id) {
         this.id = id;
     }
 
-    
     public Rodzina(Integer gromada_id, String nazwa, String opis) throws SQLException {
         this.gromada_id = gromada_id;
         this.nazwa = nazwa;
         this.opis = opis;
     }
 
-   
     public Rodzina(Integer gromada_id, String nazwa, String opis, Integer id) throws SQLException {
         this.gromada_id = gromada_id;
         this.nazwa = nazwa;
         this.opis = opis;
         this.id = id;
     }
-    
-    public Integer getId(){
+
+    public Integer getId() {
         return this.id;
     }
-    
-    public Integer getGromadaID(){
+
+    public Integer getGromadaID() {
         return this.gromada_id;
     }
-    
-    public Rodzina setGromadaID(Integer gromada_id){
+
+    public Rodzina setGromadaID(Integer gromada_id) {
         this.gromada_id = gromada_id;
         return this;
     }
-    
-    public String getNazwa(){
+
+    public String getNazwa() {
         return this.nazwa;
     }
-    
-    public Rodzina setNazwa(String nazwa){
+
+    public Rodzina setNazwa(String nazwa) {
         this.nazwa = nazwa;
         return this;
     }
-    
-    public String getOpis(){
+
+    public String getOpis() {
         return this.opis;
     }
-    
-    public Rodzina setOpis(String opis){
+
+    public Rodzina setOpis(String opis) {
         this.opis = opis;
         return this;
     }
-    
-    
-    
+
     public static List<Rodzina> getList() throws SQLException {
         List<Rodzina> rodzinyList = new ArrayList<>();
         Statement stmt = AbstractModel.getConnection().createStatement();
@@ -103,9 +97,7 @@ public class Rodzina extends AbstractModel {
 
         return rodzinyList;
     }
-    
-    
-    
+
     @Override
     public boolean delete() throws SQLException {
         PreparedStatement preparedStatement = AbstractModel.getConnection().prepareStatement(SQL_DELETE);
@@ -115,7 +107,10 @@ public class Rodzina extends AbstractModel {
     }
 
     @Override
-    public AbstractModel create() throws SQLException {
+    public AbstractModel create() throws SQLException, ValidationException {
+        if (!this.validate()) {
+            throw new ValidationException("Nie wszystkie pola zostały wypełnione, lub zostały wypełnione niepoprawnie");
+        }
         PreparedStatement preparedStatement = AbstractModel.getConnection().prepareStatement(SQL_INSERT, Statement.RETURN_GENERATED_KEYS);
         preparedStatement.setInt(1, this.gromada_id);
         preparedStatement.setString(2, this.nazwa);
@@ -131,7 +126,10 @@ public class Rodzina extends AbstractModel {
     }
 
     @Override
-    public AbstractModel update() throws SQLException {
+    public AbstractModel update() throws SQLException, ValidationException {
+        if (!this.validate()) {
+            throw new ValidationException("Nie wszystkie pola zostały wypełnione, lub zostały wypełnione niepoprawnie");
+        }
         PreparedStatement preparedStatement = AbstractModel.getConnection().prepareStatement(SQL_UPDATE);
         preparedStatement.setInt(1, this.gromada_id);
         preparedStatement.setString(2, this.nazwa);
@@ -157,5 +155,16 @@ public class Rodzina extends AbstractModel {
 
         return this;
     }
-    
+
+    @Override
+    protected boolean validate() {
+        Pattern LettersPattern = Patterns.Patterns.getLettersPattern();
+        Pattern IloscPattern = Patterns.Patterns.getIloscPattern();
+
+        return !(this.nazwa.trim().equals("")
+                || this.opis.trim().equals("")
+                || this.gromada_id == -1
+                || !LettersPattern.matcher(this.nazwa).matches()
+                || !IloscPattern.matcher(String.valueOf(this.ilosc)).matches());
+    }
 }

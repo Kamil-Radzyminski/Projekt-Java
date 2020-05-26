@@ -1,6 +1,6 @@
 package Proj.GridAdd;
 
-import Patterns.Paterny;
+
 import Proj.Exceptions.ValidationException;
 import Proj.Listeners.UserAddSectorIDClickListener;
 import Proj.aplikacja;

@@ -1,5 +1,6 @@
 package Proj.GridAdd;
 
+import Proj.Exceptions.ValidationException;
 import Proj.Listeners.TowarAddMagazynIDClickListener;
 import Proj.aplikacja;
 import Proj.crud.Models.Magazyn;
@@ -108,12 +109,6 @@ public class GridTowarAdd implements ActionListener {
 
             if (zrodlo == Dodaj) {
 
-                if (this.magazyn_id == -1
-                        || this.nazwa.getText().trim().equals("")
-                        || this.ilosc.getText().trim().equals("")) {
-                    JOptionPane.showMessageDialog(null, "Proszę wypełnić wszystkie pola");
-                } else {
-
                     Towar towar = new Towar(
                             this.magazyn_id,
                             this.nazwa.getText(),
@@ -124,9 +119,11 @@ public class GridTowarAdd implements ActionListener {
                     this.frame.dispose();
                 }
 
-            }
+            
         } catch (SQLException ex) {
             Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ValidationException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }
 

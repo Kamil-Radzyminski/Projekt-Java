@@ -1,6 +1,6 @@
 package Proj.GridModify;
 
-
+import Proj.Exceptions.ValidationException;
 import Proj.Listeners.ZwierzeModifyGatunekIDClickListener;
 import Proj.Listeners.ZwierzeModifyIDClickListener;
 import Proj.aplikacja;
@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -57,7 +58,7 @@ public class GridZwierzeModify implements ActionListener {
         frame.add(Obcy);
         Obcy.addActionListener(this);
 
-        frame.add(new JLabel("Płeć"));
+        frame.add(new JLabel("Płeć (m/f)"));
         plec = new JTextField();
         frame.add(plec);
 
@@ -94,8 +95,7 @@ public class GridZwierzeModify implements ActionListener {
             List<Zwierze> zwierzeList = Zwierze.getList();
             if (zrodlo == Glowny) {
 
-                
-                String[] columns = {"id","plec", "imie", "wiek_lata", "waga_kg"};
+                String[] columns = {"id", "plec", "imie", "wiek_lata", "waga_kg"};
                 String[][] zwierzetaArray = new String[zwierzeList.size()][columns.length];
 
                 for (int i = 0; i < zwierzeList.size(); i++) {
@@ -130,7 +130,7 @@ public class GridZwierzeModify implements ActionListener {
             }
 
             if (zrodlo == Obcy) {
-                String[] columns = {"id","nazwa", "opis"};
+                String[] columns = {"id", "nazwa", "opis"};
                 String[][] gatunekArray = new String[gatunekList.size()][columns.length];
 
                 for (int i = 0; i < gatunekList.size(); i++) {
@@ -166,21 +166,11 @@ public class GridZwierzeModify implements ActionListener {
                 for (int i = 0; i < zwierzeList.size(); i++) {
                     if (zwierzeList.get(i).getId().equals(this.id)) {
                         Zwierze updatedZwierze = zwierzeList.get(i);
-                        if (this.gatunek_id != null) {
-                            updatedZwierze.setGatunekID(this.gatunek_id);
-                        }
-                        if (!this.imie.getText().trim().equals("")) {
-                            updatedZwierze.setImie(this.imie.getText());
-                        }
-                        if (!this.plec.getText().trim().equals("")) {
-                            updatedZwierze.setPlec(this.plec.getText());
-                        }
-                        if (!this.wiek_lata.getText().trim().equals("")) {
-                            updatedZwierze.setWiek(Integer.valueOf(this.wiek_lata.getText()));
-                        }
-                        if (!this.waga_kg.getText().trim().equals("")) {
-                            updatedZwierze.setWaga(Integer.valueOf(this.waga_kg.getText()));
-                        }
+                        updatedZwierze.setGatunekID(this.gatunek_id);
+                        updatedZwierze.setImie(this.imie.getText());
+                        updatedZwierze.setPlec(this.plec.getText());
+                        updatedZwierze.setWiek(Integer.valueOf(this.wiek_lata.getText()));
+                        updatedZwierze.setWaga(Integer.valueOf(this.waga_kg.getText()));
 
                         updatedZwierze.update();
                         this.frame.dispose();
@@ -190,6 +180,8 @@ public class GridZwierzeModify implements ActionListener {
             }
         } catch (SQLException ex) {
             Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ValidationException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }
 

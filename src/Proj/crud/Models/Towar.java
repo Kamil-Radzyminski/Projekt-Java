@@ -5,14 +5,14 @@
  */
 package Proj.crud.Models;
 
-
+import Proj.Exceptions.ValidationException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.PreparedStatement;
-
+import java.util.regex.Pattern;
 
 /**
  *
@@ -25,70 +25,60 @@ public class Towar extends AbstractModel {
     private static final String SQL_GET_ONE = "SELECT * FROM towary WHERE id=?";
     private static final String SQL_UPDATE = "UPDATE towary SET magazyn_id=?, nazwa=?, ilosc=? WHERE id=?";
     private static final String SQL_INSERT = "INSERT INTO towary(magazyn_id, nazwa, ilosc) VALUES (?, ?, ?)";
-    
-    private Integer id;
-    private Integer magazyn_id;
-    private String nazwa;
-    private Double ilosc;
 
-    
-    
+    private Integer id;
+    private Integer magazyn_id = -1;
+    private String nazwa;
+    private Double ilosc = -1.0;
+
     public Towar(Integer id) {
         this.id = id;
     }
 
-    
     public Towar(Integer magazyn_id, String nazwa, Double ilosc) throws SQLException {
         this.magazyn_id = magazyn_id;
         this.nazwa = nazwa;
         this.ilosc = ilosc;
     }
 
-   
     public Towar(Integer magazyn_id, String nazwa, Double ilosc, Integer id) throws SQLException {
         this.magazyn_id = magazyn_id;
         this.nazwa = nazwa;
         this.ilosc = ilosc;
         this.id = id;
     }
-    
-    public Integer getId(){
+
+    public Integer getId() {
         return this.id;
     }
-    
-    public Integer getMagazynID(){
+
+    public Integer getMagazynID() {
         return this.magazyn_id;
     }
-    
-    public Towar setMagazynID(Integer magazyn_id){
+
+    public Towar setMagazynID(Integer magazyn_id) {
         this.magazyn_id = magazyn_id;
         return this;
     }
-    
-    public String getNazwa(){
+
+    public String getNazwa() {
         return this.nazwa;
     }
-    
-    public Towar setNazwa(String nazwa){
+
+    public Towar setNazwa(String nazwa) {
         this.nazwa = nazwa;
         return this;
     }
-    
-    public Double getIlosc(){
+
+    public Double getIlosc() {
         return this.ilosc;
     }
-    
-    public Towar setIlosc(Double ilosc){
+
+    public Towar setIlosc(Double ilosc) {
         this.ilosc = ilosc;
         return this;
     }
-    
-    
-    
 
-    
-    
-    
     @Override
     public boolean delete() throws SQLException {
         PreparedStatement preparedStatement = AbstractModel.getConnection().prepareStatement(SQL_DELETE);
@@ -98,7 +88,10 @@ public class Towar extends AbstractModel {
     }
 
     @Override
-    public AbstractModel create() throws SQLException {
+    public AbstractModel create() throws SQLException, ValidationException {
+        if (!this.validate()) {
+            throw new ValidationException("Nie wszystkie pola zostały wypełnione, lub zostały wypełnione niepoprawnie");
+        }
         PreparedStatement preparedStatement = AbstractModel.getConnection().prepareStatement(SQL_INSERT, Statement.RETURN_GENERATED_KEYS);
         preparedStatement.setInt(1, this.magazyn_id);
         preparedStatement.setString(2, this.nazwa);
@@ -114,7 +107,10 @@ public class Towar extends AbstractModel {
     }
 
     @Override
-    public AbstractModel update() throws SQLException {
+    public AbstractModel update() throws SQLException, ValidationException {
+        if (!this.validate()) {
+            throw new ValidationException("Nie wszystkie pola zostały wypełnione, lub zostały wypełnione niepoprawnie");
+        }
         PreparedStatement preparedStatement = AbstractModel.getConnection().prepareStatement(SQL_UPDATE);
         preparedStatement.setInt(1, this.magazyn_id);
         preparedStatement.setString(2, this.nazwa);
@@ -140,7 +136,8 @@ public class Towar extends AbstractModel {
 
         return this;
     }
-        public static List<Towar> getList() throws SQLException {
+
+    public static List<Towar> getList() throws SQLException {
         List<Towar> towaryList = new ArrayList<>();
         Statement stmt = AbstractModel.getConnection().createStatement();
         ResultSet result = stmt.executeQuery(Towar.SQL_GET);
@@ -157,5 +154,17 @@ public class Towar extends AbstractModel {
         }
 
         return towaryList;
+    }
+
+    @Override
+    protected boolean validate() {
+        Pattern LettersPattern = Patterns.Patterns.getLettersPattern();
+        Pattern IloscPattern = Patterns.Patterns.getIloscPattern();
+
+        return !(this.nazwa.trim().equals("")
+                || this.ilosc < 0
+                || this.magazyn_id == -1
+                || !LettersPattern.matcher(this.nazwa).matches()
+                || !IloscPattern.matcher(String.valueOf(this.ilosc)).matches());
     }
 }
