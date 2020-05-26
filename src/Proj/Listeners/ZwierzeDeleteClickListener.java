@@ -1,15 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package Proj.Listeners.User;
+package Proj.Listeners;
 
-import Proj.Listeners.AbstractClickAdapter;
-import Proj.crud.Models.Gromada;
+import Proj.crud.Models.Zwierze;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
@@ -18,10 +13,10 @@ import javax.swing.JTable;
  *
  * @author Kamil
  */
-public class GromadaDeleteClickListener extends AbstractClickAdapter {
+public class ZwierzeDeleteClickListener extends AbstractClickAdapter {
 
-    public GromadaDeleteClickListener(JTable jtable) {
-        super(jtable);
+    public ZwierzeDeleteClickListener(JTable jtable, JFrame jFrame) {
+        super(jtable, jFrame);
     }
 
     @Override
@@ -29,10 +24,11 @@ public class GromadaDeleteClickListener extends AbstractClickAdapter {
         Object entryId = this.getJtable().getModel().getValueAt(this.getJtable().getSelectedRow(), 0);
 
         try {
-            Gromada gromada = new Gromada(Integer.parseInt(entryId.toString()));
-            gromada.delete();
+            Zwierze zwierze = new Zwierze(Integer.parseInt(entryId.toString()));
+            zwierze.delete();
 //            System.out.println("Usunąłem wiersz o ID:" + entryId.toString());
             JOptionPane.showMessageDialog(null, "Usunięto rekord");
+            this.getJframe().dispose();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Nie możesz usunąć tego rekordu");
         }

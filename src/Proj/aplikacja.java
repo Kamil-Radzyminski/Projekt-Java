@@ -4,14 +4,18 @@
  * and open the template in the editor.
  */
 package Proj;
-import Proj.Listeners.User.ZwierzeDeleteClickListener;
-import Proj.Listeners.User.GatunekDeleteClickListener;
-import Proj.Listeners.User.RodzinaDeleteClickListener;
-import Proj.Listeners.User.GromadaDeleteClickListener;
-import Proj.Listeners.User.MagazynDeleteClickListener;
-import Proj.Listeners.User.AdminDeleteClickListener;
-import Proj.Listeners.User.TowarDeleteClickListener;
-import Proj.Listeners.User.UserDeleteClickListener;
+
+import Proj.GridModify.GridMagazynModify;
+import Proj.GridModify.GridAdminModify;
+import Proj.GridModify.GridUserModify;
+import Proj.Listeners.ZwierzeDeleteClickListener;
+import Proj.Listeners.GatunekDeleteClickListener;
+import Proj.Listeners.RodzinaDeleteClickListener;
+import Proj.Listeners.GromadaDeleteClickListener;
+import Proj.Listeners.MagazynDeleteClickListener;
+import Proj.Listeners.AdminDeleteClickListener;
+import Proj.Listeners.TowarDeleteClickListener;
+import Proj.Listeners.UserDeleteClickListener;
 import javax.swing.table.TableColumnModel;
 import Proj.crud.Models.User;
 import Proj.crud.Models.Administrator;
@@ -583,7 +587,7 @@ public class aplikacja extends JFrame implements ActionListener {
                 jFrame.setLocation(200, 50);
                 jFrame.setSize(300, 400);
                 jFrame.setVisible(true);
-                
+
             } catch (SQLException ex) {
                 Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -593,7 +597,7 @@ public class aplikacja extends JFrame implements ActionListener {
         if (zrodlo == Usun_Zwierze) {
             try {
                 List<Zwierze> zwierzeList = Zwierze.getList();
-                String[] columns = {"id","plec", "imie", "wiek_lata", "waga_kg"};
+                String[] columns = {"id", "plec", "imie", "wiek_lata", "waga_kg"};
                 String[][] zwierzetaArray = new String[zwierzeList.size()][columns.length];
 
                 for (int i = 0; i < zwierzeList.size(); i++) {
@@ -616,7 +620,7 @@ public class aplikacja extends JFrame implements ActionListener {
                 tcm.removeColumn(tcm.getColumn(0));
 
                 ZwierzeDeleteClickListener zwierzeDeleteClickListener = new ZwierzeDeleteClickListener(jt1, jFrame);
-                
+
                 jt1.addMouseListener(zwierzeDeleteClickListener);
 
                 JScrollPane sp = new JScrollPane(jt1);
@@ -633,7 +637,7 @@ public class aplikacja extends JFrame implements ActionListener {
         if (zrodlo == Usun_Gatunek) {
             try {
                 List<Gatunek> gatunekList = Gatunek.getList();
-                String[] columns = {"id","nazwa", "opis"};
+                String[] columns = {"id", "nazwa", "opis"};
                 String[][] gatunekArray = new String[gatunekList.size()][columns.length];
 
                 for (int i = 0; i < gatunekList.size(); i++) {
@@ -662,7 +666,7 @@ public class aplikacja extends JFrame implements ActionListener {
                 jFrame.setLocation(200, 50);
                 jFrame.setSize(300, 400);
                 jFrame.setVisible(true);
-                
+
             } catch (SQLException ex) {
                 Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -693,7 +697,7 @@ public class aplikacja extends JFrame implements ActionListener {
                 tcm.removeColumn(tcm.getColumn(0));
 
                 UserDeleteClickListener userDeleteClickListener = new UserDeleteClickListener(jt1, jFrame);
-                
+
                 jt1.addMouseListener(userDeleteClickListener);
 
                 JScrollPane sp = new JScrollPane(jt1);
@@ -710,7 +714,7 @@ public class aplikacja extends JFrame implements ActionListener {
         if (zrodlo == Usun_Rodzine) {
             try {
                 List<Rodzina> rodzinaList = Rodzina.getList();
-                String[] columns = {"id","nazwa", "opis"};
+                String[] columns = {"id", "nazwa", "opis"};
                 String[][] rodzinaArray = new String[rodzinaList.size()][columns.length];
 
                 for (int i = 0; i < rodzinaList.size(); i++) {
@@ -739,7 +743,7 @@ public class aplikacja extends JFrame implements ActionListener {
                 jFrame.setLocation(200, 50);
                 jFrame.setSize(300, 400);
                 jFrame.setVisible(true);
-                
+
             } catch (SQLException ex) {
                 Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -748,7 +752,7 @@ public class aplikacja extends JFrame implements ActionListener {
         if (zrodlo == Usun_Gromade) {
             try {
                 List<Gromada> gromadaList = Gromada.getList();
-                String[] columns = {"id","nazwa", "opis"};
+                String[] columns = {"id", "nazwa", "opis"};
                 String[][] gromadaArray = new String[gromadaList.size()][columns.length];
 
                 for (int i = 0; i < gromadaList.size(); i++) {
@@ -777,7 +781,7 @@ public class aplikacja extends JFrame implements ActionListener {
                 jFrame.setLocation(200, 50);
                 jFrame.setSize(300, 400);
                 jFrame.setVisible(true);
-                
+
             } catch (SQLException ex) {
                 Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -786,7 +790,7 @@ public class aplikacja extends JFrame implements ActionListener {
         if (zrodlo == Usun_Przedmiot) {
             try {
                 List<Towar> towaryList = Towar.getList();
-                String[] columns = {"id","nazwa", "ilosc"};
+                String[] columns = {"id", "nazwa", "ilosc"};
                 String[][] towarArray = new String[towaryList.size()][columns.length];
 
                 for (int i = 0; i < towaryList.size(); i++) {
@@ -862,7 +866,7 @@ public class aplikacja extends JFrame implements ActionListener {
         if (zrodlo == Usun_Administratora) {
             try {
                 List<Administrator> administratorList = Administrator.getList();
-                String[] columns = {"id","nazwa"};
+                String[] columns = {"id", "nazwa"};
                 String[][] administratorsArray = new String[administratorList.size()][columns.length];
 
                 for (int i = 0; i < administratorList.size(); i++) {
@@ -882,7 +886,7 @@ public class aplikacja extends JFrame implements ActionListener {
                 tcm.removeColumn(tcm.getColumn(0));
 
                 AdminDeleteClickListener adminDeleteClickListener = new AdminDeleteClickListener(jt1, jFrame);
-                
+
                 jt1.addMouseListener(adminDeleteClickListener);
 
                 JScrollPane sp = new JScrollPane(jt1);
@@ -953,37 +957,35 @@ public class aplikacja extends JFrame implements ActionListener {
 
         if (zrodlo == Modyfikuj_Magazyn) {
             try {
-                Magazyn magazyn = new Magazyn(2); //@TODO pobrany id z formatki
-                magazyn.getOne();
-                magazyn.setNazwa("NowaDwojka");
-                magazyn.update();
-            } catch (SQLException ex) {
-                Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+                GridMagazynModify grid = new GridMagazynModify();
+                grid.run();
+            } catch (Exception exception) {
+                JOptionPane.showMessageDialog(null, "Wystąpił błąd.");
             }
         }
 
         if (zrodlo == Modyfikuj_Pracownika) {
             try {
-
-                User user = new User(6); //@TODO pobrany id z formatki
-                user.getOne();
-                user.setFirstname("");
-                user.setLastname("Malinowsky");
-                user.setRole("");
-                user.update();
-            } catch (SQLException ex) {
-                Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+                GridUserModify grid = new GridUserModify();
+                grid.run();
+            } catch (Exception exception) {
+                JOptionPane.showMessageDialog(null, "Wystąpił błąd.");
             }
+//                User user = new User(6); //@TODO pobrany id z formatki
+//                user.getOne();
+//                user.setFirstname("");
+//                user.setLastname("Malinowsky");
+//                user.setRole("");
+//                user.update();
+
         }
 
         if (zrodlo == Modyfikuj_Administratora) {
             try {
-                Administrator admninistrator = new Administrator(6); //@TODO pobrany id z formatki
-                admninistrator.getOne();
-                admninistrator.setNazwa("Malinowsky");
-                admninistrator.update();
-            } catch (SQLException ex) {
-                Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+                GridAdminModify grid = new GridAdminModify();
+                grid.run();
+            } catch (Exception exception) {
+                JOptionPane.showMessageDialog(null, "Wystąpił błąd.");
             }
         }
 

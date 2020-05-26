@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Proj.Listeners.User;
+package Proj.Listeners;
 
-import Proj.Listeners.AbstractClickAdapter;
 import Proj.crud.Models.Gatunek;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
@@ -20,8 +20,8 @@ import javax.swing.JTable;
  */
 public class GatunekDeleteClickListener extends AbstractClickAdapter {
 
-    public GatunekDeleteClickListener(JTable jtable) {
-        super(jtable);
+    public GatunekDeleteClickListener(JTable jtable, JFrame jFrame) {
+        super(jtable, jFrame);
     }
 
     @Override
@@ -33,6 +33,7 @@ public class GatunekDeleteClickListener extends AbstractClickAdapter {
             gatunek.delete();
 //            System.out.println("Usunąłem wiersz o ID:" + entryId.toString());
             JOptionPane.showMessageDialog(null, "Usunięto rekord");
+            this.getJframe().dispose();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Nie możesz usunąć tego rekordu");
         }

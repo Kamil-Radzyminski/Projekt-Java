@@ -1,15 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package Proj.Listeners.User;
+package Proj.Listeners;
 
-import Proj.crud.Models.Towar;
-import Proj.Listeners.AbstractClickAdapter;
+import Proj.crud.Models.User;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
@@ -18,10 +13,10 @@ import javax.swing.JTable;
  *
  * @author Kamil
  */
-public class TowarDeleteClickListener extends AbstractClickAdapter {
+public class UserDeleteClickListener extends AbstractClickAdapter {
 
-    public TowarDeleteClickListener(JTable jtable) {
-        super(jtable);
+    public UserDeleteClickListener(JTable jtable, JFrame jFrame) {
+        super(jtable, jFrame);
     }
 
     @Override
@@ -29,10 +24,11 @@ public class TowarDeleteClickListener extends AbstractClickAdapter {
         Object entryId = this.getJtable().getModel().getValueAt(this.getJtable().getSelectedRow(), 0);
 
         try {
-            Towar towar = new Towar(Integer.parseInt(entryId.toString()));
-            towar.delete();
+            User user = new User(Integer.parseInt(entryId.toString()));
+            user.delete();
 //            System.out.println("Usunąłem wiersz o ID:" + entryId.toString());
             JOptionPane.showMessageDialog(null, "Usunięto rekord");
+            this.getJframe().dispose();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Nie możesz usunąć tego rekordu");
         }

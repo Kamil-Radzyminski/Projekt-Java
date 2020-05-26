@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Proj.Listeners.User;
+package Proj.Listeners;
 
-import Proj.Listeners.AbstractClickAdapter;
-import Proj.crud.Models.Rodzina;
+import Proj.crud.Models.Administrator;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
@@ -18,10 +18,10 @@ import javax.swing.JTable;
  *
  * @author Kamil
  */
-public class RodzinaDeleteClickListener extends AbstractClickAdapter {
+public class AdminDeleteClickListener extends AbstractClickAdapter {
 
-    public RodzinaDeleteClickListener(JTable jtable) {
-        super(jtable);
+    public AdminDeleteClickListener(JTable jtable, JFrame jFrame) {
+        super(jtable, jFrame);
     }
 
     @Override
@@ -29,10 +29,11 @@ public class RodzinaDeleteClickListener extends AbstractClickAdapter {
         Object entryId = this.getJtable().getModel().getValueAt(this.getJtable().getSelectedRow(), 0);
 
         try {
-            Rodzina rodzina = new Rodzina(Integer.parseInt(entryId.toString()));
-            rodzina.delete();
+            Administrator admin = new Administrator(Integer.parseInt(entryId.toString()));
+            admin.delete();
 //            System.out.println("Usunąłem wiersz o ID:" + entryId.toString());
             JOptionPane.showMessageDialog(null, "Usunięto rekord");
+            this.getJframe().dispose();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Nie możesz usunąć tego rekordu");
         }

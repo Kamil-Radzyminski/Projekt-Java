@@ -3,16 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Proj.Listeners.User;
+package Proj.Listeners;
 
-import Proj.crud.Models.Administrator;
-import Proj.Listeners.AbstractClickAdapter;
-import Proj.crud.Models.User;
+import Proj.crud.Models.Towar;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -22,9 +18,9 @@ import javax.swing.JTable;
  *
  * @author Kamil
  */
-public class AdminDeleteClickListener extends AbstractClickAdapter {
+public class TowarDeleteClickListener extends AbstractClickAdapter {
 
-    public AdminDeleteClickListener(JTable jtable, JFrame jFrame) {
+    public TowarDeleteClickListener(JTable jtable, JFrame jFrame) {
         super(jtable, jFrame);
     }
 
@@ -33,8 +29,8 @@ public class AdminDeleteClickListener extends AbstractClickAdapter {
         Object entryId = this.getJtable().getModel().getValueAt(this.getJtable().getSelectedRow(), 0);
 
         try {
-            Administrator admin = new Administrator(Integer.parseInt(entryId.toString()));
-            admin.delete();
+            Towar towar = new Towar(Integer.parseInt(entryId.toString()));
+            towar.delete();
 //            System.out.println("Usunąłem wiersz o ID:" + entryId.toString());
             JOptionPane.showMessageDialog(null, "Usunięto rekord");
             this.getJframe().dispose();

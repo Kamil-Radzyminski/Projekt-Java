@@ -47,7 +47,7 @@ public class Start extends JFrame implements ItemListener{
         cards.add(card2,"Administrator");
         
         combobox = new JPanel();
-        String[] cbitems = {"Pracownik","Administrator"};
+        String[] cbitems = {"Pracownik/Kierownik","Administrator"};
         JComboBox cb = new JComboBox(cbitems);
         cb.addItemListener(this);
         combobox.add(cb);

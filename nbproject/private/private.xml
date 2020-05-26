@@ -3,32 +3,32 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/Kamil/Documents/NetBeansProjects/Projekt/src/Proj/Listeners/GromadaDeleteClickListener.java</file>
             <file>file:/C:/Users/Kamil/Documents/NetBeansProjects/Projekt/src/Proj/crud/Models/Administrator.java</file>
-            <file>file:/C:/Users/Kamil/Documents/NetBeansProjects/Projekt/src/Proj/Grid.java</file>
-            <file>file:/C:/Users/Kamil/Documents/NetBeansProjects/Projekt/src/Proj/crud/Models/Zwierze.java</file>
+            <file>file:/C:/Users/Kamil/Documents/NetBeansProjects/Projekt/src/Proj/Listeners/UserModifyIDClickListener.java</file>
+            <file>file:/C:/Users/Kamil/Documents/NetBeansProjects/Projekt/src/Proj/Listeners/AdminDeleteClickListener.java</file>
             <file>file:/C:/Users/Kamil/Documents/NetBeansProjects/Projekt/src/Proj/Exceptions/ApplicationErrorException.java</file>
-            <file>file:/C:/Users/Kamil/Documents/NetBeansProjects/Projekt/src/Proj/Listeners/User/GatunekDeleteClickListener.java</file>
-            <file>file:/C:/Users/Kamil/Documents/NetBeansProjects/Projekt/src/Proj/Listeners/User/ZwierzeDeleteClickListener.java</file>
-            <file>file:/C:/Users/Kamil/Documents/NetBeansProjects/Projekt/src/Proj/Listeners/User/TowarDeleteClickListener.java</file>
+            <file>file:/C:/Users/Kamil/Documents/NetBeansProjects/Projekt/src/Proj/Listeners/MagazynDeleteClickListener.java</file>
+            <file>file:/C:/Users/Kamil/Documents/NetBeansProjects/Projekt/src/Proj/GridModify/GridMagazynModify.java</file>
+            <file>file:/C:/Users/Kamil/Documents/NetBeansProjects/Projekt/src/Proj/Listeners/UserModifySectorIDClickListener.java</file>
+            <file>file:/C:/Users/Kamil/Documents/NetBeansProjects/Projekt/src/Proj/Listeners/UserDeleteClickListener.java</file>
             <file>file:/C:/Users/Kamil/Documents/NetBeansProjects/Projekt/src/Proj/crud/Models/User.java</file>
-            <file>file:/C:/Users/Kamil/Documents/NetBeansProjects/Projekt/src/Proj/crud/Models/AbstractModel.java</file>
             <file>file:/C:/Users/Kamil/Documents/NetBeansProjects/Projekt/src/Proj/Projekt.java</file>
-            <file>file:/C:/Users/Kamil/Documents/NetBeansProjects/Projekt/src/Proj/Listeners/User/MagazynDeleteClickListener.java</file>
-            <file>file:/C:/Users/Kamil/Documents/NetBeansProjects/Projekt/src/Proj/Listeners/User/AdminDeleteClickListener.java</file>
-            <file>file:/C:/Users/Kamil/Documents/NetBeansProjects/Projekt/src/Proj/crud/Models/Towar.java</file>
-            <file>file:/C:/Users/Kamil/Documents/NetBeansProjects/Projekt/src/Proj/Listeners/User/RodzinaDeleteClickListener.java</file>
-            <file>file:/C:/Users/Kamil/Documents/NetBeansProjects/Projekt/src/Proj/crud/Models/Rodzina.java</file>
-            <file>file:/C:/Users/Kamil/Documents/NetBeansProjects/Projekt/src/Proj/crud/Models/Gromada.java</file>
+            <file>file:/C:/Users/Kamil/Documents/NetBeansProjects/Projekt/src/Proj/Listeners/ZwierzeDeleteClickListener.java</file>
+            <file>file:/C:/Users/Kamil/Documents/NetBeansProjects/Projekt/src/Proj/GridModify/GridAdminModify.java</file>
             <file>file:/C:/Users/Kamil/Documents/NetBeansProjects/Projekt/src/Proj/logowanie.java</file>
+            <file>file:/C:/Users/Kamil/Documents/NetBeansProjects/Projekt/src/Proj/Listeners/MagazynModifyUserIDClickListener.java</file>
             <file>file:/C:/Users/Kamil/Documents/NetBeansProjects/Projekt/src/Proj/lib.java</file>
             <file>file:/C:/Users/Kamil/Documents/NetBeansProjects/Projekt/src/Proj/Listeners/AbstractClickAdapter.java</file>
-            <file>file:/C:/Users/Kamil/Documents/NetBeansProjects/Projekt/src/Proj/Listeners/User/UserDeleteClickListener.java</file>
-            <file>file:/C:/Users/Kamil/Documents/NetBeansProjects/Projekt/src/Proj/Listeners/User/GromadaDeleteClickListener.java</file>
+            <file>file:/C:/Users/Kamil/Documents/NetBeansProjects/Projekt/src/Proj/GridModify/GridUserModify.java</file>
+            <file>file:/C:/Users/Kamil/Documents/NetBeansProjects/Projekt/src/Proj/Listeners/MagazynModifyIDClickListener.java</file>
             <file>file:/C:/Users/Kamil/Documents/NetBeansProjects/Projekt/src/Proj/menu.java</file>
+            <file>file:/C:/Users/Kamil/Documents/NetBeansProjects/Projekt/src/Proj/Listeners/AdminModifyIDClickListener.java</file>
             <file>file:/C:/Users/Kamil/Documents/NetBeansProjects/Projekt/src/Proj/aplikacja.java</file>
-            <file>file:/C:/Users/Kamil/Documents/NetBeansProjects/Projekt/src/Proj/crud/Models/Gatunek.java</file>
             <file>file:/C:/Users/Kamil/Documents/NetBeansProjects/Projekt/src/Proj/data.java</file>
+            <file>file:/C:/Users/Kamil/Documents/NetBeansProjects/Projekt/src/Proj/Listeners/GatunekDeleteClickListener.java</file>
             <file>file:/C:/Users/Kamil/Documents/NetBeansProjects/Projekt/src/Proj/crud/Models/Magazyn.java</file>
+            <file>file:/C:/Users/Kamil/Documents/NetBeansProjects/Projekt/src/Proj/Start.java</file>
         </group>
     </open-files>
 </project-private>
