@@ -6,6 +6,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.PreparedStatement;
+import java.util.regex.Pattern;
 
 /**
  * User model
@@ -178,4 +179,21 @@ public class Zwierze extends AbstractModel {
 
         return this;
     }
+    
+        @Override
+    protected boolean validate() {
+        Pattern ImieNazwiskoPattern = Pattern.compile("[A-Z]{1}[a-z]*");
+        Pattern RolaPattern = Pattern.compile("(pracownik|kierownik){1}");
+
+        return !(this.firstname.trim().equals("")
+                || this.lastname.trim().equals("")
+                || this.role.trim().equals("")
+                || this.login.trim().equals("")
+                || this.password.trim().equals("")
+                || this.sectorId == -1
+                || !ImieNazwiskoPattern.matcher(this.firstname).matches()
+                || !ImieNazwiskoPattern.matcher(this.lastname).matches()
+                || !RolaPattern.matcher(this.role).matches());
+    }
+    
 }

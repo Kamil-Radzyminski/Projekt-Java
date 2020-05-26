@@ -1,11 +1,13 @@
 package Proj.crud.Models;
 
+import Proj.Exceptions.ValidationException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.PreparedStatement;
+import java.util.regex.Pattern;
 
 /**
  * User model
@@ -26,7 +28,7 @@ public class User extends AbstractModel {
     private String login;
     private String password;
     private Integer id;
-    private Integer sectorId;
+    private Integer sectorId = -1;
 
     /**
      * Create User
@@ -199,6 +201,14 @@ public class User extends AbstractModel {
         return this.id;
     }
 
+    /**
+     * Get sectorID
+     * @return
+     */
+    public int getSectorId() {
+        return this.sectorId;
+    }
+
     @Override
     public boolean delete() throws SQLException {
         PreparedStatement preparedStatement = AbstractModel.getConnection().prepareStatement(SQL_DELETE);
@@ -208,7 +218,10 @@ public class User extends AbstractModel {
     }
 
     @Override
-    public AbstractModel create() throws SQLException {
+    public AbstractModel create() throws SQLException, ValidationException {
+        if (!this.validate()) {
+            throw new ValidationException("Nie wszystkie pola zostały wypełnione, lub zostały wypełnione niepoprawnie");
+        }
         PreparedStatement preparedStatement = AbstractModel.getConnection().prepareStatement(SQL_INSERT, Statement.RETURN_GENERATED_KEYS);
         preparedStatement.setInt(1, this.sectorId);
         preparedStatement.setString(2, this.lastname);
@@ -227,7 +240,10 @@ public class User extends AbstractModel {
     }
 
     @Override
-    public AbstractModel update() throws SQLException {
+    public AbstractModel update() throws SQLException, ValidationException {
+        if (!this.validate()) {
+            throw new ValidationException("Nie wszystkie pola zostały wypełnione, lub zostały wypełnione niepoprawnie");
+        }
         PreparedStatement preparedStatement = AbstractModel.getConnection().prepareStatement(SQL_UPDATE);
         preparedStatement.setInt(1, this.sectorId);
         preparedStatement.setString(2, this.lastname);
@@ -280,4 +296,21 @@ public class User extends AbstractModel {
 
         return this;
     }
+
+    @Override
+    protected boolean validate() {
+        Pattern ImieNazwiskoPattern = Pattern.compile("[A-Z]{1}[a-z]*");
+        Pattern RolaPattern = Pattern.compile("(pracownik|kierownik){1}");
+
+        return !(this.firstname.trim().equals("")
+                || this.lastname.trim().equals("")
+                || this.role.trim().equals("")
+                || this.login.trim().equals("")
+                || this.password.trim().equals("")
+                || this.sectorId == -1
+                || !ImieNazwiskoPattern.matcher(this.firstname).matches()
+                || !ImieNazwiskoPattern.matcher(this.lastname).matches()
+                || !RolaPattern.matcher(this.role).matches());
+    }
+
 }

@@ -1,5 +1,7 @@
 package Proj.GridAdd;
 
+import Patterns.Paterny;
+import Proj.Exceptions.ValidationException;
 import Proj.Listeners.UserAddSectorIDClickListener;
 import Proj.aplikacja;
 import Proj.crud.Models.Sektor;
@@ -11,6 +13,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -40,6 +43,7 @@ public class GridUserAdd implements ActionListener {
     }
 
     public void run() {
+
         frame.setLayout(new GridLayout(0, 2, 2, 3));
 
         frame.add(new JLabel("Sektor"));
@@ -47,13 +51,13 @@ public class GridUserAdd implements ActionListener {
         frame.add(Obcy);
         Obcy.addActionListener(this);
 
-        frame.add(new JLabel("Nazwisko"));
-        nazwisko = new JTextField();
-        frame.add(nazwisko);
-
         frame.add(new JLabel("Imię"));
         imie = new JTextField();
         frame.add(imie);
+
+        frame.add(new JLabel("Nazwisko"));
+        nazwisko = new JTextField();
+        frame.add(nazwisko);
 
         frame.add(new JLabel("Rola"));
         rola = new JTextField();
@@ -119,15 +123,6 @@ public class GridUserAdd implements ActionListener {
             }
 
             if (zrodlo == Dodaj) {
-                if (this.imie.getText().trim().equals("")
-                        || this.nazwisko.getText().trim().equals("")
-                        || this.rola.getText().trim().equals("")
-                        || this.login.getText().trim().equals("")
-                        || this.haslo.getText().trim().equals("")
-                        || this.sector_id == -1) {
-                    JOptionPane.showMessageDialog(null, "Proszę wypełnić wszystkie pola");
-                } else {
-
                     User user = new User(
                             this.imie.getText(),
                             this.nazwisko.getText(),
@@ -138,11 +133,13 @@ public class GridUserAdd implements ActionListener {
 
                     user.create();
                     this.frame.dispose();
-                }
 
             }
         } catch (SQLException ex) {
             Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ValidationException ex) {
+            JOptionPane.showMessageDialog(null,ex.getMessage());
+            
         }
     }
 

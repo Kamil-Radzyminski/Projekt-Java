@@ -1,5 +1,6 @@
 package Proj.GridModify;
 
+import Proj.Exceptions.ValidationException;
 import Proj.Listeners.UserModifySectorIDClickListener;
 import Proj.Listeners.UserModifyIDClickListener;
 import Proj.aplikacja;
@@ -15,6 +16,7 @@ import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -33,6 +35,26 @@ public class GridUserModify implements ActionListener {
 
     public GridUserModify() {
         this.frame = new JFrame("Modyfikacja użytkownika");
+    }
+
+    public JTextField getNazwisko() {
+        return this.nazwisko;
+    }
+
+    public JTextField getImie() {
+        return this.imie;
+    }
+
+    public JTextField getRola() {
+        return this.rola;
+    }
+
+    public JTextField getLogin() {
+        return this.login;
+    }
+
+    public JTextField getHaslo() {
+        return this.haslo;
     }
 
     public void setId(Integer id) {
@@ -64,7 +86,7 @@ public class GridUserModify implements ActionListener {
         imie = new JTextField();
         frame.add(imie);
 
-        frame.add(new JLabel("Rola"));
+        frame.add(new JLabel("Rola (pracownik/kierownik)"));
         rola = new JTextField();
         frame.add(rola);
 
@@ -166,24 +188,13 @@ public class GridUserModify implements ActionListener {
                 for (int i = 0; i < userList.size(); i++) {
                     if (userList.get(i).getId().equals(this.id)) {
                         User updatedUser = userList.get(i);
-                        if (this.sector_id != null) {
-                            updatedUser.setSectorId(this.sector_id);
-                        }
-                        if (!this.imie.getText().trim().equals("")) {
-                            updatedUser.setFirstname(this.imie.getText());
-                        }
-                        if (!this.nazwisko.getText().trim().equals("")) {
-                            updatedUser.setLastname(this.nazwisko.getText());
-                        }
-                        if (!this.rola.getText().trim().equals("")) {
-                            updatedUser.setRole(this.rola.getText());
-                        }
-                        if (!this.login.getText().trim().equals("")) {
-                            updatedUser.setLogin(this.login.getText());
-                        }
-                        if (!this.haslo.getText().trim().equals("")) {
-                            updatedUser.setPassword(this.haslo.getText());
-                        }
+                        updatedUser.setSectorId(this.sector_id);
+                        updatedUser.setFirstname(this.imie.getText());
+                        updatedUser.setLastname(this.nazwisko.getText());
+                        updatedUser.setRole(this.rola.getText());
+                        updatedUser.setLogin(this.login.getText());
+                        updatedUser.setPassword(this.haslo.getText());
+
                         updatedUser.update();
                         this.frame.dispose();
                     }
@@ -192,6 +203,8 @@ public class GridUserModify implements ActionListener {
             }
         } catch (SQLException ex) {
             Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ValidationException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }
 
