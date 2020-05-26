@@ -61,17 +61,17 @@ public class GridAdminAdd implements ActionListener {
         try {
 
             if (zrodlo == Dodaj) {
-
-                Administrator admin = new Administrator(
-                        this.nazwa.getText(),
-                        this.login.getText(),
-                        this.haslo.getText()
-                );
                 if (this.nazwa.getText().trim().equals("")
                         || this.login.getText().trim().equals("")
                         || this.haslo.getText().trim().equals("")) {
                     JOptionPane.showMessageDialog(null, "Proszę wypełnić wszystkie pola");
                 } else {
+                    Administrator admin = new Administrator(
+                            this.nazwa.getText(),
+                            this.login.getText(),
+                            this.haslo.getText()
+                    );
+
                     admin.create();
                     this.frame.dispose();
                 }

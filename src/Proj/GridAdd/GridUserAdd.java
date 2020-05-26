@@ -119,7 +119,14 @@ public class GridUserAdd implements ActionListener {
             }
 
             if (zrodlo == Dodaj) {
-                
+                if (this.imie.getText().trim().equals("")
+                        || this.nazwisko.getText().trim().equals("")
+                        || this.rola.getText().trim().equals("")
+                        || this.login.getText().trim().equals("")
+                        || this.haslo.getText().trim().equals("")
+                        || this.sector_id == -1) {
+                    JOptionPane.showMessageDialog(null, "Proszę wypełnić wszystkie pola");
+                } else {
 
                     User user = new User(
                             this.imie.getText(),
@@ -128,19 +135,10 @@ public class GridUserAdd implements ActionListener {
                             this.login.getText(),
                             this.haslo.getText(),
                             this.sector_id);
-                    if (this.imie.getText().trim().equals("")
-                            || this.nazwisko.getText().trim().equals("")
-                            || this.rola.getText().trim().equals("")
-                            || this.login.getText().trim().equals("")
-                            || this.haslo.getText().trim().equals("")
-                            || this.sector_id == -1){
-                        JOptionPane.showMessageDialog(null, "Proszę wypełnić wszystkie pola");
-                    } else {
-                        user.create();
-                        this.frame.dispose();
-                    }
 
-                
+                    user.create();
+                    this.frame.dispose();
+                }
 
             }
         } catch (SQLException ex) {

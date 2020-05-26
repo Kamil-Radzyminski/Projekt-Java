@@ -5,7 +5,9 @@
  */
 package Proj;
 
+import Proj.GridAdd.GridTowarAdd;
 import Proj.GridAdd.GridAdminAdd;
+import Proj.GridAdd.GridMagazynAdd;
 import Proj.GridAdd.GridUserAdd;
 import Proj.GridModify.GridZwierzeModify;
 import Proj.GridModify.GridGatunekModify;
@@ -329,19 +331,19 @@ public class aplikacja extends JFrame implements ActionListener {
 
         if (zrodlo == Dodaj_Przedmiot) {
             try {
-                Towar towar = new Towar(1, "Nowa Karma", 4.5); //@TODO dodać prawdziwe dane z formularza
-                towar.create();
-            } catch (SQLException ex) {
-                Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+                GridTowarAdd grid = new GridTowarAdd();
+                grid.run();
+            } catch (Exception exception) {
+                JOptionPane.showMessageDialog(null, "Wystąpił błąd.");
             }
         }
 
         if (zrodlo == Dodaj_Magazyn) {
             try {
-                Magazyn magazyn = new Magazyn(1, "Nowa magazyn", "do wszystkiego"); //@TODO dodać prawdziwe dane z formularza
-                magazyn.create();
-            } catch (SQLException ex) {
-                Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+                GridMagazynAdd grid = new GridMagazynAdd();
+                grid.run();
+            } catch (Exception exception) {
+                JOptionPane.showMessageDialog(null, "Wystąpił błąd.");
             }
         }
 

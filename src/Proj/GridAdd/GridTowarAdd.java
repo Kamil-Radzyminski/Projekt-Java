@@ -1,9 +1,9 @@
 package Proj.GridAdd;
 
-import Proj.Listeners.MagazynAddUserIDClickListener;
+import Proj.Listeners.TowarAddMagazynIDClickListener;
 import Proj.aplikacja;
 import Proj.crud.Models.Magazyn;
-import Proj.crud.Models.User;
+import Proj.crud.Models.Towar;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,26 +24,26 @@ import javax.swing.table.TableColumnModel;
  *
  * @author Kamil
  */
-public class GridMagazynAdd implements ActionListener {
+public class GridTowarAdd implements ActionListener {
 
     private JButton Obcy, Dodaj;
-    private JTextField nazwa, przeznaczenie;
-    private Integer uzytkownik_id = -1;
+    private JTextField nazwa, ilosc;
+    private Integer magazyn_id = -1;
     private JFrame frame;
 
-    public GridMagazynAdd() {
+    public GridTowarAdd() {
         this.frame = new JFrame("GridLayout Test");
     }
 
-    public void setUzytkownikID(Integer uzytkownik_id) {
-        this.uzytkownik_id = uzytkownik_id;
+    public void setMagazynID(Integer magazyn_id) {
+        this.magazyn_id = magazyn_id;
     }
 
     public void run() {
         frame.setLayout(new GridLayout(0, 2, 2, 3));
 
-        frame.add(new JLabel("Użytkownik"));
-        Obcy = new JButton("Wybierz przypisanego użytkownika");
+        frame.add(new JLabel("Magazyn"));
+        Obcy = new JButton("Wybierz magazyn");
         frame.add(Obcy);
         Obcy.addActionListener(this);
 
@@ -51,9 +51,9 @@ public class GridMagazynAdd implements ActionListener {
         nazwa = new JTextField();
         frame.add(nazwa);
 
-        frame.add(new JLabel("Przeznaczenie"));
-        przeznaczenie = new JTextField();
-        frame.add(przeznaczenie);
+        frame.add(new JLabel("Ilość"));
+        ilosc = new JTextField();
+        frame.add(ilosc);
 
         Dodaj = new JButton("Dodaj");
         frame.add(Dodaj);
@@ -72,54 +72,55 @@ public class GridMagazynAdd implements ActionListener {
         JFrame jFrame = new JFrame();
 
         try {
-            List<User> userList = User.getList();
+            List<Magazyn> magazynyList = Magazyn.getList();
 
             if (zrodlo == Obcy) {
-                String[] columns = {"id", "imie", "nazwisko", "rola"};
-                String[][] usersArray = new String[userList.size()][columns.length];
+                String[] columns = {"id", "nazwa", "przeznaczenie"};
+                String[][] magazynArray = new String[magazynyList.size()][columns.length];
 
-                for (int i = 0; i < userList.size(); i++) {
-                    User currentUser = userList.get(i);
+                for (int i = 0; i < magazynyList.size(); i++) {
+                    Magazyn currentMagazyn = magazynyList.get(i);
 
-                    String[] singleUser = {
-                        currentUser.getId().toString(),
-                        currentUser.getFirstname(),
-                        currentUser.getLastname(),
-                        currentUser.getRole()
-                    };
-                    usersArray[i] = singleUser;
+                    String[] singleMagazyn = {
+                        currentMagazyn.getId().toString(),
+                        currentMagazyn.getNazwa(),
+                        currentMagazyn.getPrzeznaczenie(),};
+                    magazynArray[i] = singleMagazyn;
 
                 }
 
-                JTable jt1 = new JTable(usersArray, columns);
+                JTable jt1 = new JTable(magazynArray, columns);
 
                 TableColumnModel tcm = jt1.getColumnModel();
                 tcm.removeColumn(tcm.getColumn(0));
 
-                MagazynAddUserIDClickListener magazynAddUserIDClickListener = new MagazynAddUserIDClickListener(jt1, jFrame, this);
+                TowarAddMagazynIDClickListener towarAddMagazynIDClickListener = new TowarAddMagazynIDClickListener(jt1, jFrame, this);
 
-                jt1.addMouseListener(magazynAddUserIDClickListener);
+                jt1.addMouseListener(towarAddMagazynIDClickListener);
 
                 JScrollPane sp = new JScrollPane(jt1);
                 jFrame.add(sp);
                 jFrame.setLocation(200, 50);
                 jFrame.setSize(300, 400);
                 jFrame.setVisible(true);
+
             }
 
             if (zrodlo == Dodaj) {
-                if (this.uzytkownik_id == -1
+
+                if (this.magazyn_id == -1
                         || this.nazwa.getText().trim().equals("")
-                        || this.przeznaczenie.getText().trim().equals("")) {
+                        || this.ilosc.getText().trim().equals("")) {
                     JOptionPane.showMessageDialog(null, "Proszę wypełnić wszystkie pola");
                 } else {
-                    Magazyn magazyn = new Magazyn(
-                            this.uzytkownik_id,
+
+                    Towar towar = new Towar(
+                            this.magazyn_id,
                             this.nazwa.getText(),
-                            this.przeznaczenie.getText()
+                            Double.valueOf(this.ilosc.getText())
                     );
 
-                    magazyn.create();
+                    towar.create();
                     this.frame.dispose();
                 }
 
