@@ -17,12 +17,7 @@ public class Projekt {
 
     public static void main(String[] args) {
         JFrame.setDefaultLookAndFeelDecorated(true);
-//        try {
-//            GridUserModify grid = new GridUserModify();
-//            grid.run();
-//        } catch (Exception exception) {
-//            JOptionPane.showMessageDialog(null, "Wystąpił błąd.");
-//        }
+
         JFrame f = new Start();
         f.setVisible(true);
         f.setSize(300, 200);

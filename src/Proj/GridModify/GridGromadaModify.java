@@ -1,10 +1,10 @@
 package Proj.GridModify;
 
-import Proj.Listeners.UserModifySectorIDClickListener;
-import Proj.Listeners.UserModifyIDClickListener;
+import Proj.Listeners.GromadaModifyIDClickListener;
+import Proj.Listeners.GromadaModifySectorIDClickListener;
 import Proj.aplikacja;
+import Proj.crud.Models.Gromada;
 import Proj.crud.Models.Sektor;
-import Proj.crud.Models.User;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,19 +20,21 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.TableColumnModel;
 
+
+
 /**
  *
  * @author Kamil
  */
-public class GridUserModify implements ActionListener {
+public class GridGromadaModify implements ActionListener {
 
     private JButton Glowny, Obcy, Aktualizuj;
-    private JTextField nazwisko, imie, rola, login, haslo;
+    private JTextField nazwa, opis;
     private Integer id, sector_id;
     private JFrame frame;
 
-    public GridUserModify() {
-        this.frame = new JFrame("Modyfikacja użytkownika");
+    public GridGromadaModify() {
+        this.frame = new JFrame("Modyfikacja gromady");
     }
 
     public void setId(Integer id) {
@@ -47,7 +49,7 @@ public class GridUserModify implements ActionListener {
         frame.setLayout(new GridLayout(0, 2, 2, 3));
 
         frame.add(new JLabel("ID"));
-        Glowny = new JButton("Wybierz osobę");
+        Glowny = new JButton("Wybierz gromadę");
         frame.add(Glowny);
         Glowny.addActionListener(this);
 
@@ -56,25 +58,14 @@ public class GridUserModify implements ActionListener {
         frame.add(Obcy);
         Obcy.addActionListener(this);
 
-        frame.add(new JLabel("Nazwisko"));
-        nazwisko = new JTextField();
-        frame.add(nazwisko);
+        frame.add(new JLabel("Nazwa"));
+        nazwa = new JTextField();
+        frame.add(nazwa);
 
-        frame.add(new JLabel("Imię"));
-        imie = new JTextField();
-        frame.add(imie);
+        frame.add(new JLabel("Opis"));
+        opis = new JTextField();
+        frame.add(opis);
 
-        frame.add(new JLabel("Rola"));
-        rola = new JTextField();
-        frame.add(rola);
-
-        frame.add(new JLabel("Login"));
-        login = new JTextField();
-        frame.add(login);
-
-        frame.add(new JLabel("Haslo"));
-        haslo = new JTextField();
-        frame.add(haslo);
 
         Aktualizuj = new JButton("Aktualizuj");
         frame.add(Aktualizuj);
@@ -94,33 +85,32 @@ public class GridUserModify implements ActionListener {
 
         try {
             List<Sektor> sektorList = Sektor.getList();
-            List<User> userList = User.getList();
+            List<Gromada> gromadaList = Gromada.getList();
             if (zrodlo == Glowny) {
 
-                String[] columns = {"id", "imie", "nazwisko", "rola"};
-                String[][] usersArray = new String[userList.size()][columns.length];
+                String[] columns = {"id","nazwa", "opis"};
+                String[][] gromadaArray = new String[gromadaList.size()][columns.length];
 
-                for (int i = 0; i < userList.size(); i++) {
-                    User currentUser = userList.get(i);
+                for (int i = 0; i < gromadaList.size(); i++) {
+                    Gromada currentGromada = gromadaList.get(i);
 
-                    String[] singleUser = {
-                        currentUser.getId().toString(),
-                        currentUser.getFirstname(),
-                        currentUser.getLastname(),
-                        currentUser.getRole()
+                    String[] singleGromada = {
+                        currentGromada.getId().toString(),
+                        currentGromada.getNazwa(),
+                        currentGromada.getOpis()
                     };
-                    usersArray[i] = singleUser;
+                    gromadaArray[i] = singleGromada;
 
                 }
 
-                JTable jt1 = new JTable(usersArray, columns);
+                JTable jt1 = new JTable(gromadaArray, columns);
 
                 TableColumnModel tcm = jt1.getColumnModel();
                 tcm.removeColumn(tcm.getColumn(0));
 
-                UserModifyIDClickListener userModifyIDClickListener = new UserModifyIDClickListener(jt1, jFrame, this);
+                GromadaModifyIDClickListener gromadaModifyIDClickListener = new GromadaModifyIDClickListener(jt1, jFrame, this);
 
-                jt1.addMouseListener(userModifyIDClickListener);
+                jt1.addMouseListener(gromadaModifyIDClickListener);
 
                 JScrollPane sp = new JScrollPane(jt1);
                 jFrame.add(sp);
@@ -151,9 +141,9 @@ public class GridUserModify implements ActionListener {
                 TableColumnModel tcm = jt1.getColumnModel();
                 tcm.removeColumn(tcm.getColumn(0));
 
-                UserModifySectorIDClickListener userModifySectorIDClickListener = new UserModifySectorIDClickListener(jt1, jFrame, this);
+                GromadaModifySectorIDClickListener gromadaModifySectorIDClickListener = new GromadaModifySectorIDClickListener(jt1, jFrame, this);
 
-                jt1.addMouseListener(userModifySectorIDClickListener);
+                jt1.addMouseListener(gromadaModifySectorIDClickListener);
 
                 JScrollPane sp = new JScrollPane(jt1);
                 jFrame.add(sp);
@@ -163,28 +153,20 @@ public class GridUserModify implements ActionListener {
             }
 
             if (zrodlo == Aktualizuj) {
-                for (int i = 0; i < userList.size(); i++) {
-                    if (userList.get(i).getId().equals(this.id)) {
-                        User updatedUser = userList.get(i);
+                for (int i = 0; i < gromadaList.size(); i++) {
+                    if (gromadaList.get(i).getId().equals(this.id)) {
+                        Gromada updatedGromada = gromadaList.get(i);
                         if (this.sector_id != null) {
-                            updatedUser.setSectorId(this.sector_id);
+                            updatedGromada.setSektorID(this.sector_id);
                         }
-                        if (!this.imie.getText().trim().equals("")) {
-                            updatedUser.setFirstname(this.imie.getText());
+                        if (!this.nazwa.getText().trim().equals("")) {
+                            updatedGromada.setNazwa(this.nazwa.getText());
                         }
-                        if (!this.nazwisko.getText().trim().equals("")) {
-                            updatedUser.setLastname(this.nazwisko.getText());
+                        if (!this.opis.getText().trim().equals("")) {
+                            updatedGromada.setOpis(this.opis.getText());
                         }
-                        if (!this.rola.getText().trim().equals("")) {
-                            updatedUser.setRole(this.rola.getText());
-                        }
-                        if (!this.login.getText().trim().equals("")) {
-                            updatedUser.setLogin(this.login.getText());
-                        }
-                        if (!this.haslo.getText().trim().equals("")) {
-                            updatedUser.setPassword(this.haslo.getText());
-                        }
-                        updatedUser.update();
+                        
+                        updatedGromada.update();
                         this.frame.dispose();
                     }
                 }

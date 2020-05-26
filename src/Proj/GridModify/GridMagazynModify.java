@@ -32,7 +32,7 @@ public class GridMagazynModify implements ActionListener {
     private JFrame frame;
 
     public GridMagazynModify() {
-        this.frame = new JFrame("GridLayout Test");
+        this.frame = new JFrame("Modyfikacja Magazynu");
     }
 
     public void setId(Integer id) {
@@ -52,7 +52,7 @@ public class GridMagazynModify implements ActionListener {
         Glowny.addActionListener(this);
 
         frame.add(new JLabel("Uzytkownik"));
-        Obcy = new JButton("Wybierz przypisanego uzytkownika");
+        Obcy = new JButton("Wybierz przypisanego użytkownika");
         frame.add(Obcy);
         Obcy.addActionListener(this);
 
@@ -60,7 +60,7 @@ public class GridMagazynModify implements ActionListener {
         nazwa = new JTextField();
         frame.add(nazwa);
 
-        frame.add(new JLabel("przeznaczenie"));
+        frame.add(new JLabel("Przeznaczenie"));
         przeznaczenie = new JTextField();
         frame.add(przeznaczenie);
 

@@ -7,7 +7,7 @@ package Proj.Listeners;
 
 
 
-import Proj.GridModify.GridTowarModify;
+import Proj.GridModify.GridGatunekModify;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import javax.swing.JFrame;
@@ -17,11 +17,11 @@ import javax.swing.JTable;
  *
  * @author Kamil
  */
-public class TowarModifyIDClickListener extends AbstractClickAdapter {
+public class GatunekModifyIDClickListener extends AbstractClickAdapter {
 
-    private final GridTowarModify grid;
+    private final GridGatunekModify grid;
     
-    public TowarModifyIDClickListener(JTable jtable, JFrame jFrame, GridTowarModify grid) {
+    public GatunekModifyIDClickListener(JTable jtable, JFrame jFrame, GridGatunekModify grid) {
         super(jtable, jFrame);
         this.grid = grid;
     }

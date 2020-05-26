@@ -5,9 +5,7 @@
  */
 package Proj.Listeners;
 
-
-
-import Proj.GridModify.GridTowarModify;
+import Proj.GridModify.GridZwierzeModify;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import javax.swing.JFrame;
@@ -17,11 +15,11 @@ import javax.swing.JTable;
  *
  * @author Kamil
  */
-public class TowarModifyIDClickListener extends AbstractClickAdapter {
+public class ZwierzeModifyGatunekIDClickListener extends AbstractClickAdapter {
 
-    private final GridTowarModify grid;
-    
-    public TowarModifyIDClickListener(JTable jtable, JFrame jFrame, GridTowarModify grid) {
+    private final GridZwierzeModify grid;
+
+    public ZwierzeModifyGatunekIDClickListener(JTable jtable, JFrame jFrame, GridZwierzeModify grid) {
         super(jtable, jFrame);
         this.grid = grid;
     }
@@ -29,9 +27,9 @@ public class TowarModifyIDClickListener extends AbstractClickAdapter {
     @Override
     public void mouseClicked(MouseEvent e) {
         Object entryId = this.getJtable().getModel().getValueAt(this.getJtable().getSelectedRow(), 0);
-        
-        grid.setId(Integer.parseInt(entryId.toString()));
-        
+
+        grid.setGatunekID(Integer.parseInt(entryId.toString()));
+
         this.getJframe().dispose();
 
     }

@@ -30,7 +30,7 @@ public class GridAdminModify implements ActionListener {
     private JFrame frame;
 
     public GridAdminModify() {
-        this.frame = new JFrame("GridLayout Test");
+        this.frame = new JFrame("Modyfikacja administratora");
     }
 
     public void setId(Integer id) {
@@ -41,7 +41,7 @@ public class GridAdminModify implements ActionListener {
         frame.setLayout(new GridLayout(0, 2, 2, 3));
 
         frame.add(new JLabel("ID"));
-        Glowny = new JButton("Wybierz osobę");
+        Glowny = new JButton("Wybierz administratora");
         frame.add(Glowny);
         Glowny.addActionListener(this);
 

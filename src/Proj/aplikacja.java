@@ -5,8 +5,15 @@
  */
 package Proj;
 
+import Proj.GridAdd.GridAdminAdd;
+import Proj.GridAdd.GridUserAdd;
+import Proj.GridModify.GridZwierzeModify;
+import Proj.GridModify.GridGatunekModify;
 import Proj.GridModify.GridMagazynModify;
 import Proj.GridModify.GridAdminModify;
+import Proj.GridModify.GridGromadaModify;
+import Proj.GridModify.GridRodzinaModify;
+import Proj.GridModify.GridTowarModify;
 import Proj.GridModify.GridUserModify;
 import Proj.Listeners.ZwierzeDeleteClickListener;
 import Proj.Listeners.GatunekDeleteClickListener;
@@ -341,10 +348,10 @@ public class aplikacja extends JFrame implements ActionListener {
         if (zrodlo == Dodaj_Pracownika) {
 
             try {
-                User user = new User("bolek", "lolek", "pracownik", "bo", "lo", 1); //@TODO dodać prawdziwe dane z formularza
-                user.create();
-            } catch (SQLException ex) {
-                Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+                GridUserAdd grid = new GridUserAdd();
+                grid.run();
+            } catch (Exception exception) {
+                JOptionPane.showMessageDialog(null, "Wystąpił błąd.");
             }
 
         }
@@ -352,13 +359,13 @@ public class aplikacja extends JFrame implements ActionListener {
         if (zrodlo == Dodaj_Administratora) {
 
             try {
-                Administrator administrator = new Administrator("kuba", "azza", "kubax"); //@TODO dodać prawdziwe dane z formularza
-                administrator.create();
-            } catch (SQLException ex) {
-                Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+                GridAdminAdd grid = new GridAdminAdd();
+                grid.run();
+            } catch (Exception exception) {
+                JOptionPane.showMessageDialog(null, "Wystąpił błąd.");
             }
-        }
 
+        }
 //WYSWIETL----------------------------------------------------------------------        
         if (zrodlo == Wyswietl_Zwierze) {
             try {
@@ -902,56 +909,46 @@ public class aplikacja extends JFrame implements ActionListener {
 
         if (zrodlo == Modyfikuj_Zwierze) {
             try {
-                Zwierze zwierze = new Zwierze(1); //@TODO pobrany id z formatki
-                zwierze.getOne();
-                zwierze.setImie("Rafalla");
-                zwierze.update();
-            } catch (SQLException ex) {
-                Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+                GridZwierzeModify grid = new GridZwierzeModify();
+                grid.run();
+            } catch (Exception exception) {
+                JOptionPane.showMessageDialog(null, "Wystąpił błąd.");
             }
         }
 
         if (zrodlo == Modyfikuj_Rodzine) {
             try {
-                Rodzina rodzina = new Rodzina(3); //@TODO pobrany id z formatki
-                rodzina.getOne();
-                rodzina.setNazwa("Malinowsky");
-                rodzina.update();
-            } catch (SQLException ex) {
-                Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+                GridRodzinaModify grid = new GridRodzinaModify();
+                grid.run();
+            } catch (Exception exception) {
+                JOptionPane.showMessageDialog(null, "Wystąpił błąd.");
             }
         }
 
         if (zrodlo == Modyfikuj_Gatunek) {
             try {
-                Gatunek gatunek = new Gatunek(3); //@TODO pobrany id z formatki
-                gatunek.getOne();
-                gatunek.setNazwa("Malinowsky");
-                gatunek.update();
-            } catch (SQLException ex) {
-                Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+                GridGatunekModify grid = new GridGatunekModify();
+                grid.run();
+            } catch (Exception exception) {
+                JOptionPane.showMessageDialog(null, "Wystąpił błąd.");
             }
         }
 
         if (zrodlo == Modyfikuj_Gromade) {
             try {
-                Gromada gromada = new Gromada(3); //@TODO pobrany id z formatki
-                gromada.getOne();
-                gromada.setNazwa("Malinowsky");
-                gromada.update();
-            } catch (SQLException ex) {
-                Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+                GridGromadaModify grid = new GridGromadaModify();
+                grid.run();
+            } catch (Exception exception) {
+                JOptionPane.showMessageDialog(null, "Wystąpił błąd.");
             }
         }
 
         if (zrodlo == Modyfikuj_Przedmiot) {
             try {
-                Towar towar = new Towar(2); //@TODO pobrany id z formatki
-                towar.getOne();
-                towar.setNazwa("NowaNazwaPrzedmiotu");
-                towar.update();
-            } catch (SQLException ex) {
-                Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+                GridTowarModify grid = new GridTowarModify();
+                grid.run();
+            } catch (Exception exception) {
+                JOptionPane.showMessageDialog(null, "Wystąpił błąd.");
             }
         }
 
@@ -971,12 +968,6 @@ public class aplikacja extends JFrame implements ActionListener {
             } catch (Exception exception) {
                 JOptionPane.showMessageDialog(null, "Wystąpił błąd.");
             }
-//                User user = new User(6); //@TODO pobrany id z formatki
-//                user.getOne();
-//                user.setFirstname("");
-//                user.setLastname("Malinowsky");
-//                user.setRole("");
-//                user.update();
 
         }
 

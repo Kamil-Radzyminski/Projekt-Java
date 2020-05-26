@@ -5,10 +5,38 @@
  */
 package Proj.Listeners;
 
+import Proj.GridModify.GridTowarModify;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
+import javax.swing.JFrame;
+import javax.swing.JTable;
+
 /**
  *
  * @author Kamil
  */
-public class TowarModifyMagazynIDClickListener {
+public class TowarModifyMagazynIDClickListener extends AbstractClickAdapter {
+
+    private final GridTowarModify grid;
     
+    public TowarModifyMagazynIDClickListener(JTable jtable, JFrame jFrame, GridTowarModify grid) {
+        super(jtable, jFrame);
+        this.grid = grid;
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        Object entryId = this.getJtable().getModel().getValueAt(this.getJtable().getSelectedRow(), 0);
+        
+        grid.setMagazynID(Integer.parseInt(entryId.toString()));
+        
+        this.getJframe().dispose();
+
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

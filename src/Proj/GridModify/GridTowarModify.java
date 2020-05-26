@@ -1,13 +1,10 @@
 package Proj.GridModify;
 
-import Proj.Listeners.MagazynModifyIDClickListener;
-import Proj.Listeners.MagazynModifyUserIDClickListener;
 import Proj.Listeners.TowarModifyIDClickListener;
 import Proj.Listeners.TowarModifyMagazynIDClickListener;
 import Proj.aplikacja;
 import Proj.crud.Models.Magazyn;
 import Proj.crud.Models.Towar;
-import Proj.crud.Models.User;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -35,7 +32,7 @@ public class GridTowarModify implements ActionListener {
     private JFrame frame;
 
     public GridTowarModify() {
-        this.frame = new JFrame("GridLayout Test");
+        this.frame = new JFrame("Modyfikacja towaru");
     }
 
     
