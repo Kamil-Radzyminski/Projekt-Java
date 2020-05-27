@@ -1,12 +1,14 @@
 
 package Proj.crud.Models;
 
+import Proj.Exceptions.ValidationException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.PreparedStatement;
+import java.util.regex.Pattern;
 
 
 public class Administrator extends AbstractModel {
@@ -87,7 +89,10 @@ public class Administrator extends AbstractModel {
     }
 
     @Override
-    public AbstractModel create() throws SQLException {
+    public AbstractModel create() throws SQLException, ValidationException {
+        if (!this.validate()) {
+            throw new ValidationException("Nie wszystkie pola zostały wypełnione, lub zostały wypełnione niepoprawnie");
+        }
         PreparedStatement preparedStatement = AbstractModel.getConnection().prepareStatement(SQL_INSERT, Statement.RETURN_GENERATED_KEYS);
         preparedStatement.setString(1, this.nazwa);
         preparedStatement.setString(2, this.login);
@@ -103,7 +108,10 @@ public class Administrator extends AbstractModel {
     }
 
     @Override
-    public AbstractModel update() throws SQLException {
+    public AbstractModel update() throws SQLException, ValidationException {
+        if (!this.validate()) {
+            throw new ValidationException("Nie wszystkie pola zostały wypełnione, lub zostały wypełnione niepoprawnie");
+        }
         PreparedStatement preparedStatement = AbstractModel.getConnection().prepareStatement(SQL_UPDATE);
         preparedStatement.setString(1, this.nazwa);
         preparedStatement.setString(2, this.login);
@@ -148,6 +156,17 @@ public class Administrator extends AbstractModel {
         return this;
     }
 
-    
+    @Override
+    protected boolean validate() {
+        Pattern LettersPattern = Patterns.Patterns.getLettersPattern();
+        Pattern CharactersPattern = Patterns.Patterns.getCharactersPattern(15);
+
+        return !(this.nazwa.trim().equals("")
+                || this.login.trim().equals("")
+                || this.password.trim().equals("")
+                || !LettersPattern.matcher(this.nazwa).matches()
+                || !CharactersPattern.matcher(this.login).matches()
+                || !CharactersPattern.matcher(this.password).matches());
+    }
     
 }

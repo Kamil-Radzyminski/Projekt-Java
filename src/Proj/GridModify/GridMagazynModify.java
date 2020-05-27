@@ -1,5 +1,6 @@
 package Proj.GridModify;
 
+import Proj.Exceptions.ValidationException;
 import Proj.Listeners.MagazynModifyIDClickListener;
 import Proj.Listeners.MagazynModifyUserIDClickListener;
 import Proj.aplikacja;
@@ -15,6 +16,7 @@ import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -28,7 +30,7 @@ public class GridMagazynModify implements ActionListener {
 
     private JButton Glowny, Obcy, Aktualizuj;
     private JTextField nazwa, przeznaczenie;
-    private Integer id, uzytkownik_id;
+    private Integer id, uzytkownik_id = -1;
     private JFrame frame;
 
     public GridMagazynModify() {
@@ -41,6 +43,15 @@ public class GridMagazynModify implements ActionListener {
 
     public void setUzytkownikID(Integer uzytkownik_id) {
         this.uzytkownik_id = uzytkownik_id;
+    }
+    
+    
+    public JTextField getNazwa(){
+        return this.nazwa;
+    }
+    
+    public JTextField getPrzeznaczenie(){
+        return this.przeznaczenie;
     }
 
     public void run() {
@@ -155,15 +166,10 @@ public class GridMagazynModify implements ActionListener {
                 for (int i = 0; i < magazynyList.size(); i++) {
                     if (magazynyList.get(i).getId().equals(this.id)) {
                         Magazyn updatedMagazyn = magazynyList.get(i);
-                        if (this.uzytkownik_id != null) {
                             updatedMagazyn.setUzytkownikID(this.uzytkownik_id);
-                        }
-                        if (!this.nazwa.getText().trim().equals("")) {
                             updatedMagazyn.setNazwa(this.nazwa.getText());
-                        }
-                        if (!this.przeznaczenie.getText().trim().equals("")) {
                             updatedMagazyn.setPrzeznaczenie(this.przeznaczenie.getText());
-                        }
+                        
                         
                         updatedMagazyn.update();
                         this.frame.dispose();
@@ -173,6 +179,8 @@ public class GridMagazynModify implements ActionListener {
             }
         } catch (SQLException ex) {
             Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ValidationException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }
 

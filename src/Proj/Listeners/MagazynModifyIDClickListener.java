@@ -5,11 +5,13 @@
  */
 package Proj.Listeners;
 
-
-
 import Proj.GridModify.GridMagazynModify;
+import Proj.crud.Models.Magazyn;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JTable;
 
@@ -20,7 +22,7 @@ import javax.swing.JTable;
 public class MagazynModifyIDClickListener extends AbstractClickAdapter {
 
     private final GridMagazynModify grid;
-    
+
     public MagazynModifyIDClickListener(JTable jtable, JFrame jFrame, GridMagazynModify grid) {
         super(jtable, jFrame);
         this.grid = grid;
@@ -29,10 +31,20 @@ public class MagazynModifyIDClickListener extends AbstractClickAdapter {
     @Override
     public void mouseClicked(MouseEvent e) {
         Object entryId = this.getJtable().getModel().getValueAt(this.getJtable().getSelectedRow(), 0);
-        
-        grid.setId(Integer.parseInt(entryId.toString()));
-        
-        this.getJframe().dispose();
+
+        Integer magazynID = Integer.parseInt(entryId.toString());
+        Magazyn magazyn = new Magazyn(magazynID);
+        try {
+            magazyn.getOne();
+            grid.setId(magazyn.getId());
+            grid.getNazwa().setText(magazyn.getNazwa());
+            grid.getPrzeznaczenie().setText(magazyn.getPrzeznaczenie());
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UserModifyIDClickListener.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            this.getJframe().dispose();
+        }
 
     }
 

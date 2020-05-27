@@ -352,25 +352,30 @@ public class aplikacja extends JFrame implements ActionListener {
         }
 
         if (zrodlo == Dodaj_Pracownika) {
-
-            try {
-                GridUserAdd grid = new GridUserAdd();
-                grid.run();
-            } catch (Exception exception) {
-                JOptionPane.showMessageDialog(null, "Wystąpił błąd.");
+            if (data.zalogowany == 1 || data.zalogowany == 2) {
+                try {
+                    GridUserAdd grid = new GridUserAdd();
+                    grid.run();
+                } catch (Exception exception) {
+                    JOptionPane.showMessageDialog(null, "Wystąpił błąd.");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Brak uprawnień");
             }
 
         }
 
         if (zrodlo == Dodaj_Administratora) {
-
-            try {
-                GridAdminAdd grid = new GridAdminAdd();
-                grid.run();
-            } catch (Exception exception) {
-                JOptionPane.showMessageDialog(null, "Wystąpił błąd.");
+            if (data.zalogowany == 1 || data.zalogowany == 2) {
+                try {
+                    GridAdminAdd grid = new GridAdminAdd();
+                    grid.run();
+                } catch (Exception exception) {
+                    JOptionPane.showMessageDialog(null, "Wystąpił błąd.");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Brak uprawnień");
             }
-
         }
 //WYSWIETL----------------------------------------------------------------------        
         if (zrodlo == Wyswietl_Zwierze) {
@@ -608,195 +613,215 @@ public class aplikacja extends JFrame implements ActionListener {
 
 //USUN--------------------------------------------------------------------------
         if (zrodlo == Usun_Zwierze) {
-            try {
-                List<Zwierze> zwierzeList = Zwierze.getList();
-                String[] columns = {"id", "plec", "imie", "wiek_lata", "waga_kg"};
-                String[][] zwierzetaArray = new String[zwierzeList.size()][columns.length];
+            if (data.zalogowany == 1 || data.zalogowany == 2) {
+                try {
+                    List<Zwierze> zwierzeList = Zwierze.getList();
+                    String[] columns = {"id", "plec", "imie", "wiek_lata", "waga_kg"};
+                    String[][] zwierzetaArray = new String[zwierzeList.size()][columns.length];
 
-                for (int i = 0; i < zwierzeList.size(); i++) {
-                    Zwierze currentZwierze = zwierzeList.get(i);
+                    for (int i = 0; i < zwierzeList.size(); i++) {
+                        Zwierze currentZwierze = zwierzeList.get(i);
 
-                    String[] singleZwierze = {
-                        currentZwierze.getId().toString(),
-                        currentZwierze.getPlec(),
-                        currentZwierze.getImie(),
-                        currentZwierze.getWiek().toString(),
-                        currentZwierze.getWaga().toString()
-                    };
-                    zwierzetaArray[i] = singleZwierze;
+                        String[] singleZwierze = {
+                            currentZwierze.getId().toString(),
+                            currentZwierze.getPlec(),
+                            currentZwierze.getImie(),
+                            currentZwierze.getWiek().toString(),
+                            currentZwierze.getWaga().toString()
+                        };
+                        zwierzetaArray[i] = singleZwierze;
 
+                    }
+
+                    JTable jt1 = new JTable(zwierzetaArray, columns);
+
+                    TableColumnModel tcm = jt1.getColumnModel();
+                    tcm.removeColumn(tcm.getColumn(0));
+
+                    ZwierzeDeleteClickListener zwierzeDeleteClickListener = new ZwierzeDeleteClickListener(jt1, jFrame);
+
+                    jt1.addMouseListener(zwierzeDeleteClickListener);
+
+                    JScrollPane sp = new JScrollPane(jt1);
+                    jFrame.add(sp);
+                    jFrame.setLocation(200, 50);
+                    jFrame.setSize(300, 400);
+                    jFrame.setVisible(true);
+
+                } catch (SQLException ex) {
+                    Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
-                JTable jt1 = new JTable(zwierzetaArray, columns);
-
-                TableColumnModel tcm = jt1.getColumnModel();
-                tcm.removeColumn(tcm.getColumn(0));
-
-                ZwierzeDeleteClickListener zwierzeDeleteClickListener = new ZwierzeDeleteClickListener(jt1, jFrame);
-
-                jt1.addMouseListener(zwierzeDeleteClickListener);
-
-                JScrollPane sp = new JScrollPane(jt1);
-                jFrame.add(sp);
-                jFrame.setLocation(200, 50);
-                jFrame.setSize(300, 400);
-                jFrame.setVisible(true);
-
-            } catch (SQLException ex) {
-                Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+            } else {
+                JOptionPane.showMessageDialog(null, "Brak uprawnień");
             }
         }
 
         if (zrodlo == Usun_Gatunek) {
-            try {
-                List<Gatunek> gatunekList = Gatunek.getList();
-                String[] columns = {"id", "nazwa", "opis"};
-                String[][] gatunekArray = new String[gatunekList.size()][columns.length];
+            if (data.zalogowany == 1 || data.zalogowany == 2) {
+                try {
+                    List<Gatunek> gatunekList = Gatunek.getList();
+                    String[] columns = {"id", "nazwa", "opis"};
+                    String[][] gatunekArray = new String[gatunekList.size()][columns.length];
 
-                for (int i = 0; i < gatunekList.size(); i++) {
-                    Gatunek currentGatunek = gatunekList.get(i);
+                    for (int i = 0; i < gatunekList.size(); i++) {
+                        Gatunek currentGatunek = gatunekList.get(i);
 
-                    String[] singleGatunek = {
-                        currentGatunek.getId().toString(),
-                        currentGatunek.getNazwa(),
-                        currentGatunek.getOpis()
-                    };
-                    gatunekArray[i] = singleGatunek;
+                        String[] singleGatunek = {
+                            currentGatunek.getId().toString(),
+                            currentGatunek.getNazwa(),
+                            currentGatunek.getOpis()
+                        };
+                        gatunekArray[i] = singleGatunek;
 
+                    }
+
+                    JTable jt1 = new JTable(gatunekArray, columns);
+
+                    TableColumnModel tcm = jt1.getColumnModel();
+                    tcm.removeColumn(tcm.getColumn(0));
+
+                    GatunekDeleteClickListener gatunekDeleteClickListener = new GatunekDeleteClickListener(jt1, jFrame);
+
+                    jt1.addMouseListener(gatunekDeleteClickListener);
+
+                    JScrollPane sp = new JScrollPane(jt1);
+                    jFrame.add(sp);
+                    jFrame.setLocation(200, 50);
+                    jFrame.setSize(300, 400);
+                    jFrame.setVisible(true);
+
+                } catch (SQLException ex) {
+                    Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
-                JTable jt1 = new JTable(gatunekArray, columns);
-
-                TableColumnModel tcm = jt1.getColumnModel();
-                tcm.removeColumn(tcm.getColumn(0));
-
-                GatunekDeleteClickListener gatunekDeleteClickListener = new GatunekDeleteClickListener(jt1, jFrame);
-
-                jt1.addMouseListener(gatunekDeleteClickListener);
-
-                JScrollPane sp = new JScrollPane(jt1);
-                jFrame.add(sp);
-                jFrame.setLocation(200, 50);
-                jFrame.setSize(300, 400);
-                jFrame.setVisible(true);
-
-            } catch (SQLException ex) {
-                Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+            } else {
+                JOptionPane.showMessageDialog(null, "Brak uprawnień");
             }
         }
 
         if (zrodlo == Usun_Pracownika) {
-            try {
-                List<User> userList = User.getList();
-                String[] columns = {"id", "imie", "nazwisko", "rola"};
-                String[][] usersArray = new String[userList.size()][columns.length];
+            if (data.zalogowany == 1) {
+                try {
+                    List<User> userList = User.getList();
+                    String[] columns = {"id", "imie", "nazwisko", "rola"};
+                    String[][] usersArray = new String[userList.size()][columns.length];
 
-                for (int i = 0; i < userList.size(); i++) {
-                    User currentUser = userList.get(i);
+                    for (int i = 0; i < userList.size(); i++) {
+                        User currentUser = userList.get(i);
 
-                    String[] singleUser = {
-                        currentUser.getId().toString(),
-                        currentUser.getFirstname(),
-                        currentUser.getLastname(),
-                        currentUser.getRole()
-                    };
-                    usersArray[i] = singleUser;
+                        String[] singleUser = {
+                            currentUser.getId().toString(),
+                            currentUser.getFirstname(),
+                            currentUser.getLastname(),
+                            currentUser.getRole()
+                        };
+                        usersArray[i] = singleUser;
 
+                    }
+
+                    JTable jt1 = new JTable(usersArray, columns);
+
+                    TableColumnModel tcm = jt1.getColumnModel();
+                    tcm.removeColumn(tcm.getColumn(0));
+
+                    UserDeleteClickListener userDeleteClickListener = new UserDeleteClickListener(jt1, jFrame);
+
+                    jt1.addMouseListener(userDeleteClickListener);
+
+                    JScrollPane sp = new JScrollPane(jt1);
+                    jFrame.add(sp);
+                    jFrame.setLocation(200, 50);
+                    jFrame.setSize(300, 400);
+                    jFrame.setVisible(true);
+
+                } catch (SQLException ex) {
+                    Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
-                JTable jt1 = new JTable(usersArray, columns);
-
-                TableColumnModel tcm = jt1.getColumnModel();
-                tcm.removeColumn(tcm.getColumn(0));
-
-                UserDeleteClickListener userDeleteClickListener = new UserDeleteClickListener(jt1, jFrame);
-
-                jt1.addMouseListener(userDeleteClickListener);
-
-                JScrollPane sp = new JScrollPane(jt1);
-                jFrame.add(sp);
-                jFrame.setLocation(200, 50);
-                jFrame.setSize(300, 400);
-                jFrame.setVisible(true);
-
-            } catch (SQLException ex) {
-                Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+            } else {
+                JOptionPane.showMessageDialog(null, "Brak uprawnień");
             }
         }
 
         if (zrodlo == Usun_Rodzine) {
-            try {
-                List<Rodzina> rodzinaList = Rodzina.getList();
-                String[] columns = {"id", "nazwa", "opis"};
-                String[][] rodzinaArray = new String[rodzinaList.size()][columns.length];
+            if (data.zalogowany == 1 || data.zalogowany == 2) {
+                try {
+                    List<Rodzina> rodzinaList = Rodzina.getList();
+                    String[] columns = {"id", "nazwa", "opis"};
+                    String[][] rodzinaArray = new String[rodzinaList.size()][columns.length];
 
-                for (int i = 0; i < rodzinaList.size(); i++) {
-                    Rodzina currentRodzina = rodzinaList.get(i);
+                    for (int i = 0; i < rodzinaList.size(); i++) {
+                        Rodzina currentRodzina = rodzinaList.get(i);
 
-                    String[] singleRodzina = {
-                        currentRodzina.getId().toString(),
-                        currentRodzina.getNazwa(),
-                        currentRodzina.getOpis()
-                    };
-                    rodzinaArray[i] = singleRodzina;
+                        String[] singleRodzina = {
+                            currentRodzina.getId().toString(),
+                            currentRodzina.getNazwa(),
+                            currentRodzina.getOpis()
+                        };
+                        rodzinaArray[i] = singleRodzina;
 
+                    }
+
+                    JTable jt1 = new JTable(rodzinaArray, columns);
+
+                    TableColumnModel tcm = jt1.getColumnModel();
+                    tcm.removeColumn(tcm.getColumn(0));
+
+                    RodzinaDeleteClickListener rodzinaDeleteClickListener = new RodzinaDeleteClickListener(jt1, jFrame);
+
+                    jt1.addMouseListener(rodzinaDeleteClickListener);
+
+                    JScrollPane sp = new JScrollPane(jt1);
+                    jFrame.add(sp);
+                    jFrame.setLocation(200, 50);
+                    jFrame.setSize(300, 400);
+                    jFrame.setVisible(true);
+
+                } catch (SQLException ex) {
+                    Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
-                JTable jt1 = new JTable(rodzinaArray, columns);
-
-                TableColumnModel tcm = jt1.getColumnModel();
-                tcm.removeColumn(tcm.getColumn(0));
-
-                RodzinaDeleteClickListener rodzinaDeleteClickListener = new RodzinaDeleteClickListener(jt1, jFrame);
-
-                jt1.addMouseListener(rodzinaDeleteClickListener);
-
-                JScrollPane sp = new JScrollPane(jt1);
-                jFrame.add(sp);
-                jFrame.setLocation(200, 50);
-                jFrame.setSize(300, 400);
-                jFrame.setVisible(true);
-
-            } catch (SQLException ex) {
-                Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+            } else {
+                JOptionPane.showMessageDialog(null, "Brak uprawnień");
             }
         }
 
         if (zrodlo == Usun_Gromade) {
-            try {
-                List<Gromada> gromadaList = Gromada.getList();
-                String[] columns = {"id", "nazwa", "opis"};
-                String[][] gromadaArray = new String[gromadaList.size()][columns.length];
+            if (data.zalogowany == 1 || data.zalogowany == 2) {
+                try {
+                    List<Gromada> gromadaList = Gromada.getList();
+                    String[] columns = {"id", "nazwa", "opis"};
+                    String[][] gromadaArray = new String[gromadaList.size()][columns.length];
 
-                for (int i = 0; i < gromadaList.size(); i++) {
-                    Gromada currentGromada = gromadaList.get(i);
+                    for (int i = 0; i < gromadaList.size(); i++) {
+                        Gromada currentGromada = gromadaList.get(i);
 
-                    String[] singleGromada = {
-                        currentGromada.getId().toString(),
-                        currentGromada.getNazwa(),
-                        currentGromada.getOpis()
-                    };
-                    gromadaArray[i] = singleGromada;
+                        String[] singleGromada = {
+                            currentGromada.getId().toString(),
+                            currentGromada.getNazwa(),
+                            currentGromada.getOpis()
+                        };
+                        gromadaArray[i] = singleGromada;
 
+                    }
+
+                    JTable jt1 = new JTable(gromadaArray, columns);
+
+                    TableColumnModel tcm = jt1.getColumnModel();
+                    tcm.removeColumn(tcm.getColumn(0));
+
+                    GromadaDeleteClickListener gromadaDeleteClickListener = new GromadaDeleteClickListener(jt1, jFrame);
+
+                    jt1.addMouseListener(gromadaDeleteClickListener);
+
+                    JScrollPane sp = new JScrollPane(jt1);
+                    jFrame.add(sp);
+                    jFrame.setLocation(200, 50);
+                    jFrame.setSize(300, 400);
+                    jFrame.setVisible(true);
+
+                } catch (SQLException ex) {
+                    Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
-                JTable jt1 = new JTable(gromadaArray, columns);
-
-                TableColumnModel tcm = jt1.getColumnModel();
-                tcm.removeColumn(tcm.getColumn(0));
-
-                GromadaDeleteClickListener gromadaDeleteClickListener = new GromadaDeleteClickListener(jt1, jFrame);
-
-                jt1.addMouseListener(gromadaDeleteClickListener);
-
-                JScrollPane sp = new JScrollPane(jt1);
-                jFrame.add(sp);
-                jFrame.setLocation(200, 50);
-                jFrame.setSize(300, 400);
-                jFrame.setVisible(true);
-
-            } catch (SQLException ex) {
-                Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+            } else {
+                JOptionPane.showMessageDialog(null, "Brak uprawnień");
             }
         }
 
@@ -839,76 +864,84 @@ public class aplikacja extends JFrame implements ActionListener {
         }
 
         if (zrodlo == Usun_Magazyn) {
-            try {
-                List<Magazyn> magazynyList = Magazyn.getList();
-                String[] columns = {"id", "nazwa", "przeznaczenie"};
-                String[][] magazynArray = new String[magazynyList.size()][columns.length];
+            if (data.zalogowany == 1 || data.zalogowany == 2) {
+                try {
+                    List<Magazyn> magazynyList = Magazyn.getList();
+                    String[] columns = {"id", "nazwa", "przeznaczenie"};
+                    String[][] magazynArray = new String[magazynyList.size()][columns.length];
 
-                for (int i = 0; i < magazynyList.size(); i++) {
-                    Magazyn currentMagazyn = magazynyList.get(i);
+                    for (int i = 0; i < magazynyList.size(); i++) {
+                        Magazyn currentMagazyn = magazynyList.get(i);
 
-                    String[] singleMagazyn = {
-                        currentMagazyn.getId().toString(),
-                        currentMagazyn.getNazwa(),
-                        currentMagazyn.getPrzeznaczenie()
-                    };
-                    magazynArray[i] = singleMagazyn;
+                        String[] singleMagazyn = {
+                            currentMagazyn.getId().toString(),
+                            currentMagazyn.getNazwa(),
+                            currentMagazyn.getPrzeznaczenie()
+                        };
+                        magazynArray[i] = singleMagazyn;
 
+                    }
+
+                    JTable jt1 = new JTable(magazynArray, columns);
+
+                    TableColumnModel tcm = jt1.getColumnModel();
+                    tcm.removeColumn(tcm.getColumn(0));
+
+                    MagazynDeleteClickListener magazynDeleteClickListener = new MagazynDeleteClickListener(jt1, jFrame);
+
+                    jt1.addMouseListener(magazynDeleteClickListener);
+
+                    JScrollPane sp = new JScrollPane(jt1);
+                    jFrame.add(sp);
+                    jFrame.setLocation(200, 50);
+                    jFrame.setSize(300, 400);
+                    jFrame.setVisible(true);
+
+                } catch (SQLException ex) {
+                    Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
-                JTable jt1 = new JTable(magazynArray, columns);
-
-                TableColumnModel tcm = jt1.getColumnModel();
-                tcm.removeColumn(tcm.getColumn(0));
-
-                MagazynDeleteClickListener magazynDeleteClickListener = new MagazynDeleteClickListener(jt1, jFrame);
-
-                jt1.addMouseListener(magazynDeleteClickListener);
-
-                JScrollPane sp = new JScrollPane(jt1);
-                jFrame.add(sp);
-                jFrame.setLocation(200, 50);
-                jFrame.setSize(300, 400);
-                jFrame.setVisible(true);
-
-            } catch (SQLException ex) {
-                Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+            } else {
+                JOptionPane.showMessageDialog(null, "Brak uprawnień");
             }
         }
 
         if (zrodlo == Usun_Administratora) {
-            try {
-                List<Administrator> administratorList = Administrator.getList();
-                String[] columns = {"id", "nazwa"};
-                String[][] administratorsArray = new String[administratorList.size()][columns.length];
+            if (data.zalogowany == 1) {
+                try {
+                    List<Administrator> administratorList = Administrator.getList();
+                    String[] columns = {"id", "nazwa"};
+                    String[][] administratorsArray = new String[administratorList.size()][columns.length];
 
-                for (int i = 0; i < administratorList.size(); i++) {
-                    Administrator currentAdministrator = administratorList.get(i);
+                    for (int i = 0; i < administratorList.size(); i++) {
+                        Administrator currentAdministrator = administratorList.get(i);
 
-                    String[] singleAdministrator = {
-                        currentAdministrator.getId().toString(),
-                        currentAdministrator.getNazwa()
-                    };
-                    administratorsArray[i] = singleAdministrator;
+                        String[] singleAdministrator = {
+                            currentAdministrator.getId().toString(),
+                            currentAdministrator.getNazwa()
+                        };
+                        administratorsArray[i] = singleAdministrator;
 
+                    }
+
+                    JTable jt1 = new JTable(administratorsArray, columns);
+
+                    TableColumnModel tcm = jt1.getColumnModel();
+                    tcm.removeColumn(tcm.getColumn(0));
+
+                    AdminDeleteClickListener adminDeleteClickListener = new AdminDeleteClickListener(jt1, jFrame);
+
+                    jt1.addMouseListener(adminDeleteClickListener);
+
+                    JScrollPane sp = new JScrollPane(jt1);
+                    jFrame.add(sp);
+                    jFrame.setLocation(200, 50);
+                    jFrame.setSize(300, 400);
+                    jFrame.setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
-                JTable jt1 = new JTable(administratorsArray, columns);
-
-                TableColumnModel tcm = jt1.getColumnModel();
-                tcm.removeColumn(tcm.getColumn(0));
-
-                AdminDeleteClickListener adminDeleteClickListener = new AdminDeleteClickListener(jt1, jFrame);
-
-                jt1.addMouseListener(adminDeleteClickListener);
-
-                JScrollPane sp = new JScrollPane(jt1);
-                jFrame.add(sp);
-                jFrame.setLocation(200, 50);
-                jFrame.setSize(300, 400);
-                jFrame.setVisible(true);
-            } catch (SQLException ex) {
-                Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+            } else {
+                JOptionPane.showMessageDialog(null, "Brak uprawnień");
             }
         }
 //MODYFIKUJ-------------------------------------------------------------------------
@@ -968,21 +1001,29 @@ public class aplikacja extends JFrame implements ActionListener {
         }
 
         if (zrodlo == Modyfikuj_Pracownika) {
-            try {
-                GridUserModify grid = new GridUserModify();
-                grid.run();
-            } catch (Exception exception) {
-                JOptionPane.showMessageDialog(null, "Wystąpił błąd.");
+            if (data.zalogowany == 1 || data.zalogowany == 2) {
+                try {
+                    GridUserModify grid = new GridUserModify();
+                    grid.run();
+                } catch (Exception exception) {
+                    JOptionPane.showMessageDialog(null, "Wystąpił błąd.");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Brak uprawnień");
             }
 
         }
 
         if (zrodlo == Modyfikuj_Administratora) {
-            try {
-                GridAdminModify grid = new GridAdminModify();
-                grid.run();
-            } catch (Exception exception) {
-                JOptionPane.showMessageDialog(null, "Wystąpił błąd.");
+            if (data.zalogowany == 1 || data.zalogowany == 2) {
+                try {
+                    GridAdminModify grid = new GridAdminModify();
+                    grid.run();
+                } catch (Exception exception) {
+                    JOptionPane.showMessageDialog(null, "Wystąpił błąd.");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Brak uprawnień");
             }
         }
 

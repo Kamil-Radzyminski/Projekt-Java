@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -29,20 +30,27 @@ public class GridTowarModify implements ActionListener {
 
     private JButton Glowny, Obcy, Aktualizuj;
     private JTextField nazwa, ilosc;
-    private Integer id, magazyn_id;
+    private Integer id, magazyn_id = -1;
     private JFrame frame;
 
     public GridTowarModify() {
         this.frame = new JFrame("Modyfikacja towaru");
     }
 
-    
     public void setId(Integer id) {
         this.id = id;
     }
 
     public void setMagazynID(Integer magazyn_id) {
         this.magazyn_id = magazyn_id;
+    }
+
+    public JTextField getNazwa() {
+        return this.nazwa;
+    }
+
+    public JTextField getIlosc() {
+        return this.ilosc;
     }
 
     public void run() {
@@ -87,7 +95,7 @@ public class GridTowarModify implements ActionListener {
             List<Towar> towaryList = Towar.getList();
             if (zrodlo == Glowny) {
 
-                String[] columns = {"id","nazwa", "ilosc"};
+                String[] columns = {"id", "nazwa", "ilosc"};
                 String[][] towarArray = new String[towaryList.size()][columns.length];
 
                 for (int i = 0; i < towaryList.size(); i++) {
@@ -154,10 +162,12 @@ public class GridTowarModify implements ActionListener {
             if (zrodlo == Aktualizuj) {
                 for (int i = 0; i < towaryList.size(); i++) {
                     if (towaryList.get(i).getId().equals(this.id)) {
+                        String ile = (this.ilosc.getText().equals("") ? "0" : this.ilosc.getText());
+
                         Towar updatedTowar = towaryList.get(i);
-                            updatedTowar.setMagazynID(this.magazyn_id);
-                            updatedTowar.setNazwa(this.nazwa.getText());
-                            updatedTowar.setIlosc(Double.valueOf(this.ilosc.getText()));
+                        updatedTowar.setMagazynID(this.magazyn_id);
+                        updatedTowar.setNazwa(this.nazwa.getText());
+                        updatedTowar.setIlosc(Double.valueOf(ile));
 
                         updatedTowar.update();
                         this.frame.dispose();
@@ -168,7 +178,7 @@ public class GridTowarModify implements ActionListener {
         } catch (SQLException ex) {
             Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ValidationException ex) {
-            Logger.getLogger(GridTowarModify.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }
 

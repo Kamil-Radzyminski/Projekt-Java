@@ -108,18 +108,17 @@ public class GridTowarAdd implements ActionListener {
             }
 
             if (zrodlo == Dodaj) {
+                String ile = (this.ilosc.getText().equals("") ? "0" : this.ilosc.getText());
+                
+                Towar towar = new Towar(
+                        this.magazyn_id,
+                        this.nazwa.getText(),
+                        Double.valueOf(ile));
 
-                    Towar towar = new Towar(
-                            this.magazyn_id,
-                            this.nazwa.getText(),
-                            Double.valueOf(this.ilosc.getText())
-                    );
+                towar.create();
+                this.frame.dispose();
+            }
 
-                    towar.create();
-                    this.frame.dispose();
-                }
-
-            
         } catch (SQLException ex) {
             Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ValidationException ex) {

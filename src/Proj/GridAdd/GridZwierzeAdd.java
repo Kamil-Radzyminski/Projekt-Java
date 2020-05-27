@@ -33,7 +33,7 @@ public class GridZwierzeAdd implements ActionListener {
     private JFrame frame;
 
     public GridZwierzeAdd() {
-        this.frame = new JFrame("GridLayout Test");
+        this.frame = new JFrame("Dodawanie zwierzęcia");
     }
 
     public void setGatunekId(Integer gatunek_id) {
@@ -117,12 +117,14 @@ public class GridZwierzeAdd implements ActionListener {
             }
 
             if (zrodlo == Dodaj) {
+                String wiek = (this.wiek_lata.getText().equals("") ? "0" : this.wiek_lata.getText());
+                String waga = (this.waga_kg.getText().equals("") ? "0" : this.waga_kg.getText());
 
                 Zwierze zwierze = new Zwierze(
                         this.plec.getText(),
                         this.imie.getText(),
-                        Integer.valueOf(this.wiek_lata.getText()),
-                        Integer.valueOf(this.waga_kg.getText()),
+                        Integer.valueOf(wiek),
+                        Integer.valueOf(waga),  
                         this.gatunek_id);
 
                 zwierze.create();
@@ -132,7 +134,7 @@ public class GridZwierzeAdd implements ActionListener {
         } catch (SQLException ex) {
             Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ValidationException ex) {
-            JOptionPane.showMessageDialog(null,ex.getMessage());
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }
 

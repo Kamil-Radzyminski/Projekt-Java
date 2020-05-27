@@ -1,7 +1,6 @@
 package Proj.GridModify;
 
-
-
+import Proj.Exceptions.ValidationException;
 import Proj.Listeners.GatunekModifyIDClickListener;
 import Proj.Listeners.GatunekModifyRodzinaIDClickListener;
 import Proj.aplikacja;
@@ -17,12 +16,11 @@ import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.TableColumnModel;
-
-
 
 /**
  *
@@ -32,7 +30,7 @@ public class GridGatunekModify implements ActionListener {
 
     private JButton Glowny, Obcy, Aktualizuj;
     private JTextField nazwa, opis;
-    private Integer id, rodzina_id;
+    private Integer id, rodzina_id = -1;
     private JFrame frame;
 
     public GridGatunekModify() {
@@ -45,6 +43,14 @@ public class GridGatunekModify implements ActionListener {
 
     public void setRodzinaId(Integer sector_id) {
         this.rodzina_id = rodzina_id;
+    }
+
+    public JTextField getNazwa() {
+        return this.nazwa;
+    }
+
+    public JTextField getOpis() {
+        return this.opis;
     }
 
     public void run() {
@@ -68,7 +74,6 @@ public class GridGatunekModify implements ActionListener {
         opis = new JTextField();
         frame.add(opis);
 
-
         Aktualizuj = new JButton("Aktualizuj");
         frame.add(Aktualizuj);
         Aktualizuj.addActionListener(this);
@@ -90,7 +95,7 @@ public class GridGatunekModify implements ActionListener {
             List<Gatunek> gatunekList = Gatunek.getList();
             if (zrodlo == Glowny) {
 
-                String[] columns = {"id","nazwa", "opis"};
+                String[] columns = {"id", "nazwa", "opis"};
                 String[][] gatunekArray = new String[gatunekList.size()][columns.length];
 
                 for (int i = 0; i < gatunekList.size(); i++) {
@@ -123,7 +128,7 @@ public class GridGatunekModify implements ActionListener {
             }
 
             if (zrodlo == Obcy) {
-                String[] columns = {"id","nazwa", "opis"};
+                String[] columns = {"id", "nazwa", "opis"};
                 String[][] rodzinaArray = new String[rodzinaList.size()][columns.length];
 
                 for (int i = 0; i < rodzinaList.size(); i++) {
@@ -159,16 +164,10 @@ public class GridGatunekModify implements ActionListener {
                 for (int i = 0; i < gatunekList.size(); i++) {
                     if (gatunekList.get(i).getId().equals(this.id)) {
                         Gatunek updatedGatunek = gatunekList.get(i);
-                        if (this.rodzina_id != null) {
-                            updatedGatunek.setRodzinaID(this.rodzina_id);
-                        }
-                        if (!this.nazwa.getText().trim().equals("")) {
-                            updatedGatunek.setNazwa(this.nazwa.getText());
-                        }
-                        if (!this.opis.getText().trim().equals("")) {
-                            updatedGatunek.setOpis(this.opis.getText());
-                        }
-                        
+                        updatedGatunek.setRodzinaID(this.rodzina_id);
+                        updatedGatunek.setNazwa(this.nazwa.getText());
+                        updatedGatunek.setOpis(this.opis.getText());
+
                         updatedGatunek.update();
                         this.frame.dispose();
                     }
@@ -177,6 +176,8 @@ public class GridGatunekModify implements ActionListener {
             }
         } catch (SQLException ex) {
             Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ValidationException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }
 

@@ -1,5 +1,6 @@
 package Proj.GridAdd;
 
+import Proj.Exceptions.ValidationException;
 import Proj.Listeners.RodzinaAddGromadaIDClickListener;
 import Proj.aplikacja;
 import Proj.crud.Models.Gromada;
@@ -39,6 +40,8 @@ public class GridRodzinaAdd implements ActionListener {
         this.gromada_id = gromada_id;
     }
 
+
+    
     public void run() {
         frame.setLayout(new GridLayout(0, 2, 2, 3));
 
@@ -108,25 +111,19 @@ public class GridRodzinaAdd implements ActionListener {
             }
 
             if (zrodlo == Dodaj) {
-                if (this.opis.getText().trim().equals("")
-                        || this.nazwa.getText().trim().equals("")
-                        || this.gromada_id == -1) {
-                    JOptionPane.showMessageDialog(null, "Proszę wypełnić wszystkie pola");
-                } else {
+                Rodzina rodzina = new Rodzina(
+                        this.gromada_id,
+                        this.nazwa.getText(),
+                        this.opis.getText());
 
-                    Rodzina rodzina = new Rodzina(
-                            this.gromada_id,
-                            this.nazwa.getText(),
-                            this.opis.getText()
-                    );
-
-                    rodzina.create();
-                    this.frame.dispose();
-                }
+                rodzina.create();
+                this.frame.dispose();
 
             }
         } catch (SQLException ex) {
             Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ValidationException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }
 

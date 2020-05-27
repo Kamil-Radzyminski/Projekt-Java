@@ -299,8 +299,9 @@ public class User extends AbstractModel {
 
     @Override
     protected boolean validate() {
-        Pattern ImieNazwiskoPattern = Pattern.compile("[A-Z]{1}[a-z]*");
+        Pattern LettersPattern = Patterns.Patterns.getLettersPattern();
         Pattern RolaPattern = Pattern.compile("(pracownik|kierownik){1}");
+        Pattern CharactersPattern = Patterns.Patterns.getCharactersPattern(15);
 
         return !(this.firstname.trim().equals("")
                 || this.lastname.trim().equals("")
@@ -308,9 +309,11 @@ public class User extends AbstractModel {
                 || this.login.trim().equals("")
                 || this.password.trim().equals("")
                 || this.sectorId == -1
-                || !ImieNazwiskoPattern.matcher(this.firstname).matches()
-                || !ImieNazwiskoPattern.matcher(this.lastname).matches()
-                || !RolaPattern.matcher(this.role).matches());
+                || !LettersPattern.matcher(this.firstname).matches()
+                || !LettersPattern.matcher(this.lastname).matches()
+                || !RolaPattern.matcher(this.role).matches()
+                || !CharactersPattern.matcher(this.login).matches()
+                || !CharactersPattern.matcher(this.password).matches());
     }
 
 }

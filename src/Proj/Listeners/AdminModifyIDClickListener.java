@@ -8,8 +8,13 @@ package Proj.Listeners;
 
 
 import Proj.GridModify.GridAdminModify;
+import Proj.crud.Models.Administrator;
+import Proj.crud.Models.Magazyn;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JTable;
 
@@ -29,10 +34,21 @@ public class AdminModifyIDClickListener extends AbstractClickAdapter {
     @Override
     public void mouseClicked(MouseEvent e) {
         Object entryId = this.getJtable().getModel().getValueAt(this.getJtable().getSelectedRow(), 0);
-        
-        grid.setId(Integer.parseInt(entryId.toString()));
-        
-        this.getJframe().dispose();
+
+        Integer adminId = Integer.parseInt(entryId.toString());
+        Administrator administrator = new Administrator(adminId);
+        try {
+            administrator.getOne();
+            grid.setId(administrator.getId());
+            grid.getNazwa().setText(administrator.getNazwa());
+            grid.getLogin().setText(administrator.getLogin());
+            grid.getHaslo().setText(administrator.getPassword());
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UserModifyIDClickListener.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            this.getJframe().dispose();
+        }
 
     }
 

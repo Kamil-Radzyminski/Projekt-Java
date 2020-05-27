@@ -159,12 +159,10 @@ public class Rodzina extends AbstractModel {
     @Override
     protected boolean validate() {
         Pattern LettersPattern = Patterns.Patterns.getLettersPattern();
-        Pattern IloscPattern = Patterns.Patterns.getIloscPattern();
 
         return !(this.nazwa.trim().equals("")
                 || this.opis.trim().equals("")
                 || this.gromada_id == -1
-                || !LettersPattern.matcher(this.nazwa).matches()
-                || !IloscPattern.matcher(String.valueOf(this.ilosc)).matches());
+                || !LettersPattern.matcher(this.nazwa).matches());
     }
 }

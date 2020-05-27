@@ -59,7 +59,7 @@ public class GridUserAdd implements ActionListener {
         nazwisko = new JTextField();
         frame.add(nazwisko);
 
-        frame.add(new JLabel("Rola"));
+        frame.add(new JLabel("Rola (pracownik/kierownik)"));
         rola = new JTextField();
         frame.add(rola);
 

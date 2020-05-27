@@ -27,7 +27,7 @@ public class Gatunek extends AbstractModel {
     private static final String SQL_INSERT = "INSERT INTO gatunki(rodzina_id, nazwa, opis) VALUES (?, ?, ?)";
 
     private Integer id;
-    private Integer rodzina_id;
+    private Integer rodzina_id = -1;
     private String nazwa;
     private String opis;
 

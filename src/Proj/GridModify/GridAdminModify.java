@@ -1,5 +1,6 @@
 package Proj.GridModify;
 
+import Proj.Exceptions.ValidationException;
 import Proj.Listeners.AdminModifyIDClickListener;
 import Proj.aplikacja;
 import Proj.crud.Models.Administrator;
@@ -13,6 +14,7 @@ import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -35,6 +37,18 @@ public class GridAdminModify implements ActionListener {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+    
+    public JTextField getNazwa(){
+        return this.nazwa;
+    }
+    
+    public JTextField getLogin(){
+        return this.login;
+    }
+    
+    public JTextField getHaslo(){
+        return this.haslo;
     }
 
     public void run() {
@@ -113,15 +127,10 @@ public class GridAdminModify implements ActionListener {
                 for (int i = 0; i < administratorList.size(); i++) {
                     if (administratorList.get(i).getId().equals(this.id)) {
                         Administrator updatedAdministrator = administratorList.get(i);
-                        if (!this.nazwa.getText().trim().equals("")) {
-                            updatedAdministrator.setNazwa(this.nazwa.getText());
-                        }
-                        if (!this.login.getText().trim().equals("")) {
-                            updatedAdministrator.setLogin(this.login.getText());
-                        }
-                        if (!this.haslo.getText().trim().equals("")) {
-                            updatedAdministrator.setPassword(this.haslo.getText());
-                        }
+                        updatedAdministrator.setNazwa(this.nazwa.getText());
+                        updatedAdministrator.setLogin(this.login.getText());
+                        updatedAdministrator.setPassword(this.haslo.getText());
+
                         updatedAdministrator.update();
                         this.frame.dispose();
                     }
@@ -130,6 +139,8 @@ public class GridAdminModify implements ActionListener {
             }
         } catch (SQLException ex) {
             Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ValidationException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }
 

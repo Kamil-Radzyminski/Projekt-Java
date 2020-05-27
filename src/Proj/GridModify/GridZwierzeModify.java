@@ -30,7 +30,7 @@ public class GridZwierzeModify implements ActionListener {
 
     private JButton Glowny, Obcy, Aktualizuj;
     private JTextField plec, imie, wiek_lata, waga_kg;
-    private Integer id, gatunek_id;
+    private Integer id, gatunek_id = -1;
     private JFrame frame;
 
     public GridZwierzeModify() {
@@ -44,7 +44,23 @@ public class GridZwierzeModify implements ActionListener {
     public void setGatunekID(Integer sector_id) {
         this.gatunek_id = sector_id;
     }
-
+    
+    public JTextField getPlec(){
+        return this.plec;
+    }
+    
+    public JTextField getImie(){
+        return this.imie;
+    }
+    
+    public JTextField getWiek(){
+        return this.wiek_lata;
+    }
+    
+    public JTextField getWaga(){
+        return this.waga_kg;
+    }
+    
     public void run() {
         frame.setLayout(new GridLayout(0, 2, 2, 3));
 
@@ -165,12 +181,15 @@ public class GridZwierzeModify implements ActionListener {
             if (zrodlo == Aktualizuj) {
                 for (int i = 0; i < zwierzeList.size(); i++) {
                     if (zwierzeList.get(i).getId().equals(this.id)) {
+                        String wiek = (this.wiek_lata.getText().equals("") ? "0" : this.wiek_lata.getText());
+                        String waga = (this.waga_kg.getText().equals("") ? "0" : this.waga_kg.getText());
+
                         Zwierze updatedZwierze = zwierzeList.get(i);
                         updatedZwierze.setGatunekID(this.gatunek_id);
                         updatedZwierze.setImie(this.imie.getText());
                         updatedZwierze.setPlec(this.plec.getText());
-                        updatedZwierze.setWiek(Integer.valueOf(this.wiek_lata.getText()));
-                        updatedZwierze.setWaga(Integer.valueOf(this.waga_kg.getText()));
+                        updatedZwierze.setWiek(Integer.valueOf(wiek));
+                        updatedZwierze.setWaga(Integer.valueOf(waga));
 
                         updatedZwierze.update();
                         this.frame.dispose();

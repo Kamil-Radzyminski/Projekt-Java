@@ -1,5 +1,6 @@
 package Proj.GridAdd;
 
+import Proj.Exceptions.ValidationException;
 import Proj.Listeners.GatunekAddRodzinaIDClickListener;
 import Proj.aplikacja;
 import Proj.crud.Models.Gatunek;
@@ -108,25 +109,20 @@ public class GridGatunekAdd implements ActionListener {
             }
 
             if (zrodlo == Dodaj) {
-                if (this.opis.getText().trim().equals("")
-                        || this.nazwa.getText().trim().equals("")
-                        || this.rodzina_id == -1) {
-                    JOptionPane.showMessageDialog(null, "Proszę wypełnić wszystkie pola");
-                } else {
-
                     Gatunek gatunek = new Gatunek(
                             this.rodzina_id,
                             this.nazwa.getText(),
-                            this.opis.getText()
-                    );
+                            this.opis.getText());
 
                     gatunek.create();
                     this.frame.dispose();
-                }
+                
 
             }
         } catch (SQLException ex) {
             Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ValidationException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }
 

@@ -1,5 +1,6 @@
 package Proj.GridModify;
 
+import Proj.Exceptions.ValidationException;
 import Proj.Listeners.GromadaModifyIDClickListener;
 import Proj.Listeners.GromadaModifySectorIDClickListener;
 import Proj.aplikacja;
@@ -15,12 +16,11 @@ import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.TableColumnModel;
-
-
 
 /**
  *
@@ -30,7 +30,7 @@ public class GridGromadaModify implements ActionListener {
 
     private JButton Glowny, Obcy, Aktualizuj;
     private JTextField nazwa, opis;
-    private Integer id, sector_id;
+    private Integer id, sector_id = -1;
     private JFrame frame;
 
     public GridGromadaModify() {
@@ -43,6 +43,14 @@ public class GridGromadaModify implements ActionListener {
 
     public void setSectorId(Integer sector_id) {
         this.sector_id = sector_id;
+    }
+
+    public JTextField getNazwa() {
+        return this.nazwa;
+    }
+
+    public JTextField getOpis() {
+        return this.opis;
     }
 
     public void run() {
@@ -66,7 +74,6 @@ public class GridGromadaModify implements ActionListener {
         opis = new JTextField();
         frame.add(opis);
 
-
         Aktualizuj = new JButton("Aktualizuj");
         frame.add(Aktualizuj);
         Aktualizuj.addActionListener(this);
@@ -88,7 +95,7 @@ public class GridGromadaModify implements ActionListener {
             List<Gromada> gromadaList = Gromada.getList();
             if (zrodlo == Glowny) {
 
-                String[] columns = {"id","nazwa", "opis"};
+                String[] columns = {"id", "nazwa", "opis"};
                 String[][] gromadaArray = new String[gromadaList.size()][columns.length];
 
                 for (int i = 0; i < gromadaList.size(); i++) {
@@ -156,16 +163,10 @@ public class GridGromadaModify implements ActionListener {
                 for (int i = 0; i < gromadaList.size(); i++) {
                     if (gromadaList.get(i).getId().equals(this.id)) {
                         Gromada updatedGromada = gromadaList.get(i);
-                        if (this.sector_id != null) {
-                            updatedGromada.setSektorID(this.sector_id);
-                        }
-                        if (!this.nazwa.getText().trim().equals("")) {
-                            updatedGromada.setNazwa(this.nazwa.getText());
-                        }
-                        if (!this.opis.getText().trim().equals("")) {
-                            updatedGromada.setOpis(this.opis.getText());
-                        }
-                        
+                        updatedGromada.setSektorID(this.sector_id);
+                        updatedGromada.setNazwa(this.nazwa.getText());
+                        updatedGromada.setOpis(this.opis.getText());
+
                         updatedGromada.update();
                         this.frame.dispose();
                     }
@@ -174,6 +175,8 @@ public class GridGromadaModify implements ActionListener {
             }
         } catch (SQLException ex) {
             Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ValidationException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }
 

@@ -8,8 +8,13 @@ package Proj.Listeners;
 
 
 import Proj.GridModify.GridTowarModify;
+import Proj.crud.Models.Towar;
+import Proj.crud.Models.Zwierze;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JTable;
 
@@ -30,9 +35,20 @@ public class TowarModifyIDClickListener extends AbstractClickAdapter {
     public void mouseClicked(MouseEvent e) {
         Object entryId = this.getJtable().getModel().getValueAt(this.getJtable().getSelectedRow(), 0);
         
-        grid.setId(Integer.parseInt(entryId.toString()));
-        
-        this.getJframe().dispose();
+        Integer towarID = Integer.parseInt(entryId.toString());
+        Towar towar = new Towar(towarID);
+        try {
+            towar.getOne();
+            grid.setId(towar.getId());
+            grid.getNazwa().setText(towar.getNazwa());
+            grid.getIlosc().setText(towar.getIlosc().toString());
+
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UserModifyIDClickListener.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            this.getJframe().dispose();
+        }
 
     }
 

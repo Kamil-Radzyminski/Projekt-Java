@@ -1,5 +1,6 @@
 package Proj.GridAdd;
 
+import Proj.Exceptions.ValidationException;
 import Proj.aplikacja;
 import Proj.crud.Models.Administrator;
 import java.awt.GridLayout;
@@ -61,24 +62,20 @@ public class GridAdminAdd implements ActionListener {
         try {
 
             if (zrodlo == Dodaj) {
-                if (this.nazwa.getText().trim().equals("")
-                        || this.login.getText().trim().equals("")
-                        || this.haslo.getText().trim().equals("")) {
-                    JOptionPane.showMessageDialog(null, "Proszę wypełnić wszystkie pola");
-                } else {
                     Administrator admin = new Administrator(
                             this.nazwa.getText(),
                             this.login.getText(),
-                            this.haslo.getText()
-                    );
+                            this.haslo.getText());
 
                     admin.create();
                     this.frame.dispose();
-                }
+                
 
             }
         } catch (SQLException ex) {
             Logger.getLogger(aplikacja.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ValidationException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }
 
