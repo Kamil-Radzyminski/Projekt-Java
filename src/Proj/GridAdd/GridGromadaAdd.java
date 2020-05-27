@@ -33,7 +33,7 @@ public class GridGromadaAdd implements ActionListener {
     private JFrame frame;
 
     public GridGromadaAdd() {
-        this.frame = new JFrame("GridLayout Test");
+        this.frame = new JFrame("Dodawanie gromady");
     }
 
     public void setSectorId(Integer sector_id) {

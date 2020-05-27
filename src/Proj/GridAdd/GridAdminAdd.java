@@ -26,7 +26,7 @@ public class GridAdminAdd implements ActionListener {
     private JFrame frame;
 
     public GridAdminAdd() {
-        this.frame = new JFrame("GridLayout Test");
+        this.frame = new JFrame("Dodawanie administratora");
     }
 
     public void run() {

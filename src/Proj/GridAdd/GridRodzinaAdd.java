@@ -33,7 +33,7 @@ public class GridRodzinaAdd implements ActionListener {
     private JFrame frame;
 
     public GridRodzinaAdd() {
-        this.frame = new JFrame("GridLayout Test");
+        this.frame = new JFrame("Dodawanie rodziny");
     }
 
     public void setGromadaId(Integer gromada_id) {

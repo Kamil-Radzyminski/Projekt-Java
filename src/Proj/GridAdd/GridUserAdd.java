@@ -35,7 +35,7 @@ public class GridUserAdd implements ActionListener {
     private JFrame frame;
 
     public GridUserAdd() {
-        this.frame = new JFrame("GridLayout Test");
+        this.frame = new JFrame("Dodawanie użytkownika");
     }
 
     public void setSectorId(Integer sector_id) {

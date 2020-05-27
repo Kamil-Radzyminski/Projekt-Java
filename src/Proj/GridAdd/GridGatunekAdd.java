@@ -33,7 +33,7 @@ public class GridGatunekAdd implements ActionListener {
     private JFrame frame;
 
     public GridGatunekAdd() {
-        this.frame = new JFrame("GridLayout Test");
+        this.frame = new JFrame("Dodawanie gatunku");
     }
 
     public void setRodzinaId(Integer rodzina_id) {

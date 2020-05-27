@@ -6,8 +6,6 @@
 package Proj;
 
 import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -24,7 +22,6 @@ public class Projekt {
         f.setTitle("Logowanie");
         f.setLocationRelativeTo(null);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
     }
 
 }

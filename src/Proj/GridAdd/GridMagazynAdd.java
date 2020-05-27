@@ -33,7 +33,7 @@ public class GridMagazynAdd implements ActionListener {
     private JFrame frame;
 
     public GridMagazynAdd() {
-        this.frame = new JFrame("GridLayout Test");
+        this.frame = new JFrame("Dodawanie magazynu");
     }
 
     public void setUzytkownikID(Integer uzytkownik_id) {
